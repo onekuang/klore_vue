@@ -63,7 +63,7 @@ export default {
     click_item(data) {
       if (data.url) {
         this.$router.push({
-          path: `/data.url`
+          path: data.url
         });
       } else if (data.fn) {
         let fn = data.fn;

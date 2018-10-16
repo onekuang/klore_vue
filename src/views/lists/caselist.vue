@@ -18,7 +18,7 @@
     <div class="img">
       <img src="" width="100" height="100" v-holder="'img=100x100?&bg=C7E1FF&text=100x100'">
     </div>
-    <div class="info">
+    <div class="infobox">
       <h3 class="title">title_ell</h3>
       <p class="time">{{"Oct 11, 2018 2:01:06 PM" | time}}</p>
       <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam esse laboriosam, tenetur totam culpa, repellendus porro quisquam necessitatibus, recusandae odio ullam similique. Itaque ducimus perferendis, consectetur architecto debitis, explicabo voluptate.</p>
@@ -134,7 +134,7 @@ export default {
         border-radius: 4px;
       }
     }
-    .info{
+    .infobox{
       flex: 1;
       min-width: 60%;
       .title{

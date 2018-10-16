@@ -24,7 +24,15 @@ export const kk = {
 			return true
 		}
 	},
-
+	is_null: function(val, vue, msg) {
+		if(!val) {
+			let text = msg ? msg : "字段不能为空"
+			vue.$toast(text);
+			return true
+		}else{
+			return false
+		}
+	},
 	// 检查是否有特殊符号
 	checkSpecificKey: function (keyCode, vue) {  
 	    var specialKey = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");

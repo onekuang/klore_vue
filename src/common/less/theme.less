@@ -1,6 +1,54 @@
-// 按钮
-@btn-color: #fff;
-@btn-bg: green;
 
-// 渐变色
-@jianbian:linear-gradient( #55b4fe, #0f95ff);
+
+
+// ===== 主题颜色配置 =====
+
+@color_base 	: #55b4fe;// 基准色
+
+@color_qian 	: lighten(@color_base, 20%); 					// 浅色
+@color_shen 	: darken(@color_base, 20%);						// 深色
+@color_liang 	: saturate(@color_base, 20%);					// 亮色
+@color_an 	 	: desaturate(@color_base, 20%);				// 暗色
+@color_01 		: mix(@color_base, mediumvioletred); 	// 混合色浅
+@color_02 		: mix(@color_base, lightseagreen); 		// 混合色中
+@color_03 		: mix(@color_base, mintcream); 				// 混合色深
+@color_hui 	 	: lightness(desaturate(@color_base, 10%),30%); // 灰色
+
+// 上下渐变色
+@jianbian:linear-gradient( @color_base, @color_shen);
+
+
+
+// ===== 按钮 =====
+
+@btn_bg 	: #0083ea;
+@btn_color: contrast(@btn_bg);
+@btn_hover: lighten(@btn_bg, 20%);
+
+
+
+// 按钮包裹层
+.btn_box{
+  padding: 6px 12px;
+}
+
+// 统一主题默认按钮
+.theme_btn {
+	display: inline-block;
+	text-align: center;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 16px;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+ 	color: #fff;
+ 	.blue_btn();
+}
+// 蓝色渐变底色
+.blue_btn {
+  background: linear-gradient( #55b4fe, #0f95ff);
+}
+// 红色渐变底色
+.red_btn {
+	background: linear-gradient( #ff675b,#ea1000 );
+}

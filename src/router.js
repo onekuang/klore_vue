@@ -21,18 +21,20 @@ export default new Router({
     {
       path: "/about",
       meta:{index:4,login:true},
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/about/about.vue")
+      component: () => import("./views/about/about.vue")
+    },    
+    {
+      path: "/article",
+      meta:{index:10},
+      component: () => import("./views/article/article.vue")
     },
-    
     {
       path: "/usercenter",
       component: () => import("./views/usercenter/usercenter.vue")
     },
     {
-      path: "/article",
-      meta:{index:10},
-      component: () => import("./views/article/article.vue")
-    }
+      path: "/test",
+      component: () => import("./views/order_detail/order_detail1.vue")
+    },
   ]
 });

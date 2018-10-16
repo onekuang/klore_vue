@@ -9,6 +9,7 @@ import "./assets/fonts/iconfont.css";
 // 引入ui
 import MuseUI from "muse-ui";
 import "muse-ui/dist/muse-ui.css";
+
 Vue.use(MuseUI);
 
 // 弹窗组件

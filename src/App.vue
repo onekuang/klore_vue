@@ -28,10 +28,10 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if(to.meta.login) {
-        console.log('需要登录')
-        return
-      }
+      // if(to.meta.login) {
+      //   console.log('需要登录')
+      //   return
+      // }
 
       //如果to索引大于from索引,判断为前进状态,反之则为后退状态
       if(to.meta.index > from.meta.index){
