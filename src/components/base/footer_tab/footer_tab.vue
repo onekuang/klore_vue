@@ -3,10 +3,11 @@
   <mu-paper>
     <mu-bottom-nav :value="bottomNav" @change="handleChange">
       <mu-bottom-nav-item value="index" to='/' title="首页" icon=":iconfont icon-home1"/>
-      <mu-bottom-nav-item value="list" to='/caselist' title="案例中心" icon=":iconfont icon-home1"/>
-      <mu-bottom-nav-item value="active" to='/tuiguang' title="推广方案" icon=":iconfont icon-home1"/>
-      <mu-bottom-nav-item value="about" to='/about' title="关于我们" icon=":iconfont icon-home1"/>
-      <mu-bottom-nav-item value="test" to='/test' title="测试" icon=":iconfont icon-home1"/>
+      <mu-bottom-nav-item value="goodsdetaile" to='/goodsdetaile' title="产品" icon=":iconfont icon-home1"/>
+      <mu-bottom-nav-item value="list" to='/caselist' title="案例" icon=":iconfont icon-home1"/>
+      <mu-bottom-nav-item value="goodscart" to='/goodscart' title="购物车" icon=":iconfont icon-home1"/>
+      <mu-bottom-nav-item value="usercenter" to='/usercenter' title="中心" icon=":iconfont icon-home1"/>
+      <!-- <mu-bottom-nav-item value="test" to='/test' title="测试" icon=":iconfont icon-home1"/> -->
     </mu-bottom-nav>
   </mu-paper>
 </div>

@@ -3,7 +3,7 @@
 <BScroll 	class="box_wrapper" ref="scroll" >
 <div>
 
-<form @submit.prevent="onSubmit" action="http://www.baidu.com">
+<form @submit.prevent="onSubmit">
 	<div class="chang_mobile_box">
 		<div class="old_mobile_box">
 			<div class="item">原号码:</div>

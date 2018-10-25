@@ -21,8 +21,24 @@
 	    	<button class='theme_btn login_btn' type="submit">登录</button>
 	    </div>	    
 	 </form>
-	 		<div class="btn_box">
-	 			<button class='theme_btn sign_btn' @click="goto_sign">注册</button>
+
+	 		<!-- 注册类 -->
+	 		<div class="register_type_1" v-if="sign_type == 1">
+	 		<div class="sign_box">
+	 			<div class="sign1 pull-left">没有帐号?<span @click="goto_sign">点击注册</span></div>
+	 			<div class="forget_password pull-right" @click="goto_forget_password">找回密码</div>
+	 			<div class="clearfix"></div>
+	 		</div>
+			</div>
+			
+	 		<div class="register_type_2" v-if="sign_type == 2">
+		 		<div class="btn_box" v-if="sign_type == 2">
+		 			<button class='theme_btn sign_btn' @click="goto_sign">注册</button>
+		 		</div>
+		 		<div class="sign_box" v-if="sign_type == 2">
+		 			<div class="forget_password pull-right" @click="goto_forget_password">找回密码</div>
+		 			<div class="clearfix"></div>
+		 		</div>
 	 		</div>
 
 	  
@@ -41,6 +57,7 @@ export default {
 	name:"login",
 	data() {
 		return {
+			sign_type: 1, // 配置注册的样式
 			form_data:{}
 		}
 	},
@@ -58,7 +75,12 @@ export default {
 		// 跳转到注册页面
 		goto_sign() {
 			this.$router.push({
-				path: `/sign`
+				path: `/register`
+			})
+		},
+		goto_forget_password() {
+			this.$router.push({
+				path: `/findPassword`
 			})
 		}
 	},
@@ -108,6 +130,22 @@ export default {
   }
   .login_btn{
   	margin: 18px 0 14px;
+  }
+
+  // 注册样式1
+  .sign_box{
+  	padding: 0 16px;
+  	height: 20px;
+  	line-height: 20px;
+  	.sign1{
+			span{
+				color: @color_shen;
+				margin-left: 6px;
+			}
+  	}
+  	.forget_password {
+  		color: @color_shen
+  	}
   }
 }
 

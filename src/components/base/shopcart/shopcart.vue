@@ -5,7 +5,7 @@
       <div class="content-left">
         <div class="logo-wrapper" @click="toggleList">
           <div class="logo">
-            <i class="fa fa-shopping-cart"  :class="{'highlight':totalCount>0}">
+            <i class="iconfont icon-gouwuche"  :class="{'highlight':totalCount>0}">
               <!-- <img src="./shopcart.png" width=40 height=40> -->
             </i>
           </div>
@@ -84,7 +84,7 @@ import { mapMutations} from 'vuex'
     data() {
       return {
         fold: true,
-        conrtoColor:"#FF5252"
+        conrtoColor:"#55b4fe"
       }
     },
     computed: {
@@ -175,8 +175,12 @@ import { mapMutations} from 'vuex'
   }
 </script>
 
-<style lang="less">
-
+<style scoped lang="less">
+ul,li{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 // 加入购物车按钮背景
 @add_cart_color:#212d3a;
 // `去结算`背景
@@ -324,7 +328,7 @@ import { mapMutations} from 'vuex'
         line-height: 40px;
         padding: 0 18px;
         background: #f3f5f7;
-        border-bottom: 1px solid rgba(7,17,27,.1);
+        // border-bottom: 1px solid rgba(7,17,27,.1);
         .title{
           float: left;
           font-size: 14px;
@@ -343,14 +347,16 @@ import { mapMutations} from 'vuex'
       .list-content{
         // padding: 0 18px;
         max-height: 217px;
-        overflow: hidden;
         background: #fff;
+        width: 100%;
+        overflow: hidden;
         .food{
           position: relative;
           padding: 12px 12px;
           box-sizing: border-box;
           // border-1px(rgba(7,17,27,0.1));
-          border: 1px solid rgba(7,17,27,0.1);
+          // border: 1px solid #eee;
+          border-bottom: 1px solid #eee;
           .name{
             line-height: 24px;
             font-size: 14px;
@@ -358,7 +364,7 @@ import { mapMutations} from 'vuex'
           }
           .price{
             position: absolute;
-            right: 90px;
+            right: 100px;
             bottom: 12px;
             line-height: 24px;
             font-size: 14px;
@@ -368,7 +374,7 @@ import { mapMutations} from 'vuex'
           .cartcontrol-wrapper{
             position: absolute;
             right: 0;
-            bottom: 6px;
+            bottom: 12px;
           }
         }
       }

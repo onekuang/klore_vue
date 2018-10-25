@@ -25,7 +25,6 @@
     <HomeMenu :lists=c_grid_data></HomeMenu>
 
     <div class="khr"></div>
-    <button>123</button>
     <p class="p1">test color base1</p>
     <p class="p2">test color qian</p>
     <p class="p3">test color shen</p>
@@ -62,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div class='item blue'>
+      <div class='item blue' @click="test">
         <div class='img_box'>
           <img src='http://tp5test.cms.sppcms.com/img/yuan3.jpg'>
         </div>
@@ -87,6 +86,7 @@
 <script>
 import BScroll from '@/components/base/scroll/scroll';
 import HomeMenu from '@/components/home_menu/home_menu';
+import api from '@/assets/api/api';
 export default {
   name: "home",
   data() {
@@ -98,6 +98,32 @@ export default {
     };
   },
   created() {
+    this.test();
+  },
+  methods: {
+    
+    test() {
+
+      let arr = ['00','11'];
+
+      let res = Math.floor(Math.random() * (arr.length ));
+
+      console.log(arr[res]);
+
+    },
+    tt() {
+      this.axios.get(api.test,{
+        params: {
+          id: 31
+        }
+      })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(res => {
+        this.$toast("网络错误")
+      })
+    }
   },
   computed: {
     c_grid_data() {
@@ -190,7 +216,6 @@ export default {
 .p3{ color: @color_shen; }
 .p4{ color: @color_liang; }
 .p5{ color: @color_an; }
-.p6{ color: @color_hui; }
 .p7{ color: @color_01; }
 .p8{ color: @color_02; }
 .p9{ color: @color_03; }

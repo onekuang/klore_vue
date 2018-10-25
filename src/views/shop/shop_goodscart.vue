@@ -1,7 +1,11 @@
 <template>
+<div class="goods_cart ab_full">
+<BScroll 	class="box_wrapper" ref="scroll" style="bottom:100px;">
+<div style="padding-bottom: 16px;">
+
 <div class="shop_cart_list_wrapper">
 	<div class="shop_cart_list">
-		<div class="item" v-for="(item, index) in data">
+		<div class="item" v-for="(item, index) in shoppingCart">
 			<div class="checkbox">
 				<label :for="'shopcart-' + index"></label>
 				<input 
@@ -28,34 +32,38 @@
 		</div>
 	</div>
 	
+	
+	
+	<div class="no_data" style="margin-top: 30px;" v-show="shoppingCart.length == 0">
+		<ListNull :title="title"/>
+	</div>
+</div>
+
+</div></BScroll>
+
 	<!-- 购买汇总 -->
-	<div class="pay_box" v-show=data.length>
+	<div class="pay_box" v-show=shoppingCart.length>
 		<div class="money">合计：<span>￥{{vuex_checkData_money}}</span></div>
 		<div class="paybtn_box">
 			<span class="k_md_btn hui_btn" style="margin-right: 12px;" @click=deleteGoods>删除选中</span>
-			<span class="k_md_btn blue_btn" @click=pay>前往结算</span>
+			<span class="k_md_btn blue_btn" @click=pay>创建订单</span>
 		</div>
 	</div>
-	
-	<div class="no_data" style="margin-top: 30px;" v-show="data.length == 0">
-		<ListNull :title="title"/>
-	</div>
+
 </div>
 </template>
 
 <script>
-import CartControl from '../cartcontrol/cartcontrol.vue'
+import BScroll from '@/components/base/scroll/scroll'
+import CartControl from '@/components/base/cartcontrol/cartcontrol.vue'
 import ListNull from '@/components/base/loading/null_list'
 
 import {mapMutations,mapGetters} from 'vuex'
 export default {
-	props: {
-		data: {
-			type: Array
-		}
-	},
+
 	data() {
 		return {
+			lists: [],
 			title: "购物车空空如也~",
 			// 加减按钮的颜色
 			color: "#f00",
@@ -96,8 +104,12 @@ export default {
 				this.$toast('请勾选需要购买的商品')
 				return
 			}else{				
-				this.setvuex();
-				this.$emit('pay')
+				// this.setvuex();
+				// this.$emit('pay')
+				console.log(this.checkGoods)				
+				this.$router.push({
+					path: `/orderlist`
+				})
 			}
 		},
 		deleteGoods() {
@@ -135,14 +147,13 @@ export default {
 		})
 	},
 	components: {
-		CartControl,ListNull
+		BScroll,CartControl,ListNull
 	}
 }
 </script>
 
 <style scoped lang="less">
-@import url("../../../common/less/index.less");
-
+@import url('../../common/less/index.less');
 .shop_cart_list_wrapper{
 	background: #fff;	
 	.shop_cart_list{
@@ -167,21 +178,25 @@ export default {
 					right: 0;
 					overflow: hidden;
 				}
-				input{
-					// visibility:hidden;
-				}
 				input[type='checkbox']{
-				    width: 20px;
-				    height: 20px;
+				    width: 12px;
+				    height: 12px;
 				    background-color: #fff;
 				    -webkit-appearance:none;
 				    border: 1px solid #c5c5c5;
-				    border-radius: 4px;
+				    border-radius: 50%;
 				    outline: none;
+				    position: absolute;
+				    top: 50%;
+				    left: 50%;
+				    transform: translate(-50%,-50%);
+				    transition: all 0.3s;
 				}
 				input[type=checkbox]:checked{
-				   background: url("./check.png")no-repeat center;
-				   background-size: 100% 100%;
+					transition: all 0.5s;
+				   border: none;
+				   background: @color_liang;
+
 				}
 			}
 			.img_box{
@@ -225,19 +240,23 @@ export default {
 			}
 		}
 	}
-	.pay_box{
+	
+}
+.pay_box{
 		position: fixed;
-		bottom: 0px;
+		bottom: @footer_height;
 		left: 0;
 		right: 0;
 		display: flex;
 		padding: 12px 8px;
+		background: #fff;
+		box-shadow: 2px 2px 10px #ccc;
 		.money{
 			flex: 1;
 			text-align: left;
 			color: #333;			
 			font-size: 16px;
-			padding-top: 2px;
+			padding-top: 4px;
 			span{
 				color: @color_shen;
 				// font-weight: 600;
@@ -249,5 +268,4 @@ export default {
 			text-align: right;
 		}
 	}
-}
 </style>

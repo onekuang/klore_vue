@@ -1,15 +1,15 @@
 export const kk = {
 	is_username: function(text, vue) {
-		if(text == ''){
+		if(!text){
 			vue.$toast('用户名不能为空');return false;
 		}
-		if(this.checkSpecificKey(text)){
-			vue.$toast('用户名不能含有特殊字符');return false;
+		if(this.checkSpecificKey(text, vue)){
+			return false;
 		}
 		return true
 	},
 	is_mobile: function (num, vue) {
-		if(num == '' || !/^[1][3,4,5,7,8][0-9]{9}$/.test(num) ){
+		if(!num || !/^[1][3,4,5,7,8][0-9]{9}$/.test(num) ){
 			vue.$toast("请输入正确手机号")
 			return false
 		}else{
@@ -17,7 +17,7 @@ export const kk = {
 		}
 	},
 	is_password: function(val, vue) {
-		if(val == '' || val.length < 6 || val.length > 18){
+		if(!val || val.length < 6 || val.length > 18){
 			vue.$toast('密码不能小于6位数');
 			return false
 		}else{

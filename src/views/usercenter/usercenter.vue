@@ -76,4 +76,8 @@ export default {
 </script>
 <style scoped lang="less">
 @import url("../../common/less/index.less");
+
+.usersenter{
+  width: 100%;
+}
 </style>

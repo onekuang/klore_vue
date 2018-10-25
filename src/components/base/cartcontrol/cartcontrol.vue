@@ -1,14 +1,19 @@
 <template>
    <div class="cartcontrol">
+    
    <transition name="move">
     <div class="cart-decrease"
      v-show="food.count>0"
      @click.stop.prevent="decreaseCart">
-     <span class="inner fa fa-minus-circle" :style="{color: color}"></span>
+     <span class="inner iconfont icon-move"></span>
     </div>
     </transition>
+
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <div class="cart-add fa fa-plus-circle" @click.stop.prevent="addCart" :style="{color: color}"></div>
+
+    <div class="cart-add">
+      <span class="iconfont icon-add1" @click.stop.prevent="addCart"></span>
+    </div>
    </div>
 </template>
 
@@ -36,7 +41,7 @@ import {mapMutations} from 'vuex'
       // 按钮颜色
       color: {
         type: String,
-        default: '#00a0dc'
+        default: '#fff'
       }
     },
     methods: {
@@ -73,7 +78,7 @@ import {mapMutations} from 'vuex'
           return
         }
         if(this.isMin && this.food.count == this.minNum){
-          this.$toast(`数量不能小于${this.minNum}!`)
+          this.$toast(`数量不能小于${this.minNum}`)
           return
         }
         this.DECREASE_ONE_GOODS(this.index)
@@ -88,20 +93,32 @@ import {mapMutations} from 'vuex'
 
 <style lang="less">
 // 加减号按钮颜色
-@btn_color: #00a0dc;
+@btn_color: #666;
+@btn_bg: #fff;
+
+.box_shadow {
+  box-shadow: 2px 2px 10px #999;
+}
   .cartcontrol{
     font-size: 0;
+    padding: 0 6px !important;
     .cart-decrease{
       display: inline-block;
       padding: 6px;
       opacity: 1;
       transform: translate3D(0,0,0);
+      text-align: center;
       .inner{
         display: inline-block;
-        line-height: 26px;
-        font-size: 20px;
+        width: 16px;
+        height: 16px;
+        font-size: 12px;
         color: @btn_color;
+        background: @btn_bg;
         transition: all .4s linear;
+        border-radius: 50%;        
+        margin-right: 8px;
+        .box_shadow();
       }
       &.move-enter-active, &.move-leave-active{
         transition:  all .4s linear;
@@ -116,20 +133,31 @@ import {mapMutations} from 'vuex'
     }
     .cart-count{
       display: inline-block;
-      vertical-align: top;
+      vertical-align: center;
       width: 12px;
-      padding-top: 6px;
-      line-height: 24px;
+      // padding-top: 6px;
+      // line-height: 24px;
       text-align: center;
       font-size: 10px;
-      color: rgb(147, 153, 159);
+      color: #666;
     }
     .cart-add {
       display: inline-block;
       padding: 6px;
-      line-height: 26px;
-      font-size: 20px;
-      color: @btn_color;
+      opacity: 1;
+      transform: trans;
+      .iconfont {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+        margin-left: 8px;
+        background: @btn_bg;
+        font-size: 12px;
+        color: @btn_color;
+        border-radius: 50%;
+        .box_shadow();
+      }
     }
   }
 </style>

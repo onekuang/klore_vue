@@ -16,7 +16,8 @@
             </div>
             
             <div class="userinfo-avatar">
-              <img src="" width="80" height="80">
+              <!-- <img src="" width="80" height="80"> -->
+              <img v-holder="'img=80x80?&bg=C7E1FF&text=80x80'">
             </div>
 
             <div class='user_info_nickname'>
