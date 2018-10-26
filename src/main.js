@@ -50,6 +50,11 @@ Vue.component("swipe-item", SwipeItem);
 import VueHolder from 'vue-holderjs';
 Vue.use(VueHolder);
 
+
+import VueWechatTitle from 'vue-wechat-title'
+Vue.use(VueWechatTitle)
+
+
 Vue.config.productionTip = false;
 
 new Vue({

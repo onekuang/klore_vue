@@ -1,6 +1,6 @@
 <template>
   <div class="search-box">
-    <i class="iconfont icon-search"
+    <i class="iconfont icon-search" :style="{color: iconcolor}" 
       @click='search'></i>
     <input class="box" v-model='query' :placeholder='placeholder'>
     <i v-show='query' @click='clear' class="iconfont icon-close"></i>
@@ -12,7 +12,11 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: '请输入卡号'
+      default: '请输入'
+    },
+    iconcolor: {
+      type: String,
+      default: '#666'
     }
   },
   data() {
@@ -60,10 +64,12 @@ export default {
   	line-height: 18px;
   	background: #fff;
   	color: #000;
-  	font-size: 16px;
+  	font-size: 14px;
+    border: none;
+    padding-left: 12px;
   	&::placeholder{
-  		color: #ccc;
-  		padding-left: 4px;
+  		color: #666;
+  		padding-left: 12px;
   	}  	  
   }
   .icon-close{

@@ -6,7 +6,7 @@
     </div> -->
     <transition :name="transitionName"> 
       <keep-alive :include=include>
-          <router-view ></router-view>
+          <router-view v-wechat-title='$route.meta.title'></router-view>
       </keep-alive>
     </transition>
 
@@ -55,6 +55,9 @@ export default {
 #app {
   
 }
+.c-swipe-pagination-item.active {
+  background-color: #b5b5b5 !important;
+}
 .footer {
   height: 50px;
   position: fixed;
@@ -62,6 +65,9 @@ export default {
   left: 0;
   right: 0;
 }
+
+
+
 /*切换动画*/
 .slide-right-enter-active,
 .slide-right-leave-active,

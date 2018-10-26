@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/home/home1.vue";
+import Home from "@/views/home/home2.vue";
 
 Vue.use(Router);
 
@@ -15,9 +15,16 @@ export default new Router({
     { path: '*', component: Home },
     {
       path: "/",
-      meta:{index:5},
+      meta:{index:5,title:"首页"},
       component: Home
     },
+
+
+
+
+
+
+    // ======= 基本模版 =======
     {// 案例列表
       path: "/caselist",
       meta:{index:6},
@@ -85,6 +92,13 @@ export default new Router({
       path: "/wuliu",
       meta:{index:20, login:true},
       component: () => import("./views/shop/wuliu.vue")
+    },
+
+    // ======= 特殊类 =======
+    {// 排行榜
+      path: "/ranking",
+      meta:{index:20,title:"排行榜"},
+      component: () => import("@/components/ranking/ranking.vue")
     },
   ]
 });
