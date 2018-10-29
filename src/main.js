@@ -17,7 +17,7 @@ var axios_instance = axios.create({
 // # 设置Content-Type
     headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
     params: {
-      token: 'test'
+      access_token: 'a1af2efa8004ceb4710867a14684b838'
     },
 })
 

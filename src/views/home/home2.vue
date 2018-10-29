@@ -11,10 +11,10 @@
 	  :autoplayTime = autoplayTime
 	>
 	  <swipe-item>
-	    <img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1540516795&di=ffdcdba1dc6c46089a23dbe04d7f0040&src=http://img4.duitang.com/uploads/item/201605/20/20160520091727_ewYMQ.jpeg" width="100%">
+	    <img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1540516795&di=ffdcdba1dc6c46089a23dbe04d7f0040&src=http://img4.duitang.com/uploads/item/201605/20/20160520091727_ewYMQ.jpeg" width="100%" height="210">
 	  </swipe-item>
 	  <swipe-item>
-	    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg" width="100%">
+	    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg" width="100%" height="210">
 	  </swipe-item>
 	</swipe>
 	
@@ -66,8 +66,8 @@
 		
 		<div class="pro_list_wrapper">
 			<div class="item" v-for="item in 4">
-				<div class="img_box">
-					<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg" width="100%">
+				<div class="img_box" @click="goto_votedetail">
+					<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg" width="100%" @load="loadImage">
 					<div class="youhui">
 						19999票
 					</div>
@@ -105,15 +105,27 @@ export default {
 			index: 0, // two way
 			autoplayTime: 3000,
 			search_placeholder:"搜索名称和编号",
-			search_icon_color:"red",
-			end_time:1540655502000
+			search_icon_color:"#333",
+			end_time:1541755502000
 
 		}
 	},
 	methods: {
 		over_time() {
 			console.log('结束计时')
-		}
+		},
+		goto_votedetail() {
+			this.$router.push({
+				path: `/votedetail`
+			})
+		},
+		// 让图片加载完,在重新计算scroll的高度
+		loadImage() {
+		  if (!this.checkLoaded) {
+		    this.checkLoaded = true
+		    this.$refs.scroll.refresh()
+		  }
+		},
 	},
 	components: {
 		BScroll,Search,CountDown
@@ -267,11 +279,11 @@ export default {
 	}
 }
 .theme1{
-	background: #FD5966;
+	background: linear-gradient(left, #FF8F2B,#FF715B );
 	padding-bottom: 8px;
 	.theme1_btn{
 		color: #fff;
-		background: linear-gradient(left, #FF567F, #FF715B);
+		background: linear-gradient(left, #FF8F2B,#FF715B );
 	}
 	.activity{
 		background: #f5f5f5;
@@ -298,7 +310,7 @@ export default {
 		background: #fff;
 		.time_box {
 			.activity {
-				color: #FD5966;
+				color: #FF8F2B;
 			}
 		}
 	}

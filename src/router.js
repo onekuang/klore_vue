@@ -95,10 +95,25 @@ export default new Router({
     },
 
     // ======= 特殊类 =======
+    {// 报名
+      path: "/apply",
+      meta:{index:12,title:"我要报名"},
+      component: () => import("./views/login/login2.vue")
+    },
     {// 排行榜
       path: "/ranking",
-      meta:{index:20,title:"排行榜"},
+      meta:{index:13,title:"排行榜"},
       component: () => import("@/components/ranking/ranking.vue")
+    },
+    {// 投票详情
+      path: "/votedetail",
+      meta:{index:10,title:"商家详情"},
+      component: () => import("@/views/prodetaile/prodetaile.vue")
+    },
+    {// 奖品详情
+      path: "/jiangpin",
+      meta:{index:24,title:"奖品"},
+      component: () => import("@/views/jiangping/jiangping.vue")
     },
   ]
 });
