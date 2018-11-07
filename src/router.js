@@ -27,7 +27,7 @@ export default new Router({
     // ======= 基本模版 =======
     {// 案例列表
       path: "/caselist",
-      meta:{index:6},
+      meta:{index:6,title:"案例列表"},
       component: () => import("./views/lists/caselist.vue")
     },
     {// 关于我们
@@ -42,7 +42,7 @@ export default new Router({
     },
     {// 用户中心
       path: "/usercenter",
-      meta:{index:8},
+      meta:{index:8,login:true,title:"个人中心"},
       component: () => import("./views/usercenter/usercenter.vue")
     },
     
@@ -68,6 +68,21 @@ export default new Router({
       path: "/findPassword",
       meta:{index:2},
       component: () => import("./views/register/forget_password.vue")
+    },
+    {// 我的二维码
+      path: "/myqrcode",
+      meta:{index:20,login:true,title:"我的二维码"},
+      component: () => import("./views/myqrcode/myqrcode.vue")
+    },
+    {// 地址列表
+      path: "/address",
+      meta:{index:19,login:true,title:"我的地址"},
+      component: () => import("./views/address/address.vue")
+    },
+    {// 地址更改
+      path: "/address_update",
+      meta:{index:20,login:true,title:"地址更改"},
+      component: () => import("./views/address/address_update.vue")
     },
 
     

@@ -33,11 +33,12 @@ import "muse-ui/dist/muse-ui.css";
 Vue.use(MuseUI);
 
 // 弹窗组件
-import { Alert, Confirm, Toast } from "wc-messagebox";
+import { Alert, Confirm, Toast, Loading } from "wc-messagebox";
 import "wc-messagebox/style.css";
 Vue.use(Alert, {});
 Vue.use(Confirm, {});
 Vue.use(Toast);
+Vue.use(Loading);
 
 // 引入 c-swipe 轮播
 import "c-swipe/dist/swipe.css";
@@ -50,10 +51,11 @@ Vue.component("swipe-item", SwipeItem);
 import VueHolder from 'vue-holderjs';
 Vue.use(VueHolder);
 
+import QRCode from 'qrcode'
+Vue.use(QRCode)
 
 import VueWechatTitle from 'vue-wechat-title'
 Vue.use(VueWechatTitle)
-
 
 Vue.config.productionTip = false;
 

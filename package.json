@@ -13,6 +13,8 @@
     "c-swipe": "^2.1.2",
     "exif-js": "^2.3.0",
     "muse-ui": "^3.0.1",
+    "qrcode": "^1.3.0",
+    "v-distpicker": "^1.0.20",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.4",
     "vue-holderjs": "^1.0.2",

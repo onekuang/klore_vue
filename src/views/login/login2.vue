@@ -17,6 +17,12 @@
 				<div class="item">
 					<label for="">手机：</label>
 					<input type="text" name="mobile" v-model="form_data.mobile" number>
+					<div class="get_code hui_btn" style="color: #777;" v-show="!code_disabled" @click="get_code">获取</div>
+					<div class="get_code hui_btn off" v-show="code_disabled">({{code_time}})</div>
+				</div>
+				<div class="item">
+					<label for="">验证码:</label>
+					<input type="text" name="code" v-model="form_data.code">
 				</div>
 				<div class="item">
 					<label for="">地址：</label>
@@ -49,7 +55,7 @@
 
 		<div class="btn_box" style="margin-top: 26px;">
 			<button class="theme1_bg login_btn">
-				点击确认
+				确认报名
 			</button>
 		</div>
 	</form>
@@ -64,6 +70,8 @@
 import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
 import Exif from 'exif-js'  
+
+var current_time = '';
 export default {
 	name:"login2",
 	data() {
@@ -72,6 +80,8 @@ export default {
 				// {src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg"},
 				// {src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg"}
 			],
+			code_time: 60,
+			code_disabled: false,
 			form_data:{},
 
 			arvatar:'',
@@ -83,6 +93,7 @@ export default {
 			this.send_data()
 			return
 			if(kk.is_null(this.form_data.username,this,'用户名不能为空')){return}
+			if(kk.is_null(this.form_data.code,this,'验证码不能为空')){return}
 			if(!kk.is_mobile(this.form_data.mobile,this)){return}
 			if(kk.is_null(this.form_data.site,this,'地址不能为空')){return}
 			if(kk.is_null(this.form_data.textarea,this,'简介不能为空')){return}
@@ -99,6 +110,53 @@ export default {
 			.catch(res => {
 				this.$toast("网络错误")
 			})
+		},
+		// 验证码状态
+		get_code() {
+			if(this.code_disabled){
+				return
+			}
+
+			if(!kk.is_mobile(this.form_data.mobile,this)){return}
+
+			this._start_code_time();
+			this.verify_code();
+		},
+		// 获取验证码
+		verify_code() {
+			console.log('获取验证码')
+			return
+			this.axios.get(this.$api.get_code,{
+				params: {
+					mobile: this.form_data.mobile,
+					type : 1
+				}
+			})
+			.then(res => {
+				this.$toast(res.data.msg)
+			})
+			.catch(res => {
+				this.$toast("网络错误")
+			})
+		},
+		// 验证码开始倒计时
+		_start_code_time() {
+			let that = this
+			this.code_disabled = true
+			current_time = window.setInterval(() => {
+				that.code_time --
+				if(that.code_time <= 0) {
+					that._stop_code_time()
+				}
+			},1000)
+		},
+		// 验证码结束倒计时
+		_stop_code_time() {
+			if (current_time) {
+				clearInterval(current_time)
+				this.code_time = 60
+				this.code_disabled = false
+			}
 		},
 		delete_img(index) {
 			console.log("删除上传的图片")
@@ -352,6 +410,14 @@ export default {
 					width: 100%;
 					border-color: #eee;
 					background: #f5f5f5;
+				}
+				.get_code{
+					flex: 0 0 50px;
+					border-radius: 4px;
+					color: #777;
+					&.off {
+						color: #ccc;
+					}
 				}
 			}
 			margin-bottom: 8px;

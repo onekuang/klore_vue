@@ -9,17 +9,22 @@
       >
         <i class="iconfont" 
           :class=item.icon 
-          :style="{color: icon_color, fontSize: icon_size}">  
+          :style="{
+            color: item.icon_color ? item.icon_color : icon_color, 
+            fontSize: item.icon_size ? item.icon_size  : icon_size
+          }">  
         </i>
 
-        <p :style="{color:text_color, fontSize: text_size}">
+        <p :style="{color:item.text_color ? item.text_color : text_color, 
+          fontSize: item.text_size ? item.text_size : text_size}">
           {{item.title}}
         </p>
 
         <!-- 角标 -->
         <span class="dot" 
           v-if="item.dot"
-          :style="{background: dot_bg, color: dot_text_color}"
+          :style="{background: item.dot_bg ? item.dot_bg : dot_bg, 
+            color: item.dot_text_color ? item.dot_text_color : dot_text_color}"
         >
           {{item.dot_text}}
         </span>
@@ -33,6 +38,7 @@
   </div>
 </template>
 <script>
+// import Kgrid from "@/components/k_grid/k_grid.vue";
 export default {
   props: {
     lists: {
@@ -48,7 +54,7 @@ export default {
     },
     text_color: {
       type: String,
-      default: "rgb(129, 101, 101)"
+      default: "#777"
     },
     text_size: {
       type: String,

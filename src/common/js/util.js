@@ -1,7 +1,9 @@
+// import { Url_param } from '@/common/js/util.js'
+// 获得随机值
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
+// 打乱数组
 export function shuffle(arr) {
   let _arr = arr.slice()
   for (let i = 0; i < _arr.length; i++) {
@@ -12,7 +14,9 @@ export function shuffle(arr) {
   }
   return _arr
 }
-
+// 定时器,调用后会清除定时器
+// let test = debounce(fn,1000)
+// test();
 export function debounce(func, delay) {
   let timer
 
@@ -40,3 +44,26 @@ export function arrHasValue(v, arr) {
 }
 // var arrs = ['1','2','3'];　　   
 // console.log(arrHasValue(1,arrs)); //true
+
+
+export function urlparam() {
+  var name,value; 
+
+  var str=location.href; //取得整个地址栏
+  var num=str.indexOf("?") 
+  str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+  var arr=str.split("&"); //各个参数放到数组里
+  
+  for(var i=0;i < arr.length;i++){ 
+    num=arr[i].indexOf("="); 
+    if(num>0){ 
+      name=arr[i].substring(0,num);
+      value=arr[i].substr(num+1);
+      this[name]=value;
+    } 
+  } 
+}
+// var Request = new UrlSearch(); //实例化
+// let code    = Request.code || '';
+// let state   = Request.state || '';

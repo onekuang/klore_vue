@@ -22,23 +22,23 @@
 
             <div class='user_info_nickname'>
               <p>username</p>
-              <!-- <div style="font-size:12px;">我的推荐人:username</div> -->
+              <div style="font-size:12px;">651776858</div>
             </div>
             <div class='user_info_tab'>
               <div class='item'>
-                <p>直推数量</p>
+                <p>销售奖励</p>
                 <p>123元</p>
               </div>
               <div class='item'>
-                <p>团队数量</p>
+                <p>累计提现</p>
                 <p>123元</p>
               </div>
               <div class='item'>
-                <p>直推奖励</p>
+                <p>分红奖励</p>
                 <p>123元</p> 
               </div>
               <div class='item'>
-                <p>等待领取</p>
+                <p>待释放</p>
                 <p>123元</p>
               </div>              
             </div>            
@@ -53,8 +53,9 @@
   padding-top: 40px;
   /* background: #50B3E4; */
   /* background: url(http://image1.sansancloud.com/jianzhan/2017_09/24/16/07/23_193.jpg); */
-  background: linear-gradient(#55b4fe, #0f95ff);
+  // background: linear-gradient(#55b4fe, #0f95ff);
   /* background: linear-gradient(#FA4660,#fd2145); */
+  background: url(http://tp5test.cms.sppcms.com/img/userboxbg.jpg);
   position: relative;
 }
 .user_info_avatar {
