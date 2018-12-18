@@ -11,7 +11,7 @@
 	  :autoplayTime = autoplayTime
 	>
 	  <swipe-item>
-	    <img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1540516795&di=ffdcdba1dc6c46089a23dbe04d7f0040&src=http://img4.duitang.com/uploads/item/201605/20/20160520091727_ewYMQ.jpeg" width="100%" height="210">
+	    <img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1540516795&di=ffdcdba1dc6c46089a23dbe04d7f0040&src=http://img4.duitang.com/uploads/item/201605/20/20160520091727_ewYMQ.jpeg" width="100%" height="210" >
 	  </swipe-item>
 	  <swipe-item>
 	    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg" width="100%" height="210">

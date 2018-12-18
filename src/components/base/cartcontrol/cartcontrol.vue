@@ -110,8 +110,9 @@ import {mapMutations} from 'vuex'
       text-align: center;
       .inner{
         display: inline-block;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
         font-size: 12px;
         color: @btn_color;
         background: @btn_bg;
@@ -148,8 +149,9 @@ import {mapMutations} from 'vuex'
       transform: trans;
       .iconfont {
         display: inline-block;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
         text-align: center;
         margin-left: 8px;
         background: @btn_bg;

@@ -3,11 +3,11 @@
   <mu-paper>
     <mu-bottom-nav :value="bottomNav" @change="handleChange">
       <mu-bottom-nav-item value="index" to='/' title="首页" icon=":iconfont icon-home1"/>
-      <mu-bottom-nav-item value="apply" to='/apply' title="报名" icon=":iconfont icon-baoming"/>
-      <!-- <mu-bottom-nav-item value="list" to='/caselist' title="案例" icon=":iconfont icon-home1"/>
-      <mu-bottom-nav-item value="goodscart" to='/goodscart' title="购物车" icon=":iconfont icon-home1"/> -->
-      <mu-bottom-nav-item value="ranking" to='/ranking' title="排行榜" icon=":iconfont icon-paihang"/>
-      <mu-bottom-nav-item value="jiangpin" to='/jiangpin' title="奖品" icon=":iconfont icon-jiangpin"/>
+      <mu-bottom-nav-item value="apply" to='/prolist' title="产品" icon=":iconfont icon-baoming"/>
+      <mu-bottom-nav-item value="goodscart" to='/goodscart' title="购物车" icon=":iconfont icon-gouwuchekong"/>
+      <mu-bottom-nav-item value="list" to='/usercenter' title="个人中心" icon=":iconfont icon-people"/>
+      <!-- <mu-bottom-nav-item value="ranking" to='/ranking' title="排行榜" icon=":iconfont icon-paihang"/>
+      <mu-bottom-nav-item value="jiangpin" to='/jiangpin' title="奖品" icon=":iconfont icon-jiangpin"/> -->
     </mu-bottom-nav>
   </mu-paper>
 </div>
@@ -28,11 +28,12 @@ export default {
 };
 </script>
 <style lang="less">
+@import url('../../../common/less/theme.less');
 
 // 选中时的颜色
 .mu-bottom-item-active .mu-bottom-item-text,
 .mu-bottom-item-active .mu-icon {
-  color: #FF6E5F;
+  color: @red;
 }
 
 .mu-bottom-nav {

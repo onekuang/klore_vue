@@ -1,9 +1,9 @@
 <template>
    <div ref="wrapper" :class="{'scroll-wrap': pullup||pulldown }">  
        <div>  
-         <div v-if="pulldown" class="pulldown"  
+         <div v-show="pulldown && dragTip.showLoding" class="pulldown"  
          :style="`margin-top:${dragTip.translate}px`">  
-           <div class="clear" v-if="dragTip.showLoding">  
+           <div class="clear">  
              <div class="fl"><img width="30" src="./loading.gif"></div>  
              <div class="fl">{{dragTip.text}}</div>  
            </div>  
@@ -42,6 +42,16 @@ export default {
       type: Boolean,
       default: false
     },
+    // 是否开启横向滚动
+    scrollX:{
+      type:Boolean,
+      default:false
+    },
+    // 是否开启回弹动画效果
+    bounce: {
+      type: Boolean,
+      default: true
+    },
     //是否派发滚动到底部的事件，用于上拉加载    
     pullup:{  
       type:Boolean,  
@@ -67,7 +77,7 @@ export default {
     return{  
       dragTip:{  
         text:"下拉刷新",  
-        translate:-50,  
+        translate:-60,  
         showLoding:false  
       },  
       isLoading: false,  
@@ -86,7 +96,9 @@ export default {
       }
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
-        click: this.click
+        click: this.click,
+        scrollX:this.scrollX,
+        bounce: this.bounce,
       })
       if (this.listenScroll) {
         let me = this // vue实例
@@ -124,12 +136,12 @@ export default {
           this.dragTip.showLoding = true  
           //隐藏底部加载loding  
           this.isLoading = false  
-          if(pos.y > 50){  
+          if(pos.y > 40){  
             this.dragTip.text = "释放刷新"  
           }  
         })  
         this.scroll.on('touchEnd',(pos) => {  
-          if(pos.y > 50){  
+          if(pos.y > 40){  
             this.dragTip.translate = 0  
             this.dragTip.text = "刷新中..."  
             //重新初始化  
@@ -151,7 +163,7 @@ export default {
         this.isDone = false;  
         this.dragTip = {  
           text:"下拉刷新",  
-          translate:-50,  
+          translate:-70,  
           showLoding:false  
         }  
       },600)  
@@ -194,9 +206,10 @@ export default {
 /* 下拉刷新 */  
 .pulldown,.pullup{ 
     width:100%;  
-    height:50px;  
+    height:70px;  
     position:relative;  
     div.clear{  
+      text-align: center;
       padding:10px 0px;  
       font-size:14px;  
       position:absolute;  
@@ -204,6 +217,9 @@ export default {
       top:5px; 
       transform:translate(-50%,0);
     }
+  // &.pulldown{
+  //   position: absolute;
+  // }
 }
 .list-donetip{  
   text-align:center;

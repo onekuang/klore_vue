@@ -36,15 +36,6 @@ export default {
 
   },
   methods: {
-    fff() {
-      let that = this
-      console.log("没有url参数,则执行fn方法");
-      html2canvas(document.body).then(function(canvas) {
-          // document.body.appendChild(canvas);
-          that.dataURL = canvas.toDataURL("image/jpeg");
-          that.test = false
-      });
-    }
   },
   computed: {
     // 横tab -- 组件模版
@@ -77,11 +68,11 @@ export default {
         {
           id: 4,
           title: "分享赚钱",
-          icon: "icon-sponsor",
+          icon: "icon-fenxiang2",
           icon_color:"#FF9933",
           url: "/orderlist",
-          dot: true,
-          dot_text: "Hot"
+          // dot: true,
+          // dot_text: "Hot"
         }
       ];
     },
@@ -94,30 +85,31 @@ export default {
           title: "待付款",
           icon: "icon-pay",
           icon_color:"#FF9933",
+          url:'/orderlist?tab=0'
           // dot: true,
           // dot_text: this.dot_num,
-          fn: that.fff,
+          // fn: that.goto,
         },
         {
           id: 2,
           title: "待发货",
           icon: "icon-send",
           icon_color:"#FF9933",
-          url: "/orderlist"
+          url: "/orderlist?tab=1"
         },
         {
           id: 3,
           title: "待收货",
           icon: "icon-deliver",
           icon_color:"#FF9933",
-          url: "/orderlist"
+          url: "/orderlist?tab=2"
         },
         {
           id: 4,
           title: "已完成",
           icon: "icon-wodefankui",
           icon_color:"#FF9933",
-          url: "/orderlist"
+          url: "/orderlist?tab=3"
         }
       ];
     },
@@ -132,7 +124,17 @@ export default {
           icon_color:"#55b4fe",
           // dot: true,
           // dot_text: this.dot_num,
-          url: "myqrcode",
+          url: "/myqrcode",
+          // fn: that.fff,
+        },
+        {
+          id: 11,
+          title: "个人设置",
+          icon: "icon-shezhi",
+          icon_color:"#55b4fe",
+          // dot: true,
+          // dot_text: this.dot_num,
+          url: "/setting",
           // fn: that.fff,
         },
         {
@@ -140,7 +142,7 @@ export default {
           title: "我的订单",
           icon: "icon-wodedingdan",
           icon_color:"#55b4fe",
-          url: "/"
+          url: "/orderlist"
         },
         {
           id: 3,
@@ -187,17 +189,17 @@ export default {
         {
           id: 9,
           title: "关于我们",
-          icon: "icon-emoji",
+          icon: "icon-guanyuwomen2",
           icon_color:"#99CC99",
           url: "/about"
         },
-        // {
-        //   id: 10,
-        //   title: "注销",
-        //   icon: "icon-emoji",
-        //   icon_color:"#99CC99",
-        //   url: "/login"
-        // },
+        {
+          id: 10,
+          title: "注销",
+          icon: "icon-qiehuanzuhu",
+          icon_color:"#FF6633",
+          url: "/login"
+        },
       ];
     }
   },  

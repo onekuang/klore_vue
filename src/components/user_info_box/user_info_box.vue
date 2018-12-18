@@ -96,10 +96,12 @@
   margin-top: 4px;
   display: inline-block;
   padding: 4px 8px;
-  border: 1px solid #fff;
+  // border: 1px solid #fff;
   border-radius: 4px;
   font-size: 12px;
   color: #fff;
+  background:linear-gradient(#FFCC66, #FF9933);
+
 }
 .right_box {
   position: absolute;

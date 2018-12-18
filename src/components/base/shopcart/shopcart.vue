@@ -352,7 +352,7 @@ ul,li{
         overflow: hidden;
         .food{
           position: relative;
-          padding: 12px 12px;
+          padding: 16px 12px;
           box-sizing: border-box;
           // border-1px(rgba(7,17,27,0.1));
           // border: 1px solid #eee;
@@ -364,8 +364,8 @@ ul,li{
           }
           .price{
             position: absolute;
-            right: 100px;
-            bottom: 12px;
+            right: 110px;
+            bottom: 16px;
             line-height: 24px;
             font-size: 14px;
             font-weight: 700;
@@ -373,8 +373,9 @@ ul,li{
           }
           .cartcontrol-wrapper{
             position: absolute;
+            // top: 0;
             right: 0;
-            bottom: 12px;
+            bottom: 14px;
           }
         }
       }

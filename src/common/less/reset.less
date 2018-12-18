@@ -81,9 +81,12 @@ input[type="submit"],
 input[type="reset"] {
   appearance: none;
   -webkit-appearance: none;
+   -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
-input{outline:none;}
+input{outline:none;-webkit-appearance: none;appearance: none;}
 textarea {  
   appearance: none;
   -webkit-appearance: none;
+   -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
+textarea:focus {outline: none;}

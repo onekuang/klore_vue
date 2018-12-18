@@ -13,7 +13,7 @@
 			</div>
 			<div class="info">
 				<div class="title">{{n.name}}</div>
-				<div class="description">{{n.brandName}}</div>
+				<div class="description">{{n.desc}}</div>
 				<div class="money_box">
 					<span class="money">￥{{n.price}}元</span>
 					<!-- <span class="shopBtn"><i class="fa fa-shopping-cart"></i></span> -->

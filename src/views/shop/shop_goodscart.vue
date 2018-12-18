@@ -1,6 +1,6 @@
 <template>
 <div class="goods_cart ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" style="bottom:100px;">
+<BScroll 	class="box_wrapper" ref="scroll">
 <div style="padding-bottom: 16px;">
 
 <div class="shop_cart_list_wrapper">

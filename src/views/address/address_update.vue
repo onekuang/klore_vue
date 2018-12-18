@@ -1,15 +1,10 @@
 <template>
-<div class="address_update ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
-	<!-- <div class="logo_box">
-		<img v-holder="'img=98x98?&bg=C7E1FF&text=LOGO'" class='logo'>
-	</div> -->
+<div class="address_update">
 
 	<form @submit.prevent="onSubmit">
 		<div class="register_box">
 			<div class="username_box">
-				<div class="item">收货姓名:</div>
+				<div class="item">您的姓名:</div>
 				<div class="item">
 					<input type="text" name="username" placeholder="请输入您的姓名" v-model="form_data.username">
 				</div>
@@ -29,16 +24,28 @@
 			<button class="theme_btn" type="submit">确认注册</button>
 		</div>
 	</form>
-		<div class="btn_box" style="margin-top: 12px;">
-			<button class="theme_btn" @click="goto_login">删除</button>
-		</div>
-</div></BScroll>
+	<div class="btn_box" style="margin-top: 12px;">
+		<button class="theme_btn" @click="goto_login">删除</button>
+	</div>
+
+	<p class="btn" @click="showPicker0">pick</p>
+	<awesome-picker
+	  ref="picker0"
+	  :textTitle="picker0.textTitle"
+	  :data="picker0.data"
+	  :anchor="picker0.anchor"
+	  @confirm="handlePicker0Confirm">
+	</awesome-picker>
 </div>
 </template>
 
 <script>
 import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
+
+const data1 = [['上海市','山西省','内蒙古自治区','吉林省',]]
+const data2 = [1,2,3,4,5,6]
+
 export default {
 	name:"address_update",
 	data() {
@@ -46,7 +53,11 @@ export default {
 			code_time: 60,
 			code_disabled: false,
 			form_data:{},
-			citydata: [{id:1,iname:'北京'}]
+			picker0: {
+			  anchor: [1],
+			  textTitle: '省选择器',
+			  data: data1
+			},
 		}
 	},
 	methods: {
@@ -70,16 +81,25 @@ export default {
 			this.$router.push({
 				path: `/login`
 			})
-		}
+		},
+		showPicker0 () {
+      this.$refs.picker0.show()
+    },
+    handlePicker0Confirm(v) {
+    	console.log(v ? JSON.stringify(v) : null)
+    }
 	},
 	components: {
-		BScroll
+		BScroll,
 	}
 }
 </script>
 
 <style scoped lang="less">
 @import url('../../common/less/index.less');
+.address_update{
+	background: #fff;
+}
 .sign{
 	.logo_box{
 		text-align: center;
@@ -95,7 +115,7 @@ export default {
 	input {
 		height: 100%;
 		width: 100%;
-		font-size: 18px;
+		font-size: 16px;
 	}
 	.username_box {
 		border-top: 1px solid #eee;
@@ -113,7 +133,7 @@ export default {
 			&:nth-of-type(1) {
 				flex: 0 0 100px;
 				width: 100px;
-				font-size: 18px;
+				font-size: 16px;
 				text-indent: 6px;
 				// color: #666;
 				letter-spacing: 1px;

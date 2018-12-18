@@ -111,7 +111,7 @@ export default {
 	input {
 		height: 100%;
 		width: 100%;
-		font-size: 18px;
+		font-size: 13px;
 	}
 	.old_mobile_box {
 		border-top: 1px solid #eee;
@@ -129,7 +129,8 @@ export default {
 			&:nth-of-type(1) {
 				flex: 0 0 80px;
 				width: 80px;
-				font-size: 18px;
+				font-size: 14px;
+				letter-spacing: 2px;
 				text-indent: 6px;
 			}
 		}

@@ -1,9 +1,12 @@
-var baseUrl = 'http://localhost/shopping/public/index.php';
+var baseUrl = 'http://192.168.0.109:80/api/';
 // var baseUrl = 'http://192.168.4.118:8080';
 // var baseUrl = 'http://192.168.4.115:8180';
 
 var api = {
-	test 					: '/api/Webdata/goods_detaile',
+	test 					: 'Webdata/test',
+	test1					: 'Webdata/test1',
+	test2					: 'Webdata/test2',
+	test3					: 'Webdata/test3',
 }
 
 for(var i in api ) {

@@ -24,6 +24,14 @@ export const kk = {
 			return true
 		}
 	},
+	is_number: function(val, vue) {
+		if(/^[0-9]+$/.test(val)){
+			return true
+		}else{
+			vue.$toast('请输入数字');
+			return false
+		}
+	},
 	is_null: function(val, vue, msg) {
 		if(!val) {
 			let text = msg ? msg : "字段不能为空"

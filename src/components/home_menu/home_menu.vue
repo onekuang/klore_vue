@@ -8,8 +8,10 @@
       :key="index"
       @click=click_item(item)      
     >
+
+    <!-- 图标 -->
 			<div class="iconbox" :style="{background: iconbox_bg}">
-				<i class="iconfont" :class=item.icon ></i>
+				<i class="iconfont" :class=item.icon></i>
 				<!-- 角标 -->
 				<span class="dot" 
 				  v-if="item.dot_text"
@@ -18,6 +20,9 @@
 				  {{item.dot_text}}
 				</span>
 			</div>
+		
+
+
 			<p :style="{color:text_color, fontSize: text_size}">{{item.title}}</p>	
 
 

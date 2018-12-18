@@ -1,4 +1,4 @@
-// sessionStorage
+// sessionStorage 窗口或标签页被关闭就清除
 var s_storage = (function s_storage(){
     var ms = "mystorage";
     // var storage=window.localStorage;
@@ -71,7 +71,7 @@ var s_storage = (function s_storage(){
 
 })();
 
-// localStorage
+// localStorage 永久
 var l_storage = (function l_storage(){
     var ms = "mystorage";
     // var storage=window.localStorage;
@@ -145,6 +145,7 @@ var l_storage = (function l_storage(){
 })();
 
 export { s_storage , l_storage}
+// import { l_storage } from '@/common/js/storage.js'
 // mystorage.set('tqtest','tqtestcontent');//存储
 // mystorage.set('tqtest1','tqtestcontent1');//存储
 // mystorage.set('tqtest1','newtqtestcontent1');//修改

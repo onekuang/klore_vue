@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
+
     <transition :name="transitionName"> 
       <keep-alive :include=include>
           <router-view v-wechat-title='$route.meta.title'></router-view>
@@ -17,12 +18,12 @@
   </div>
 </template>
 <script>
-import k_footer from "./components/base/footer_tab/footer_tab";
+import k_footer from "./components/base/footer_tab/footer1";
 export default {
   name: "app",
   data() {
     return {
-      include:['home','list','about'],
+      include:['list','about','classlist'],
       transitionName: '',
     }
   },
@@ -52,14 +53,13 @@ export default {
 };
 </script>
 <style lang="less">
+@import url("./common/less/index.less");
 #app {
   
 }
-.c-swipe-pagination-item.active {
-  background-color: #b5b5b5 !important;
-}
+
 .footer {
-  height: 50px;
+  height: 56px;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -74,23 +74,23 @@ export default {
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all 500ms;
+  transition: all 400ms;
   position: absolute;
 }
 .slide-right-enter {
-  opacity: 0;
+  // opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
 .slide-right-leave-active {
-  opacity: 0;
+  // opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
 .slide-left-enter {
-  opacity: 0;
+  // opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
 .slide-left-leave-active {
-  opacity: 0;
+  // opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
 .loading{
@@ -98,5 +98,8 @@ export default {
   top: 45%;
   left: 0;
   right: 0;
+}
+.wheel-scroll{
+  padding: 0;
 }
 </style>

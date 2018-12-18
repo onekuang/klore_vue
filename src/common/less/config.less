@@ -1,11 +1,17 @@
 @import url("./theme.less");
-@header_height: 0;
+@header_height: 0px;
 @footer_height: 56px;
 
-
-
+html,body {
+  .khr_bg();
+}
 .page {
 	padding-bottom: @footer_height;
+  position: inherit;
+  min-height: 667px;
+  max-width: 100%;
+  overflow-x: hidden;
+  .khr_bg();
 }
 .bg_fff {
   background: #fff;
@@ -56,12 +62,17 @@
 .khr{
   width: 100%;
   height:12px;
-  background-color:rgb(244,244,244);
+  // background-color:rgb(244,244,244);
+  background-color:#f7f7f7;
 }
-
+.khr_bg{
+  // background-color:rgb(244,244,244);
+  background-color:#f7f7f7;
+}
 // bs一些class
 .clearfix{clear: both;}
 .pull-left{float: left;}
 .pull-right{float: right;}
 .text-right{text-align: right;}
-
+.text-center{text-align: center;}
+.hide {display: none;}

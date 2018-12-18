@@ -42,7 +42,7 @@ export default {
       start_page:1,   // 起始计数
       sum_page:1,     // 总页数
 
-      list_data:[{}],
+      list_data:[{},{},{},{},{}],
     };
   },
   created() {   

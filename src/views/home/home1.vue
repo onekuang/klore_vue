@@ -1,127 +1,186 @@
 <template>
-  <div class="home ab_full">
-    
-    
+  <div class="home ab_full">   
+  <BScroll class="box_wrapper" ref="scroll" 
+    :pulldown=pulldown 
+    @pulldown="pulldown1" 
+  >
+  <div style="padding-bottom: 50px;">
 
-    <BScroll class="box_wrapper" ref="scroll"><div>
-    <!-- 轮播图 -->
-    <swipe
-      v-model="index"
-      style="text-align: center;height: 230px;"
-      :autoplayTime = autoplayTime
-    >
-      <swipe-item>
-        <img src="http://tp5test.cms.sppcms.com/img/banner1.jpg" width="100%">
-      </swipe-item>
-      <swipe-item>
-        <img src="http://tp5test.cms.sppcms.com/img/banner1.jpg" width="100%">
-      </swipe-item>
-      <swipe-item>
-        <img src="http://tp5test.cms.sppcms.com/img/banner1.jpg" width="100%">
-      </swipe-item>
-    </swipe>
-    
-    <!-- 菜单组件 -->
-    <HomeMenu :lists=c_grid_data></HomeMenu>
-
-    <div class="khr"></div>
-    <p class="p1">test color base1</p>
-    <p class="p2">test color qian</p>
-    <p class="p3">test color shen</p>
-    <p class="p4">test color liang</p>
-    <p class="p5">test color an</p>
-    <p class="p6">test color hui</p>
-    <p class="p7">test color hui</p>
-    <p class="p8">test color hui</p>
-    <p class="p9">test color hui</p>
-
-
-
-    <!-- 产品图 -->
-    <div class='pro_box'>
-      <div class='item blue'>
-        <div class='img_box'>
-          <img src='http://tp5test.cms.sppcms.com/img/yuan1.jpg'>
+    <div class="search_wrapper">
+      <router-link tag="div" class="search_box" to="/search">
+        <div class="search_input">
+          <i class="iconfont icon-search"></i>&nbsp;&nbsp;先领劵在购买
         </div>
-        <div class='text_box'>
-          <div class='title'>无需手术</div>
-          <div class='desc'>
-            摆脱手术药物治疗的痛苦，减少对人体的二次伤害，实现家庭式物理化治疗。
-          </div>
-        </div>
-      </div>
-      <div class='item blue'>
-        <div class='img_box'>
-          <img src='http://tp5test.cms.sppcms.com/img/yuan2.jpg'>
-        </div>
-        <div class='text_box'>
-          <div class='title'>针对性强</div>
-          <div class='desc'>
-            以旋磁的方式，形成强大的能量场，针对糖尿病、糖尿病并发症有显著效果。对26种慢性代谢类疾病有预防和治疗的效果。
-          </div>
-        </div>
-      </div>
-      <div class='item blue' @click="test">
-        <div class='img_box'>
-          <img src='http://tp5test.cms.sppcms.com/img/yuan3.jpg'>
-        </div>
-        <div class='text_box'>
-          <div class='title'>效果显著</div>
-          <div class='desc'>
-            一次就可以看到血糖的变化，3-7天明显能感觉到仪器对身体的作用及效果，3-6个月恢复胰岛功能。
-          </div>
-        </div>
-      </div>
+      </router-link>
     </div>
     
-    
+    <!-- 导航组件 -->
+    <k_swipe_nav 
+      @banner_click=banner_click 
+        :swipe_data=swipe_nav_data
+        :bullet=false />
+  
+    <!-- 轮播组件 -->
+    <div>
+    <k_swipe_banner 
+      @banner_click=banner_click 
+      :swipe_data=swipe_banner_data 
+    />
+    </div>
 
+    <!-- 菜单组件 -->
+    <HomeMenu :lists=c_grid_data :wrap=true />
     
+    <!-- 公告头条 -->
+    <k_swipe_notive :swipe_data=swipe_notive_data />
+
+
+    <!-- 福利轮播 -->
+    <div>
+      <k_swipe_banner 
+        @banner_click=banner_click 
+        :swipe_data=swipe_wilfare_data
+        :bullet=false
+      />
+    </div>
+
+
+
+    <!-- 热销榜单  -->
+    <div class="khr"></div>   
+
+    <div class="advertising_box">
+      <h4 class="index_title">今日热销榜单</h4>
+      <k_swipe_tab :swipe_data=swipe_tab_data />
+    </div>
+    <div class="khr"></div>   
+    
+    <!-- 相关推荐 -->
+    <div>
+      <div class="title_wrapper">
+        <div class="title_box">
+          <i class="iconfont icon-xuanzhongpingjiadengji"></i> 
+          相关推荐
+        </div>
+      </div>
+      <K_List :type = 2 :data=recommend />
+    </div>
+
+
+
 
   </div></BScroll>
-
   </div>
 </template>
 
 <script>
 import BScroll from '@/components/base/scroll/scroll';
-import HomeMenu from '@/components/home_menu/home_menu';
+import Search from '@/components/base/search/search';
+import k_swipe_banner from '@/components/k_swipe/k_swipe';
+import k_swipe_tab from '@/components/k_swipe/k_swipe2';
+import k_swipe_nav from '@/components/k_swipe/k_swipe_nav';
+import k_swipe_notive from '@/components/k_swipe/k_swipe_notive';
+import HomeMenu from '@/components/home_menu/home_imgmenu';
 import api from '@/assets/api/api';
+import K_List from '@/components/k_goods_list/k_goods_list'
+import axios from 'axios'
+
 export default {
   name: "home",
   data() {
     return {
+      pulldown: true,
       red:"red",
       dot_num: "Hot",
-      index: 0, // two way
-      autoplayTime: 3000
+      // 导航菜单数据
+      swipe_nav_data:[],
+      // 轮播图数据
+      swipe_banner_data:[],
+      // 头条公告数据
+      swipe_notive_data:[
+        {text: "淘商城1.0,今日火热上线啦!",url:'/center'},
+        {text: "淘商城2.0,今日火热上线啦!",},
+      ],
+      // 活动图数据
+      swipe_wilfare_data:[],
+      // 广告tab数据
+      swipe_tab_data:[],
+      // 相关推荐数据
+      recommend: [
+        {},{},{},{},{},{},{},{}
+      ],
     };
   },
-  created() {
-    this.test();
+  mounted() {
+    this.page_init();
+  },
+  watch: {
+    swipe_nav_data: function() {
+      this.refresh();
+    },
+    swipe_banner_data: function() {
+      this.refresh();
+    },
+    swipe_wilfare_data: function() {
+      this.refresh();
+    },
+    swipe_tab_data: function() {
+      this.refresh();
+    },
   },
   methods: {
-    
-    test() {
-
-      let arr = ['00','11'];
-
-      let res = Math.floor(Math.random() * (arr.length ));
-
-      console.log(arr[res]);
-
+    // 初始化
+    page_init() {
+      this.get_banner_img()
+      this.get_welfare()
+      this.get_tab_img()
+      this.get_nav_data()
+      this.$refs.scroll.$emit('pullrefresh.finishLoad'); // 上拉刷新完毕      
+    },  
+    // 下拉刷新  
+    pulldown1(pos) {
+      console.log(pos)
+      this.$refs.scroll.$emit('infinitescroll.finishLoad'); // 刷新中
+      this.page_init();
     },
-    tt() {
-      this.axios.get(api.test,{
-        params: {
-          id: 31
-        }
-      })
+    refresh() {
+      setTimeout(() => {
+        this.$refs.scroll.refresh()
+      },20)
+    },
+    // 获取导航数据
+    get_nav_data() {
+      this.axios.post(api.test3)
       .then(res => {
-        console.log(res.data)
+          this.swipe_nav_data = res.data
       })
-      .catch(res => {
-        this.$toast("网络错误")
+    },
+    // 获取轮播图数据
+    get_banner_img() {
+      this.axios.post(api.test)
+      .then(res => {
+          this.swipe_banner_data = res.data
+      })
+    },
+    // 轮播图点击
+    banner_click(index) {
+      console.log(index)
+      this.$refs.scroll.$emit('pullrefresh.finishLoad');
+    },
+
+    // 福利轮播
+    get_welfare() {
+      this.axios.post(api.test1)
+      .then(res => {
+          this.swipe_wilfare_data = res.data
+      })
+    },
+
+    // 广告tab数据
+    get_tab_img() {
+      this.axios.post(api.test2)
+      .then(res => {
+          this.swipe_tab_data = res.data
       })
     }
   },
@@ -129,85 +188,113 @@ export default {
     c_grid_data() {
       let that = this;
       return [
-        {
-          id: 1,
-          title: "title",
-          icon: "icon-home1",
-          fn: that.fff
+        {id: 1,   title: "9.9包邮", 
+          img:"https://img.alicdn.com/imgextra/i4/1876944604/O1CN01odsPIJ1jsfxuVSmsm_!!1876944604.png_170x120Q90s50.jpg_.webp"
         },
-        {
-          id: 2,
-          title: "title",
-          icon: "icon-home1",
-          dot_text: this.dot_num,
-          url: "/"
+        {id: 2,   title: "淘抢购",   dot_text: this.dot_num, url: "/",
+          img:"https://img.alicdn.com/tfs/TB1i.Avnb2pK1RjSZFsXXaNlXXa-168-168.png_170x120Q90s50.jpg_.webp"
         },
-        {
-          id: 3,
-          title: "title",
-          icon: "icon-home1",
-          url: "/"
+        {id: 3,   title: "免单福利", url: "/",
+          img:"https://gw.alicdn.com/tfs/TB1Jc0fSFXXXXXTapXXXXXXXXXX-146-147.png_110x10000.jpg_.webp"
         },
-        {
-          id: 4,
-          title: "title",
-          icon: "icon-home1",
-          url: "/about"
+        {id: 4,   title: "聚划算",   url: "/",
+          img:"https://gw.alicdn.com/tfs/TB15lhOSFXXXXaKXpXXXXXXXXXX-147-147.png_110x10000.jpg_.webp"
+        },
+        {id: 5,   title: "苏联易购", url: "/",
+          img:"https://gw.alicdn.com/tfs/TB1ISdWSFXXXXbFXXXXXXXXXXXX-146-147.png_110x10000.jpg_.webp"
+        },
+        {id: 6,   title: "9.9包邮", 
+          img:"https://img.alicdn.com/imgextra/i4/1876944604/O1CN01odsPIJ1jsfxuVSmsm_!!1876944604.png_170x120Q90s50.jpg_.webp"
+        },
+        {id: 7,   title: "淘抢购",   url: "/",
+          img:"https://img.alicdn.com/tfs/TB1i.Avnb2pK1RjSZFsXXaNlXXa-168-168.png_170x120Q90s50.jpg_.webp"
+        },
+        {id: 8,   title: "免单福利", url: "/",
+          img:"https://gw.alicdn.com/tfs/TB1Jc0fSFXXXXXTapXXXXXXXXXX-146-147.png_110x10000.jpg_.webp"
+        },
+        {id: 9,   title: "聚划算",   url: "/",
+          img:"https://gw.alicdn.com/tfs/TB15lhOSFXXXXaKXpXXXXXXXXXX-147-147.png_110x10000.jpg_.webp"
+        },
+        {id: 10,   title: "聚划算",   url: "/",
+          img:"https://gw.alicdn.com/tfs/TB15lhOSFXXXXaKXpXXXXXXXXXX-147-147.png_110x10000.jpg_.webp"
         },
       ];
-    }
+    },
   },
   components: {
-    BScroll,HomeMenu
+    BScroll,
+    HomeMenu,
+    k_swipe_banner,
+    k_swipe_nav,
+    k_swipe_tab,
+    k_swipe_notive,
+    Search,
+    K_List
   }
 };
 </script>
 
 <style scoped lang="less">
 @import url("../../common/less/index.less");
-.home {
+.header_box{
+  display: flex;
+  height: 50px;
+  .search_box{
+    flex: 1;
+    padding: 6px 0px 6px 2px;
+  }  
+  .msg_box{
+    flex: 0 0 20px;
+    line-height: 50px;
+    i {
+      font-size: 24px;
+      margin-right: 8px;
+      color: #666;
+    }
+  }
 }
 
-.pro_box{
-  /* background: #62CF76; */
-  width: 90%;  
-  margin: 0 auto;
+
+.advertising_box{
+  padding: 6px 0;
 }
-.pro_box .item{
-  /* background: #fff; */
-  color: #fff;
-  display: flex;
-  border-radius: 12px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  height: 160px;
+
+.title_wrapper{
+  text-align: center;
+  .title_box{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    padding: 0 12px;
+    line-height: 40px;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: 600;
+    color:@red;
+    &:after {
+      content:'';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateX(-100%);
+      height: 1px;
+      width: 20px;
+      background: @red;
+    }
+    &:before {
+      content:'';
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateX(0%);
+      height: 1px;
+      width: 20px;
+      background: @red;
+    }
+  }
 }
-.pro_box .item .img_box{
-  flex: 1;
-  padding: 8px;
-}
-.pro_box .item .img_box img{
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin-top: 10px;
-}
-.pro_box .item .text_box{
-  flex: 2;
-  padding: 8px;
-}
-.pro_box .item .text_box .title{
-  font-size: 16px;
-  display: inline-block;
-  min-width: 50%;
-  border-bottom: 1px solid #fff;
-  padding-bottom: 8px;
-  margin-bottom: 10px;
-  margin-top: 16px;
-}
-.pro_box .item .text_box .desc{
-  font-size: 12px;
-}
+
+
 .blue{
   background: @jianbian;
 }
@@ -219,4 +306,30 @@ export default {
 .p7{ color: @color_01; }
 .p8{ color: @color_02; }
 .p9{ color: @color_03; }
+
+
+// ====== home页面 ======
+.index_title{
+  padding-left: 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+.search_wrapper{
+  background: #fff;
+  height: 48px;
+  .search_box{
+    text-align: center;
+    padding-top: 10px;
+    .search_input{
+      width: 90%;
+      margin: 0 auto;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 4px;
+      background: #f5f5f5;
+      color:#999;
+    }
+  } 
+}
 </style>

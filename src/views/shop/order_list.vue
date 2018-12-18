@@ -66,28 +66,30 @@
 		    </div>
 	    </div> -->
 			
-	    <div class="for_items" v-for="item in order_data" :key="item.id">
+	    <div class="for_items" v-for="(item, index) in order_data" :key="item.id">
 	    	<div v-show="active + 1 == item.status">
 		    	<div class="khr"></div>
 		    	<div class="item">
 		    		<div class="item_herd">
-		    			<div>下单时间：1999-11-09 12:12:12</div>
+		    			<div>下单时间：2018-11-22 12:32:45</div>
 		    			<div>{{item.status | f_status}}</div>
 		    		</div>
 						
 						<div class="item_top">
-							<div>订单编号：1234567890123456789</div>
+							<div>订单编号：201811221232458698</div>
 						</div>
 
 		    		<div class="item_content">
 
 		    			<div class="for_goods_item">
 		    				<div class="img">
-		    					<img v-holder="'img=80x80?&bg=C7E1FF&text=80x80'">
+		    					<!-- <img v-holder="'img=80x80?&bg=C7E1FF&text=80x80'"> -->
+		    					<img v-holder="'img=80x80?&bg=C7E1FF&text=80x80'" src="https://img.4008823823.com.cn/kfcios/Version/533_420253.jpg" width="80" height="80">
 		    				</div>
 		    				<div class="info">
-		    					<div class="title">产品名称</div>
-		    					<div class="num">x 3</div>
+		    					<div class="title">小龙虾</div>
+		    					<div class="num">66元</div>
+		    					<div class="num">x 2</div>
 		    				</div>
 		    			</div>
 
@@ -96,8 +98,8 @@
 						<div class="expbox">
 							<table>
 								<tr>
-									<td><div>快递运费：</div></td>
-									<td><span class="money">12元</span></td>
+									<td><div>配送费：</div></td>
+									<td><span class="money">6元</span></td>
 								</tr>
 								<tr>
 									<td><div>满减红包：</div></td>
@@ -108,7 +110,7 @@
 						</div>
 
 		    		<div class="item_foot">
-		    			<div>￥300</div>
+		    			<div>￥130</div>
 		    			<div>
 		    				<span class="span1" v-show="item.status == 1" @click="cancel_order(1)">取消订单</span>
 		    				<span class="span2" v-show="item.status == 1" @click="pay_order(1)">立即付款</span>
@@ -142,15 +144,15 @@ export default {
 	name:"show_order_list",
 	data() {
 		return {
-			active: 0,
+			active: 3,
 			order_data:[
 				{
 					id:1,
 					status: 1
 				},
 				{
-					id:2,
-					status: 2
+					id:6,
+					status: 1
 				},
 				{
 					id:3,
@@ -166,6 +168,9 @@ export default {
 				},
 			]
 		}
+	},
+	created() {
+		this.active= parseInt(this.$route.query.tab) || 0
 	},
 	methods: {
 		// 立即购买

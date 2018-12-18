@@ -62,11 +62,12 @@ export default {
   	margin: 0 5px;
   	height: 35px;
   	line-height: 18px;
-  	background: #fff;
+  	background: #eee;
   	color: #000;
   	font-size: 14px;
     border: none;
     padding-left: 12px;
+    border-radius: 6px;
   	&::placeholder{
   		color: #666;
   		padding-left: 12px;

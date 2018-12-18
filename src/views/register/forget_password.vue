@@ -38,9 +38,14 @@
 			<button class="theme_btn" type="submit">找回密码</button>
 		</div>
 	</form>
-		<div class="btn_box" style="margin-top: 16px;">
+
+	<div class="sign_box">
+		<div class="sign1 pull-right"><span @click="goto_login">返回登录</span></div>
+		<div class="clearfix"></div>
+	</div>		
+		<!-- <div class="btn_box" style="margin-top: 16px;">
 			<button class="theme_btn" @click="goto_login">返回登录</button>
-		</div>
+		</div> -->
 
 </div></BScroll>
 </div>
@@ -123,7 +128,7 @@ export default {
 	input {
 		height: 100%;
 		width: 100%;
-		font-size: 18px;
+		font-size: 16px;
 	}
 	.username_box {
 		border-top: 1px solid #eee;
@@ -141,7 +146,7 @@ export default {
 			&:nth-of-type(1) {
 				flex: 0 0 100px;
 				width: 100px;
-				font-size: 18px;
+				font-size: 16px;
 				text-indent: 6px;
 				// color: #666;
 				letter-spacing: 1px;
@@ -157,7 +162,21 @@ export default {
 		.off {
 			color: #ccc;
 		}
-	}
-
+	}	
 }
+.sign_box{
+		margin-top: 14px;
+  	padding: 0 16px;
+  	height: 20px;
+  	line-height: 20px;
+  	.sign1{
+			span{
+				color: @color_shen;
+				margin-left: 6px;
+			}
+  	}
+  	.forget_password {
+  		color: @color_shen
+  	}
+  }
 </style>
