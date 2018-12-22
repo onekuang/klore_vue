@@ -22,6 +22,7 @@
 			<div class="item" v-for="item in hot_data">
 				<div class="box" @click="active_text(item.text)">{{item.text}}</div>
 			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 	
@@ -32,7 +33,7 @@
 			<span class="pull-right" @click="delete_all_history">清空</span>
 		</p>
 		<div class="history_box">
-			<div class="item" v-for="(item,index) in history">
+			<div class="item" v-for="(item,index) in history_reverse">
 				<div class="text" @click="active_text(item)">{{item}}</div>
 				<div class="delete" @click="delete_history(index)">
 					<i class="iconfont icon-close"></i>
@@ -58,6 +59,9 @@ export default {
 				{text:'热门3'},
 				{text:'热门4'},
 				{text:'热门5'},
+				{text:'热门6'},
+				{text:'热门7'},
+				{text:'热门8'},
 			],
 			// 历史搜索
 			history:["鞋子","衣子","帽子","圣诞"]
@@ -65,7 +69,12 @@ export default {
 	},
 	created() {
 		// l_storage.set('hisdata',this.history)
-		this.history = l_storage.get('hisdata')
+		this.history = l_storage.get('hisdata') || []
+	},
+	computed: {
+		history_reverse() {
+			return this.history.reverse();
+		}
 	},
 	methods:{
 		// 搜索请求
@@ -177,11 +186,12 @@ export default {
 			}
 		}
 		.hot_search{
-			display: flex;
-			flex-wrap: wrap;
+			// display: flex;
+			// flex-wrap: wrap;
 			text-align: center;
 			.item{
-				flex: 1;
+				// flex: 1;
+				float: left;
 				height: 30px;
 				margin-bottom: 10px;
 				margin-top: 10px;

@@ -33,11 +33,11 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(  
 		function(res) {
-            // if(res.status === 200 && res.data.code != 200) {
-            //     // 如果不是200 统一处理
-            //     _verify_code(res.data.code)
-            //     return
-            // }
+            if(res.status === 200 && res.data.code != 200) {
+                // 如果不是200 统一处理
+                _verify_code(res.data.code)
+                return
+            }
 			return res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res.data)
 		},
 		function(err) {

@@ -45,6 +45,10 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
 	props: {
+		current_index:{
+			type: Number,
+			default: 0,
+		},
 		swipe_data: {
 			type: Array,
 			default: function() {
@@ -75,13 +79,18 @@ export default {
             // console.log(this.activeIndex)
           },
           tap: function(event,index){
-			      console.log(this.clickedIndex)
+			      // console.log(this.clickedIndex)
 			      vm.tap_nav_item(this.clickedIndex)
 			    },
         }
       },
       active_index:0, // 当前索引
       more_menu_show: false,
+		}
+	},
+	watch: {
+		current_index :function(n, o) {
+			this.active_index = n
 		}
 	},
 	mounted () {  
@@ -97,6 +106,7 @@ export default {
   		if(index > 3) {
   			this.swiper.slideTo(index - 3, 100, false);
   		}
+  		this.$emit('tap_nav',index)
   	},
   	// 更多菜单
   	show_menu() {

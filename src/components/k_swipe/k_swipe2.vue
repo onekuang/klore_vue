@@ -3,7 +3,7 @@
 
 	<!-- 滑动模块 -->
 	<div class="k_sweipe_box">
-	  <swiper :options="swiperOption"  ref="mySwiper">   
+	  <swiper :options="swiperOption"  ref="hot_goods">   
 	      <swiper-slide v-for="(item, index) in swipe_data">  
 	      	<div style="padding: 6px;">
 		        <img 
@@ -72,7 +72,15 @@ export default {
   },
   computed: {
   	swiper() {  
-      return this.$refs.mySwiper.swiper;  
+      return this.$refs.hot_goods.swiper;  
+    }
+  },
+  watch: {
+    data(){  
+    	console.log(123)
+      setTimeout(() => {  
+        this.$refs.hot_goods.updateSlides();
+      },20)  
     }
   },
 	components: {
@@ -87,18 +95,23 @@ export default {
 .k_sweipe_box{
 	img{
 		border-radius: 2px;
+		display: block;
 	}
 	.info {
-		// text-align: center;
+		margin-top: 4px;
 		.title{
 			.ell();
 			font-size: 12px;
+			height: 20px;
+			line-height: 20px;
 		}
 		.price {
 			text-align: left;
 			color: red;
 			font-size: 12px;
 			font-weight: 900;
+			height: 20px;
+			line-height: 20px;
 			span {
 				display: inline-block;
 				padding: 0 4px;

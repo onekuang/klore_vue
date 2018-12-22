@@ -8,10 +8,11 @@
 		<div class="old_mobile_box">
 			<div class="item">真实姓名:</div>
 			<div class="item">
-				<input type="text" name="username" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.username" number>
+				<input type="text" name="username" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.username">
 			</div>
 		</div>
-		<div class="new_mobile_box">
+		
+		<div class="new_mobile_box" v-if="get_money_type === 'bank'">
 			<div class="item">到账银行卡:</div>
 			<div class="item">
 				<select name="bankName" id="k_select" v-model="form_data.bankName">
@@ -25,6 +26,19 @@
 				添加银行卡
 			</router-link>
 		</div>
+
+		<div class="new_mobile_box" v-if="get_money_type === 'alipay'">
+			<div class="item">到账支付宝:</div>
+			<div class="item">
+				<input type="text" name="alipay" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.alipay" hidden>
+				<p class="hide_input">{{form_data.alipay}}</p>
+			</div>	
+			<router-link tag="div" class="get_code on" to="/bindalipay">
+				修改
+			</router-link>
+		</div>
+
+
 		<div class="code_box">
 			<div class="item ">提现金额:</div>
 			<div class="item">
@@ -65,11 +79,13 @@ export default {
 	name:"getmoney",
 	data() {
 		return {
+			get_money_type: 'alipay', // alipay | bank
 			min_money: 100, // 最低提现额
 			balance: 0, 		// 余额
 			form_data:{
 				username:'',
 				bankName:'',
+				alipay: '651776858@qq.com',
 				money: '',
 			}
 		}
@@ -80,7 +96,9 @@ export default {
 		onSubmit(e) {
 			// 过滤字段
 			if(!kk.is_username(this.form_data.username,this)){return}
-			if(kk.is_null(this.form_data.bankName,this,'请选择到账银行卡')){return}
+			if(this.get_money_type == 'bank') {
+				if(kk.is_null(this.form_data.bankName,this,'请选择到账银行卡')){return}
+			}
 			if(kk.is_null(this.form_data.money,this)){return}
 			let money = parseInt(this.form_data.money)
 			if(!kk.is_number(money,this)){return}
@@ -129,6 +147,10 @@ export default {
 				font-size: 14px;
 				letter-spacing: 1px;
 				text-indent: 6px;
+			}
+			.hide_input{
+				font-size: 13px;
+				color: #999;
 			}
 		}
 		.get_code {

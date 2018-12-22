@@ -1,30 +1,29 @@
 <template>
-<div class="testvue ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="testvue page fff">
 
 <form @submit.prevent="onSubmit">
 	<div class="chang_mobile_box">
 		<div class="old_mobile_box">
 			<div class="item">原号码:</div>
 			<div class="item">
-				<input type="text" name="old_phone" class="old_mobile" placeholder="请输入原绑定号码" v-model="form_data.old_phone" number>
+				<input type="text" name="old_phone" class="old_mobile" placeholder="请输入原绑定号码" v-model="form_data.old_phone">
 			</div>
 		</div>
 		<div class="new_mobile_box">
 			<div class="item">新号码:</div>
 			<div class="item">
-				<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone" number>
+				<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone">
 			</div>
-			<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
-			<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
-			</div>			
+					
 		</div>
 		<div class="code_box">
 			<div class="item ">验证码:</div>
 			<div class="item">
-				<input type="text" class="code" name="code" placeholder="请输入手机验证码" v-model="form_data.code" number>
+				<input type="text" class="code" name="code" placeholder="请输入手机验证码" v-model="form_data.code">
 			</div>
+			<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
+			<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
+			</div>	
 		</div>
 	</div>
 	<div class="khr"></div>
@@ -36,13 +35,10 @@
 
 
 
-
-</div></BScroll>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
 var current_time = '';
 export default {
@@ -64,6 +60,7 @@ export default {
 			if(kk.is_null(this.form_data.code,this)){return}
 			if(this.form_data.old_phone == this.form_data.new_phone){
 				this.$toast('新旧手机不能一样');
+				return
 			}
 			// 调用请求函数
 			this.send_request()
@@ -99,9 +96,6 @@ export default {
 			}
 		}
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 
@@ -139,7 +133,7 @@ export default {
 			border-left: 1px solid #eee;
 		}
 		.on{
-			color: @color_shen;
+			color: #333;
 		}
 		.off {
 			color: #ccc;

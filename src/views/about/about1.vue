@@ -7,7 +7,7 @@
 	<img src="https://lipstick.xsygood.com/testimg/pyg_logo.png" width="200">
 </div>
 <mu-list>
-  <mu-list-item avatar button :ripple="false" to="/changname">
+  <mu-list-item avatar button :ripple="false" to="">
     
     <mu-list-item-title>当前版本</mu-list-item-title>
     <mu-list-item-action>
@@ -16,7 +16,7 @@
   </mu-list-item>
 
 
-  <mu-list-item avatar button ripple :ripple="false" to="/banklist">
+  <mu-list-item avatar button ripple :ripple="false" to="">
     <mu-list-item-title>意见反馈</mu-list-item-title>
     <mu-list-item-action>xxxxxx@xx.com</mu-list-item-action>
   </mu-list-item>
@@ -57,6 +57,10 @@ export default {
 @import url('../../common/less/index.less');
 .box_wrapper{
 	// background: #f7f7f7;
+}
+.logo{
+	height: 200px;
+	line-height: 235px;
 }
 .aboutus{
 	position: fixed;

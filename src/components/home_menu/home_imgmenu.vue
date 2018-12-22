@@ -112,6 +112,7 @@ p{
 				margin-bottom:8px;
 				img {
 					width: 100%;
+					display: block;
 				}
 				i{
 					font-size: 26px;
@@ -129,6 +130,10 @@ p{
 				  top: -6px;
 				  right: -10px;
 				}
+			}
+			p {
+				height: 20px;
+				line-height: 20px;
 			}
 		}
 	}

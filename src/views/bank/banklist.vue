@@ -11,6 +11,10 @@
 				{'gongshang':item.bankName=='工商银行'},
 				{'nongye':item.bankName=='农业银行'},
 				{'jianse':item.bankName=='建设银行'},
+				{'pingan':item.bankName=='平安银行'},
+				{'zhaoshang':item.bankName=='招商银行'},
+				{'guangfa':item.bankName=='广发银行'},
+				{'jiaotong':item.bankName=='交通银行'},
 			]"
 		>
 			<div class="header">
@@ -26,6 +30,10 @@
 				<img src="./img/gs_bg.png" v-show="item.bankName == '工商银行'">
 				<img src="./img/ny_bg.png" v-show="item.bankName == '农业银行'">
 				<img src="./img/js_bg.png" v-show="item.bankName == '建设银行'">
+				<img src="./img/pa_bg.png" v-show="item.bankName == '平安银行'">
+				<img src="./img/zs_bg.png" v-show="item.bankName == '招商银行'">
+				<img src="./img/gf_bg.png" v-show="item.bankName == '广发银行'">
+				<img src="./img/jt_bg.png" v-show="item.bankName == '交通银行'">
 			</div>
 			<div class="bottom">
 				<div class="bank_username">持卡人：<span>{{"李寻欢" | bank_username}}</span></div>
@@ -64,8 +72,12 @@ export default {
 			bankdata: [
 				{id:1,bankName:'中国银行'},
 				{id:2,bankName:'工商银行'},
-				// {id:3,bankName:'农业银行'},
-				// {id:4,bankName:'建设银行'},
+				{id:3,bankName:'农业银行'},
+				{id:4,bankName:'建设银行'},
+				{id:5,bankName:'平安银行'},
+				{id:6,bankName:'招商银行'},
+				{id:7,bankName:'广发银行'},
+				{id:8,bankName:'交通银行'},
 			]
 		}
 	},
@@ -147,7 +159,7 @@ export default {
 						position: relative;
 						height: 80px;
 						line-height: 64px;
-						z-index: 2;
+						z-index: 1;
 						.number{
 							text-align: center;
 							font-size: 22px;
@@ -185,6 +197,14 @@ export default {
 					&.nongye {background:linear-gradient(#4D7668, #49A185);}
 					// 建设银行
 					&.jianse {background:linear-gradient(#005BAB, #2196f3);}
+					// 平安银行
+					&.pingan {background:linear-gradient(#FC966F, #F15A23);}
+					// 招商银行
+					&.zhaoshang {background:linear-gradient(#E75264, #CA2033);}
+					// 广发银行
+					&.guangfa {background:linear-gradient(#00b4f5, #16507d);}
+					// 交通银行
+					&.jiaotong {background:linear-gradient(#005BAB, #2196f3);}
 				}
 			}
 		}
@@ -201,6 +221,7 @@ export default {
 	border-radius: 4px 4px 0 0;
 	background: #fff;
 	color: #666;
+	z-index: 33;
 	.tab_add_go{
 		height: 50px;
 		display: flex;

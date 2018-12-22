@@ -33,7 +33,6 @@ export default {
       //   console.log('需要登录')
       //   return
       // }
-
       //如果to索引大于from索引,判断为前进状态,反之则为后退状态
       if(to.meta.index > from.meta.index){
         //设置动画名称
@@ -64,6 +63,8 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  background: #fff;
+  z-index: 99;
 }
 
 

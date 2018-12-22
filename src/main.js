@@ -11,6 +11,11 @@ Vue.use(VueAxios, instance)
 // 引入字体
 // import "./assets/fonts/iconfont.css";
 
+// api
+import api from "./assets/api/api.js";
+Vue.prototype.$api = api
+
+
 // 引入ui
 import MuseUI from "muse-ui";
 import "muse-ui/dist/muse-ui.css";
@@ -19,8 +24,8 @@ Vue.use(MuseUI);
 // 弹窗组件
 import { Alert, Confirm, Toast, Loading } from "wc-messagebox";
 import "wc-messagebox/style.css";
-Vue.use(Alert, {});
-Vue.use(Confirm, {});
+Vue.use(Alert);
+Vue.use(Confirm);
 Vue.use(Toast);
 Vue.use(Loading);
 
@@ -45,6 +50,11 @@ Vue.use(AwesomePicker);
 // 剪贴板
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
+
+// 自定义
+import { Load_more, List_null } from './components/base/loading/index.js'
+Vue.use(Load_more)
+Vue.use(List_null)
 
 Vue.config.productionTip = false;
 

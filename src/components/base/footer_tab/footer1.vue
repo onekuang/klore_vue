@@ -69,16 +69,21 @@ export default {
 	.item {
 		flex: 1;
 		color: #999;
+		padding-top: 4px;
 		.iconbox{
 			height: 34px;
+			line-height: 34px;
 			i {
-				font-size: 26px;
+				font-size: 24px;
 			}
 		}
 		.title{
 			font-size: 12px;
 			height: 20px;
-		}		
+		}	
+		&:nth-of-type(3) {
+			padding-top: 0;
+		}	
 	}
 	& .active {
 		.title, i {

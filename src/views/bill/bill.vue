@@ -79,7 +79,8 @@ export default {
 		.count_box{
 			flex: 1;
 			.text{
-
+				height: 20px;
+				font-size: 13px;
 			}
 			.count{
 				font-size: 12px;
@@ -108,6 +109,7 @@ export default {
 			background: #fff;
 			border-radius: 4px;
 			padding-bottom: 8px;
+			padding-top: 8px;
 			border-bottom: 1px solid #eee;
 			.info_box{
 				flex: 1;
@@ -119,7 +121,7 @@ export default {
 					}
 					.tag{
 						font-size: 13px;
-						margin: 4px 0;
+						margin: 5px 0;
 						color: #777;
 						span {
 							margin-right: 12px;

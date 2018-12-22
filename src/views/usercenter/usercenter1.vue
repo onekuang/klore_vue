@@ -20,8 +20,9 @@
 				<div class="nickname">
 					木有昵称
 					<div class="user_lv">
+						<span class="icon"><i class="iconfont icon-crownfill"></i></span>
 						<span class="lv_name">超级会员</span>
-						<img src="./img/lv.png" height="24" width="80">
+						<!-- <img src="./img/lv.png" height="24" width="80"> -->
 					</div>
 				</div>
 				<div class="desc">
@@ -89,12 +90,14 @@
 		</div>
 		<div class="title">订单</div>
 	</router-link>
-	<div class="item">
+
+	<router-link tag='div' class="item" to="/team">
 		<div class="img">
 			<img src="./img/tab3.png" width="40" height="40">
 		</div>
 		<div class="title">粉丝</div>
-	</div>
+	</router-link>
+
 	<router-link tag='div' class="item" to="/myqrcode">
 		<div class="img">
 			<img src="./img/tab4.png" width="40" height="40">
@@ -108,36 +111,41 @@
 		<div class="title">我的工具</div>
 	</div>
 	<div class="cz_menu_content">
-		<div class="item">
+		<router-link tag="div" class="item" to="/guide" >
 			<!-- <i class="iconfont icon-waibaoxinxi"></i> -->
 			<img src="./img/icon1.png" width="32" height="32">
 			<div class="title">新手指引</div>
-		</div>
-		<div class="item">
+		</router-link>
+
+		<router-link tag="div" class="item" to="" >
 			<img src="./img/icon2.png" width="32" height="32">
 			<div class="title">省钱收藏</div>
-		</div>
-		<div class="item">
+		</router-link>
+
+		<router-link tag="div" class="item" to="/issue" >
 			<img src="./img/icon3.png" width="32" height="32">
 			<div class="title">常见问题</div>
-		</div>
-		<div class="item">
+		</router-link>
+
+		<router-link tag="div" class="item" to="" >
 			<img src="./img/icon4.png" width="32" height="32">
 			<div class="title">专属客服</div>
-		</div>
-		<div class="item">
+		</router-link>
+
+		<router-link tag="div" class="item" to="/notivelist" >
 			<img src="./img/icon5.png" width="32" height="32">
 			<div class="title">官方公告</div>
-		</div>
-		<div class="item">
+		</router-link>
+
+		<router-link tag="div" class="item" to="/comment" >
 			<img src="./img/icon6.png" width="32" height="32">
 			<div class="title">意见反馈</div>
-		</div>
-		<router-link tag="div" to="/about" class="item">
+		</router-link>
+
+		<router-link tag="div" class="item" to="/about">
 			<img src="./img/icon7.png" width="32" height="32">
 			<div class="title">关于我们</div>
 		</router-link>
-
 	</div>
 </div>
 
@@ -227,25 +235,33 @@ export default {
 					font-family: fantasy;
 					line-height: 30px;
 					.user_lv{
-						position: relative;
 						display: inline-block;
-						height: 20px;
-						width: 80px;
 						font-size: 12px;
 						z-index: 3;
 						margin-left: 5px;
-						.lv_name{
+						background: #3E3D3D;
+						color: #FFE5B2;
+						padding: 0 8px 0 0;
+						height: 20px;
+						line-height: 20px;
+						border-radius: 12px;
+						.icon{
 							display: inline-block;
-							margin-left: 22px;
-							margin-top: 2px;
-							color: #FFE5B2;
-						}
-						img{
-							position: absolute;
-							top: 4px;
-							left: 0;
-							z-index: -1;
-								
+							height: 20px;
+							width: 20px;
+							line-height: 20px;
+							text-align: center;
+							background: #000;
+							border-radius: 50px;
+							margin-right: 6px;
+							background:linear-gradient( #666, #000);
+							i{
+								font-size: 12px;
+							}
+						}						
+						.lv_name{
+							display: inline-block;							
+							
 						}
 					}
 				}
@@ -263,9 +279,9 @@ export default {
 						display: inline-block;
 						border-radius: 12px;
 						background: rgba(0, 0, 0, .3);
-						padding: 0 6px;
-						font-size: 10px;
-						margin-left: 16px;
+						padding: 3px 6px;
+						font-size: 12px;
+						margin-left: 10px;
 					}
 				}
 			}
@@ -316,6 +332,7 @@ export default {
 					border-radius: 6px;
 					font-size: 12px;
 					height: 20px;
+					line-height: 20px;
 					margin-right: 8px;
 				}
 			}
@@ -391,6 +408,8 @@ export default {
 		flex: 1;
 		.title {
 			font-size: 12px;
+			height: 20px;
+			line-height: 20px;
 		}
 	}
 }
@@ -421,6 +440,8 @@ export default {
 			}
 			.title{
 				font-size: 12px;
+				height: 20px;
+				line-height: 20px;
 			}
 		}
 	}

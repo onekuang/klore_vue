@@ -31,7 +31,7 @@
 				</div>	 -->			
 				<ul>
 				<li v-for='item in child_arr' @click='goto_detail(item.id)'> 
-					<img :src="'http://192.168.0.116' + item.image" width="50" height="50">
+					<img :src="item.image" width="50" height="50">
 					<p>{{item.name}}</p>
 				</li>				
 			</ul>
@@ -50,47 +50,47 @@ export default {
 	data() {
 		return {
 			arr_index: 0,
-			// class_data: [
-			// 	{
-			// 		id: 1,
-			// 		title: '鞋子',
-			// 		child: [
-			// 			{
-			// 				id:101,
-			// 				pid: 1,
-			// 				title: '女鞋',
-			// 				image:"https://lipstick.xsygood.com/testimg/nvxie.png"
-			// 			},
-			// 			{
-			// 				id:102,
-			// 				pid: 1,
-			// 				title: '高跟鞋',
-			// 				image:"https://lipstick.xsygood.com/testimg/nvxie.png"
-			// 			},
-			// 		]
-			// 	},
-			// 	{
-			// 		id: 2,
-			// 		title: '彩妆',
-			// 		child: [
-			// 			{
-			// 				id:103,
-			// 				pid: 2,
-			// 				title: '口红',
-			// 				image:"http://lipadmin.xsygood.com/upload/lipstick/1544581412415.jpg"
-			// 			},
-			// 			{
-			// 				id:104,
-			// 				pid: 2,
-			// 				title: '香水',
-			// 				image:"http://lipadmin.xsygood.com/upload/lipstick/1544582284009.jpg"
-			// 			},
-			// 		]
-			// 	},
-			// ],
-			class_data:[
-				{id:'',name:'',child:[]}
-			]
+			class_data: [
+				{
+					id: 1,
+					name: '鞋子',
+					child: [
+						{
+							id:101,
+							pid: 1,
+							name: '女鞋',
+							image:"https://lipstick.xsygood.com/testimg/nvxie.png"
+						},
+						{
+							id:102,
+							pid: 1,
+							name: '高跟鞋',
+							image:"https://lipstick.xsygood.com/testimg/nvxie.png"
+						},
+					]
+				},
+				{
+					id: 2,
+					name: '彩妆',
+					child: [
+						{
+							id:103,
+							pid: 2,
+							name: '口红',
+							image:"http://lipadmin.xsygood.com/upload/lipstick/1544581412415.jpg"
+						},
+						{
+							id:104,
+							pid: 2,
+							name: '香水',
+							image:"http://lipadmin.xsygood.com/upload/lipstick/1544582284009.jpg"
+						},
+					]
+				},
+			],
+			// class_data:[
+			// 	{id:'',name:'',child:[]}
+			// ]
 		}
 	},
 	created() {
@@ -103,7 +103,7 @@ export default {
 	},
 	methods: {
 		page_init() {
-			this._get_data();
+			// this._get_data();
 		},
 		_get_data() {
 			this.axios.get("http://192.168.0.116/api/tbk_api/categorylist.html",{
@@ -256,6 +256,7 @@ export default {
 			border-radius: 4px;
 			background: #f5f5f5;
 			color:#999;
+			font-size: 12px;
 		}
 	}	
 }

@@ -22,14 +22,15 @@
 				<div class="item">
 					<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone" number>
 				</div>
-				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
-				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
-				</div>			
+							
 			</div>
 			<div class="code_box">
 				<div class="item ">验 证 码:</div>
 				<div class="item">
 					<input type="text" class="code" name="code" placeholder="请输入手机验证码" v-model="form_data.code" number>
+				</div>
+				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
+				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
 				</div>
 			</div>
 		</div>
@@ -128,10 +129,7 @@ export default {
 	input {
 		height: 100%;
 		width: 100%;
-		font-size: 16px;
-	}
-	.username_box {
-		border-top: 1px solid #eee;
+		font-size: 14px;
 	}
 	.username_box, .new_mobile_box, .code_box {
 		box-sizing: border-box;
@@ -146,7 +144,7 @@ export default {
 			&:nth-of-type(1) {
 				flex: 0 0 100px;
 				width: 100px;
-				font-size: 16px;
+				font-size: 15px;
 				text-indent: 6px;
 				// color: #666;
 				letter-spacing: 1px;
@@ -155,9 +153,10 @@ export default {
 		.get_code {
 			padding: 0 12px;
 			border-left: 1px solid #eee;
+			font-size: 13px;
 		}
 		.on{
-			color: @color_shen;
+			color: #333;
 		}
 		.off {
 			color: #ccc;
@@ -171,12 +170,13 @@ export default {
   	line-height: 20px;
   	.sign1{
 			span{
-				color: @color_shen;
+				font-size: 14px;
+				color: #999;
 				margin-left: 6px;
 			}
   	}
   	.forget_password {
-  		color: @color_shen
+  		color: @lan
   	}
   }
 </style>

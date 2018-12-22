@@ -11,6 +11,9 @@
 		<div class="item">
 			<div class="top">
 				付款笔数
+				<mu-tooltip placement="top" content="提示信息">
+				  <span><i class="iconfont icon-bangzhuwenhao"></i></span>
+				</mu-tooltip>
 			</div>
 			<div class="center">￥123</div>
 			<div class="bottom">上月佣金</div>

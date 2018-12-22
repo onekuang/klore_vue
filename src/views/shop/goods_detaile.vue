@@ -27,9 +27,17 @@
 		<div class="clearfix"></div>
 		<div class="goods_head">
 			<div class="title">惊天动地小龙虾</div>
-			<div class="img">
+			<!-- <div class="img">
 				<img src="./qd.png" width=24 height="24">
-				<p class="p1">分享</p>
+				<p class="p1">分享</p>				
+			</div> -->
+			<div class="img" v-show=false>
+				<span class="weishoucang"><i class="iconfont icon-favor"></i></span>				
+				<p class="p1" v-show=false>收藏</p>				
+			</div>
+			<div class="img" v-show=true>
+				<span class="yishoucang"><i class="iconfont icon-favorfill"></i></span>
+				<p class="p1" v-show=true>已收藏</p>
 			</div>
 		</div>
 		<div class="param">
@@ -106,7 +114,6 @@ import BScroll from '@/components/base/scroll/scroll'
 import ShopCart from '@/components/base/shopcart/shopcart'
 import k_swipe_banner from '@/components/k_swipe/k_swipe';
 import K_List from '@/components/k_goods_list/k_goods_list'
-import api from '@/assets/api/api';
 import { mapGetters , mapMutations ,mapActions } from 'vuex'
 
 
@@ -144,7 +151,7 @@ export default {
 		},  
 		// 获取轮播图数据
     get_banner_img() {
-      this.axios.post(api.test)
+      this.axios.post(this.$api.test)
       .then(res => {
           this.swipe_banner_data = res.data
       })
@@ -224,6 +231,8 @@ export default {
 			.item{
 				float: left;
 				font-size: 12px;
+				height: 20px;
+				line-height: 20px;
 				&:nth-of-type(1) {
 					height: 20px;
 					line-height: 20px;
@@ -244,6 +253,7 @@ export default {
 						font-weight: 900;
 						font-size: 16px;
 						color: #f10;
+						line-height: 24px;
 					}
 				}
 				&:nth-of-type(3) {
@@ -267,13 +277,30 @@ export default {
 			}
 			.img{
 				text-align: center;
-				flex: 0 0 30px;
-				width: 30px;
+				flex: 0 0 40px;
+				width: 40px;
 				.p1{
 					margin: 0;
 					padding: 0;
 					font-size: 12px;
 					color: #888;
+					margin-top: 8px;
+				}
+				.weishoucang{
+					display: inline-block;
+					height: 30px;
+					i {
+						color: #999;
+						font-size: 24px;
+					}					
+				}
+				.yishoucang{
+					display: inline-block;
+					height: 30px;
+					i {
+						color: @red;
+						font-size: 24px;
+					}					
 				}
 			}
 		}

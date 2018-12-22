@@ -26,68 +26,80 @@
 			<img :src="arvatar" width="80" height="80px" @click="addPicFront">
 			<input type="hidden" value="" name="logo"  >
 		  <input type="file" @change="upload($event)" style="display: none;" ref="upload" id='upload' accept="image/*">
-			<p class="c999">点击更改头像</p>
+			<p class="c999 changeavatar">点击更改头像</p>
 		</div>
 
-
+			<div class="khr"></div>
 	    <mu-list>
-	      <mu-sub-header>基本设置</mu-sub-header>
-	      <mu-list-item avatar button :ripple="false" to="/changname">
-	        <mu-list-item-action class="chen">
+	      <!-- <mu-sub-header>基本设置</mu-sub-header> -->
+	      <mu-list-item avatar button :ripple="false" to="/updatename">
+	        <mu-list-item-action class="chen" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-pinglun1"/>
 	          <!-- <mu-avatar>
 	            <img src="https://img.4008823823.com.cn/kfcios/Version/533_420253.jpg">
 	          </mu-avatar> -->
 	        </mu-list-item-action>
-	        <mu-list-item-title>修改昵称</mu-list-item-title>
+	        <mu-list-item-title>昵称修改</mu-list-item-title>
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you" />
 	        </mu-list-item-action>
 	      </mu-list-item>
 
-
-	      <mu-list-item avatar button ripple :ripple="false" to="/changephone">
-	        <mu-list-item-action  class="blue">
+	      <mu-list-item avatar button ripple :ripple="false" to="/updatepassword">
+	        <mu-list-item-action  class="blue" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-biangengshoujihao"/>
 	        </mu-list-item-action>
-	        <mu-list-item-title>手机更改</mu-list-item-title>
+	        <mu-list-item-title>密码修改</mu-list-item-title>
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you" />
 	        </mu-list-item-action>
 	      </mu-list-item>
 
-	      <mu-list-item avatar button ripple :ripple="false" to="/banklist">
-	        <mu-list-item-action  class="chen">
+				<div class="khr"></div>
+	      <mu-list-item avatar button ripple :ripple="false" to="/updatephone">
+	        <mu-list-item-action  class="blue" v-if="icon_show">
+	          <mu-icon slot="left" value=":iconfont icon-biangengshoujihao"/>
+	        </mu-list-item-action>
+	        <mu-list-item-title>手机号绑定</mu-list-item-title>
+	        <mu-list-item-action>
+	          <mu-icon slot="right" value=":iconfont icon-you" />
+	        </mu-list-item-action>
+	      </mu-list-item>
+
+	      
+
+	      <!-- <mu-list-item avatar button ripple :ripple="false" to="/banklist">
+	        <mu-list-item-action  class="chen" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-iconset0292" />
 	        </mu-list-item-action>
 	        <mu-list-item-title>银行卡管理</mu-list-item-title>
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you" />
 	        </mu-list-item-action>
+	      </mu-list-item> -->
+
+	      <mu-list-item avatar button ripple :ripple="false" to="/bindalipay">
+	        <mu-list-item-action  class="chen" v-if="icon_show">
+	          <mu-icon slot="left" value=":iconfont icon-iconset0292" />
+	        </mu-list-item-action>
+	        <mu-list-item-title>支付宝绑定<span class="marke"></span></mu-list-item-title>
+	        <mu-list-item-action>
+	          <mu-icon slot="right" value=":iconfont icon-you" />
+	        </mu-list-item-action>
 	      </mu-list-item>
 	    </mu-list>
 
-
+			<div class="khr"></div>
 	    <!-- <mu-divider></mu-divider> -->
 	    <mu-list>
-	      <mu-sub-header>系统相关</mu-sub-header>
+	      <!-- <mu-sub-header>系统相关</mu-sub-header> -->
 
-	      <mu-list-item avatar button :ripple="false">
-	        <mu-list-item-action>
-	          <mu-icon slot="left" value=":iconfont icon-ai-bind-cel"/>
-	        </mu-list-item-action>
-	        <mu-list-item-title>Item</mu-list-item-title>
-	        <mu-list-item-action>
-	          <mu-icon slot="right" value=":iconfont icon-you"/>
-	        </mu-list-item-action>
-	      </mu-list-item>
-
-	      <mu-list-item avatar button :ripple="false" @click="clearStroage">
-	        <mu-list-item-action class="green">
+	      <!-- <mu-list-item avatar button :ripple="false" @click="clearStroage">
+	        <mu-list-item-action class="green" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-delete"/>
 	        </mu-list-item-action>
 	        <mu-list-item-title>清除缓存</mu-list-item-title>
-	      </mu-list-item>
+	      </mu-list-item> -->
 
 	      <!-- <mu-list-item avatar button :ripple="false" to="/userconfig">
 	        <mu-list-item-action>
@@ -100,7 +112,7 @@
 	      </mu-list-item> -->
 
 	      <mu-list-item avatar button :ripple="false" to="/login">
-	        <mu-list-item-action class="red">
+	        <mu-list-item-action class="red" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-qiehuanzuhu"/>
 	        </mu-list-item-action>
 	        <mu-list-item-title>注销</mu-list-item-title>
@@ -125,6 +137,7 @@ import {s_storage, l_storage} from '@/common/js/storage'
 export default {
 	data() {
 		return {
+			icon_show: false,
 			arvatar:"https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132",
 			picValue:'' ,
 		}
@@ -341,7 +354,15 @@ export default {
 	}
 	.mu-list{
     background: #fff;
+    li {
+    	// border-bottom: 1px solid #eee;
+    }
     .mu-item {    	
+    	.marke{
+    		font-size: 12px;
+    		color: #ccc;
+    		margin-left: 8px;
+    	}
     	.mu-item-action {
     		min-width: 40px;
     		// li 左侧图标
@@ -370,6 +391,10 @@ export default {
     	}
     }
   } 
+}
+.changeavatar{
+	margin-top: 4px;
+	font-size: 13px;
 }
 .k_avatar{
 	img{

@@ -7,6 +7,7 @@ var api = {
 	test1					: 'Webdata/test1',
 	test2					: 'Webdata/test2',
 	test3					: 'Webdata/test3',
+	test4					: 'Webdata/test4',
 }
 
 for(var i in api ) {
