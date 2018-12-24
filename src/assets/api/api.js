@@ -14,4 +14,6 @@ for(var i in api ) {
 	api[i] = baseUrl + api[i]
 }
 
+api.base_img = 'http://192.168.0.116'
+
 export default api;

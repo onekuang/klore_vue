@@ -23,7 +23,7 @@ export default {
   name: "app",
   data() {
     return {
-      include:['list','about','classlist'],
+      include:['home','list','about','classlist'],
       transitionName: '',
     }
   },

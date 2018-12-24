@@ -1,10 +1,9 @@
 <template>
-<div class="goods_detaile_wrapper ab_full">
+<div class="goods_detaile_wrapper page fff">
 	<span class="back" @click=back>
 		<i class="iconfont icon-icon--"></i>
 	</span>
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+
 	<!-- 轮播图 -->
 	<!-- 轮播组件 -->
     <div>
@@ -21,7 +20,7 @@
 				<span>￥218</span>
 			</div>
 			<div class="item">
-				<span>淘宝价￥228</span>
+				<span style="text-decoration:line-through;">淘宝价￥228</span>
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -65,7 +64,7 @@
 			</div>
 		</div>
 		<div class="content" v-show=detaile_show >
-			<div v-html= "html"></div>
+			<div v-html="html"></div>
 		</div>
 	</div>
 	<div class="khr"></div>
@@ -78,31 +77,68 @@
 	    	猜你喜欢
 	    </div>
 	  </div>
-	  <K_List :type = 2 :data=recommend />
+	  <K_List :row_type=1 :data=recommend />
 	</div>
 
-
 	
+	<!-- 图片生成dom -->
+	<div id="haibao" class="goods_info" v-show='created_img_show'>
+		
+		<div class="goods_head">
+			<div class="title">惊天动地小龙虾</div>
+			<!-- <div class="img">
+				<img src="./qd.png" width=24 height="24">
+				<p class="p1">分享</p>				
+			</div> -->
+		</div>
+		
+		<br>
+		<div class="">
+			<img :src="banner_one" style="max-width: 100%;" />
+		</div>
 
+		<div class="goods_money">
+			<div class="item">
+				<span>劵后价</span>
+			</div>
+			<div class="item">
+				<span>￥218</span>
+			</div>
+			<div class="item">
+				<span style="text-decoration:line-through;">淘宝价￥228</span>
+			</div>
+		</div>
+		<div class="clearfix"></div>
 
+		<div class="qrcode_box">
+			<div class="item">
+				<p>便宜购 - 少花钱, 多省钱</p>
+				<p>长按图片, 扫码领取优惠卷</p>
+			</div>
+			<div class="item">
+				<div id="qrcode" class="qrcode" ref="qrcode"></div>	
+			</div>
+		</div>
+	</div>
 
-
-
-
-
-
-
-
-
-</div></BScroll>
-
-
-<!-- 购物车 -->
-<!-- <ShopCart 
-	:selectFoods=shoppingCart 
-	@addCart=addCart 
-	@pay=pay
-/> -->
+<div class="share_box">
+	<div class="item" @click="goto('/goodsshare')">
+		<div class="icon">
+			<i class="iconfont icon-lianjie2"></i>
+		</div>
+		<div class="text">
+			分享
+		</div>
+	</div>
+	<div class="item">
+		<div class="icon">
+			<i class="iconfont icon-wodeyouhuiquan"></i>
+		</div>
+		<div class="text">
+		 	领劵￥30
+		</div>
+	</div>
+</div>
 
 
 
@@ -110,12 +146,10 @@
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
-import ShopCart from '@/components/base/shopcart/shopcart'
+import QRCode from 'qrcodejs2'
 import k_swipe_banner from '@/components/k_swipe/k_swipe';
 import K_List from '@/components/k_goods_list/k_goods_list'
-import { mapGetters , mapMutations ,mapActions } from 'vuex'
-
+import { mapGetters , mapMutations } from 'vuex'
 
 export default {
 	name:"goods_detaile",
@@ -137,8 +171,10 @@ export default {
 			],
 			// 相关推荐数据
       recommend: [
-        {},{},{},{},{},{},{},{}
+        {},{},{},{}
       ],
+      created_img_show: false, // 生成二维码前显示dom
+      banner_one: '', // banner 第一张图
 		}
 	},
 	created() {
@@ -147,13 +183,59 @@ export default {
 	methods: {
 		// 初始化
 		page_init() {
-		  this.get_banner_img()  
+			this.get_data()
+
 		},  
-		// 获取轮播图数据
-    get_banner_img() {
-      this.axios.post(this.$api.test)
-      .then(res => {
-          this.swipe_banner_data = res.data
+		get_data() {
+			this.axios.get(this.$api.test,{
+				params: {
+					id: 2
+				}
+			})
+			.then(res => {
+				this.html = res.data.img
+				this.swipe_banner_data = res.data.banner
+			})
+			.catch(res => {
+				this.$toast("网络错误")
+			})
+		},
+
+    goto(url) {
+    	let that = this
+    	this.$loading.show()
+    	if(this.created_img_show) {
+    		return
+    	}
+    	this.created_img_show = true
+    	this.banner_one = this.swipe_banner_data[0].src
+    	let qrcode = new QRCode('qrcode', {  
+	      width: 100,  
+	      height: 100, // 高度  	      
+	     	text: 123, // 二维码内容
+	      background: '#ffffff', 
+	     	foreground: "#ffffff"
+	    })
+    	
+    	setTimeout(() => {
+    		that.created_imgurl()
+    	},300)
+
+    	
+    },
+    created_imgurl() {
+    	let that = this
+    	html2canvas(document.getElementById('haibao')).then(function(canvas) {
+          let img_url = canvas.toDataURL("image/jpeg");
+          that.add_qrcode(img_url)
+          // console.log(img_url)
+      }).then(function() {
+      	that.created_img_show = false
+      	document.getElementById('qrcode').innerHTML= ''
+      	that.$loading.hide()
+      	that.$router.push({
+    		path: `/goodsshare?id=123456`
+    	})
       })
     },
     // 切换详情toggle
@@ -164,52 +246,28 @@ export default {
 		back() {
 			this.$router.back()
 		},
-		// 监听购物车组件 => 点击了`加入购物车`按钮
-		addCart() {
-			let data = {
-				id:this.goods.id,
-				name:this.goods.name,
-				price:this.goods.price,
-				logo: this.goods.logo,
-				count:1
-			}
-			this.add_cart(data)
-		},
-		// 监听购物车组件 => 点击了`结算`按钮
-		pay() {
-			this.$router.push({
-				path: `/shopcar`
-			})
-		},
 		...mapMutations({
-    	add_cart: 'ADD_CART',
+    	add_qrcode: 'ADD_QRCODE',
     })
 	},
-	computed: {
-		...mapGetters([
-			'shoppingCart'
-		])
-	},
 	components: {
-		BScroll,ShopCart,
 		k_swipe_banner,
 		K_List
 	},
 	destroyed() {
+		this.created_img_show = false
+    document.getElementById('qrcode').innerHTML= ''
 		console.log('监听页面离开')
 	}
 }
 </script>
 
 <style scoped lang="less">
-// @import url('../../common/less/config.less');
-// @import url('../../common/less/theme.less');
-// @import url('../../common/less/common.less');
 @import url('../../common/less/index.less');
 .goods_detaile_wrapper{
 	.back{
 		display: inline-block;
-		position: absolute;
+		position: fixed;
 		left: 12px;
 		top: 12px;
 		z-index: 99;
@@ -365,10 +423,99 @@ export default {
 				}
 			}
 		}
-		img{
+		/deep/ img{
 			max-width: 100% !important;
 		}
 	}
 }
-
+.share_box{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 56px;
+	z-index: 9999;
+	background: #fff;
+	display: flex;
+	.item {
+		flex: 1;
+		text-align: center;
+		line-height: 56px;
+		font-size: 16px;
+		&:nth-of-type(1) {
+			flex: 1;
+			width: 60px;
+			background: @chen;
+			color: #fff;
+			display: flex;
+			.icon {
+				flex: 1;
+				text-align: right;
+				i {
+					font-size: 20px;
+					margin-right: 2px;
+				}
+			}
+			.text{
+				flex: 1;
+				text-align: left;
+				font-size: 15px;
+			}
+		}
+		&:nth-of-type(2) {
+			flex: 3;
+			background: @red;
+			color: #fff;	
+			display: flex;
+			.icon{
+				flex: 1;
+				text-align: right;
+				font-size: 24px;
+				i{
+					margin-right: 4px;
+				}
+			}
+			.text{
+				text-align: left;
+				flex: 1;
+				font-size: 15px;
+			}
+		}
+	}
+}
+.qrcode_box{
+	width: 100%;
+	display: flex;
+	padding-bottom: 20px;
+	padding-top: 80px;
+	position: relative;
+	.item {		
+		&:nth-of-type(1) {
+			flex: 2;
+			text-align: right;			
+			padding-top: 20px;
+			p {
+				&:nth-of-type(1) {
+					border-bottom: 1px solid #eee;
+					display: inline-block;
+					padding: 4px 0px 4px 8px;
+					margin-right: 16px;
+					color: #666;
+					letter-spacing: 1px;
+				}
+				&:nth-of-type(2) {
+					height: 30px;
+					line-height: 30px;
+					font-size: 12px;
+					padding-right: 16px;
+					color: #999;
+					letter-spacing: 1px;
+				}
+			}
+		}
+		&:nth-of-type(2) {
+			flex: 1;
+		}
+	}
+}
 </style>

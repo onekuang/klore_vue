@@ -33,11 +33,11 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(  
 		function(res) {
-            if(res.status === 200 && res.data.code != 200) {
-                // 如果不是200 统一处理
-                _verify_code(res.data.code)
-                return
-            }
+            // if(res.status === 200 && res.data.code != 200) {
+            //     // 如果不是200 统一处理
+            //     _verify_code(res.data.code)
+            //     return
+            // }
 			return res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res.data)
 		},
 		function(err) {
@@ -62,9 +62,9 @@ const errorHandle = (status, other) => {
     // 状态码判断
     switch (status) {
         // 401: 未登录状态，跳转登录页
-        case 401:
-            console.log(401)
-            break;
+        // case 401:
+        //     console.log(401)
+        //     break;
         // 403 token过期
         // 清除token并跳转登录页
         case 403:
@@ -72,10 +72,10 @@ const errorHandle = (status, other) => {
             break;
         // 404请求不存在 
         case 404:
-        		Vue.prototype.$toast('404请求的资源不存在')
+        	Vue.prototype.$toast('404请求的资源不存在')
             break;
         case 500:
-        		Vue.prototype.$toast('服务器错误,请稍后再试')
+        	Vue.prototype.$toast('服务器错误,请稍后再试')
             break;
         default:
             Vue.prototype.$toast('服务器错误,请稍后再试')

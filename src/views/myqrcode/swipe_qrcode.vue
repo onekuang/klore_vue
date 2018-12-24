@@ -52,7 +52,7 @@
 	<div class="haibao_img" v-show=page_img>
 		<div class="img">
 			<img :src=dataURL width="100%">
-			<p class="text-center" style="color: #fff;">长按图片可发送给好友</p>
+			<p class="text-center" style="color: #fff;margin-top: 12px;">长按图片可发送给好友</p>
 		</div>
 		<div class="marke" @click="clone_img"></div>
 	</div>

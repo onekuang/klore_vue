@@ -195,6 +195,11 @@ export default new Router({
       },
     
     // ======= 特殊类 =======
+      {// 创建分享
+        path: "/goodsshare",
+        meta:{index:24,title:"创建分享"},
+        component: () => import("@/views/other/created_share.vue")
+      },
       {// 常见问题
         path: "/issue",
         meta:{index:19},
@@ -204,26 +209,6 @@ export default new Router({
         path: "/guide",
         meta:{index:19},
         component: () => import("./views/notive/guide.vue")
-      },
-      {// 报名
-        path: "/apply",
-        meta:{index:12,title:"我要报名"},
-        component: () => import("./views/login/login2.vue")
-      },
-      {// 排行榜
-        path: "/ranking",
-        meta:{index:13,title:"排行榜"},
-        component: () => import("@/components/ranking/ranking.vue")
-      },
-      {// 投票详情
-        path: "/votedetail",
-        meta:{index:10,title:"商家详情"},
-        component: () => import("@/views/prodetaile/prodetaile.vue")
-      },
-      {// 奖品详情
-        path: "/jiangpin",
-        meta:{index:24,title:"奖品"},
-        component: () => import("@/views/jiangping/jiangping.vue")
       },
   ]
 });
