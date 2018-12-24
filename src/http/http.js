@@ -78,6 +78,7 @@ const errorHandle = (status, other) => {
         		Vue.prototype.$toast('服务器错误,请稍后再试')
             break;
         default:
+            Vue.prototype.$toast('服务器错误,请稍后再试')
             console.log('网络错误');   
     }
 }
