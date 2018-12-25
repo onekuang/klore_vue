@@ -35,7 +35,7 @@ footer, header, menu, nav, section {
 }
 
 body {
-  line-height: 1;
+  line-height: 1.5;
 }
 
 blockquote, q {
@@ -59,7 +59,12 @@ a {
   color: #7e8c8d;
   -webkit-backface-visibility: hidden;
   text-decoration: none;
+  &:active{
+    background: none;
+    text-decoration: none;
+  }
 }
+
 li {
   list-style: none;
 }
@@ -74,6 +79,7 @@ body{
 p {
   margin: 0;
   padding: 0;
+  line-height: 1.5;
 }
 button{
   outline: none;

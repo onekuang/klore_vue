@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	
-	<div class="btn_bos">
+	<div class="btn_bos fff">
 		<div class="item">
 			<div class="btn" v-clipboard:copy="tao_code"
       			v-clipboard:success="onCopy"
@@ -49,7 +49,7 @@
 	<div class="haibao_img" v-show=page_img>
 		<div class="img">
 			<img :src=code_img width="100%">
-			<span class="text-center" style="color: #fff;margin-top: 12px;">长按图片可发送给好友</span>
+			<p class="text-center" style="color: #fff;margin-top: 12px;">长按图片可发送给好友</p>
 		</div>
 		<div class="marke" @click="clone_img"></div>
 	</div>
@@ -71,7 +71,6 @@ export default {
 		}
 	},
 	created() {	
-
 		this.get_data()
 	},
 	methods: {
@@ -87,6 +86,7 @@ export default {
 				content: '此处展示高佣为卖家设置佣金,不同用户申请到的佣金不同,最终以实际结算结果为准'
 			})
 		},
+
 		open_img() {
 			this.page_img = true
 		},
@@ -131,6 +131,10 @@ export default {
 		padding: 12px 8px;
 		color: #777;
 		font-size: 13px;
+		.info_box{
+			line-height: 1.5;
+			font-synthesis: 14px;
+		}
 	}
 	.img_box{
 		display: flex;

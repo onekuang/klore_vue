@@ -143,12 +143,16 @@ export default {
 				border-radius: 6px;
 				.span1 {
 					margin-left: 8px;
+					flex: 0 0 30px;
+					width: 30px;
 				}
 				input{
+					flex: 1;
 					padding-left: 12px;
 					background: #f7f7f7;
 					font-size: 12px;
 					color: #777;
+					width: 90%;
 				}
 			}
 			.search_btn_box{

@@ -1,7 +1,5 @@
 <template>
-<div class="k-article ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="k-article page">
 
 	<!-- <div class="article_box">
 
@@ -21,14 +19,11 @@
 	 	{{"Oct 11, 2018 2:01:06 PM" | time}}
 	 </p>
 	 <div class="content">
-	 		<div>
-	 			<p v-for="item in 10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium aliquid, quia qui vel inventore culpa omnis ex illo voluptate atque, laboriosam magnam dolor quo, veritatis. Nulla consectetur, a iste quis!<br><br></p>				
+	 		<div v-html=html>		
 	 		</div>
 	 </div>
 	</div>
 
-
-</div></BScroll>
 </div>
 </template>
 
@@ -40,7 +35,8 @@ export default {
 	data() {
 		return {
 			id:'',
-			data: ''
+			data: '',
+			html:'html'
 		}
 	},
 	created() {
@@ -50,6 +46,7 @@ export default {
 		_getdata() {
 			let self = this
 			this.id = this.$route.query.id
+			this.api = this.$route.query.api
 
 			return
 
@@ -69,34 +66,13 @@ export default {
 			})
 		}
 	},
-	filters: {
-	  time: function (input) {
-	    var d       = new Date(input)
-	    var year    = d.getFullYear()
-	    var month   = d.getMonth()    + 1
-	    var day     = d.getDate()     < 10 ? '0' + d.getDate()    : '' + d.getDate()
-	    var hour    = d.getHours()    < 10 ? '0' + d.getHours()   : '' + d.getHours()
-	    var minutes = d.getMinutes()  < 10 ? '0' + d.getMinutes() : '' + d.getMinutes()
-	    var seconds = d.getSeconds()  < 10 ? '0' + d.getSeconds() : '' + d.getSeconds()
-	
-	    return year + '-' 
-	      + month   + '-' 
-	      + day     + ' ' 
-	      + hour    + ':' 
-	      + minutes + ':' 
-	      + seconds;
-	  }
-	},
-	components: {
-		BScroll
-	}
 }
 </script>
 
 <style lang="less">
-@import url('../../common/less/config.less');
+@import url('../../common/less/index.less');
 .k-article{
-	padding: 8px;
+	// padding: 8px;
 	html,body,p,h1,h2,h3,h4,h5,h6{
 		padding: 0;
 		margin: 0;
@@ -106,7 +82,7 @@ export default {
 		padding: 12px;
 	}
 	.title{
-		font-size: 24px;
+		font-size: 20px;
 		font-weight: 600;
 		margin-bottom: 16px;
 	}

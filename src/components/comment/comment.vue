@@ -321,6 +321,9 @@ export default {
 		padding-bottom: 100px;
 	.comment_box{
 		padding: 8px;
+		textarea{
+			padding: 4px;
+		}
 	}
 	textarea {
 		width: 100%;

@@ -1,11 +1,9 @@
 <template>
-<div class="notive_list ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="notive_list fff page">
 
 <div class="notive_wrapper">
 	<div class="notive_box">
-		<div class="item" v-for="i in 3">
+		<div class="item" v-for="(item,index) in 3" @click="goto_article(index)">
 			<div class="top">
 				<div class="img">
 					<img src="https://gw.alicdn.com/imgextra/i2/69/O1CN01yo4uzk1CNdoBTmBZl_!!69-0-lubanu.jpg_790x10000Q75.jpg_.webp" width="100%">
@@ -19,13 +17,10 @@
 	</div>
 </div>
 
-
-</div></BScroll>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 export default {
 	name:"notive_list",
 	data() {
@@ -33,9 +28,13 @@ export default {
 
 		}
 	},
-	components: {
-		BScroll
-	}
+	methods: {
+		goto_article(id,api) {
+			this.$router.push({
+				path: `/article?id=${id}`
+			})
+		}
+	},
 }
 </script>
 

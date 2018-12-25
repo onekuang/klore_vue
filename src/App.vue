@@ -51,8 +51,8 @@ export default {
   }
 };
 </script>
-<style lang="less">
-@import url("./common/less/index.less");
+<style scoped lang="less">
+// @import url("./common/less/index.less");
 #app {
   
 }
@@ -94,13 +94,5 @@ export default {
   // opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
-.loading{
-  position: fixed;
-  top: 45%;
-  left: 0;
-  right: 0;
-}
-.wheel-scroll{
-  padding: 0;
-}
+
 </style>

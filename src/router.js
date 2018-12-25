@@ -7,11 +7,6 @@ Vue.use(Router);
 export default new Router({
   // mode: 'history',
   routes: [
-    {// 测试
-      path: "/test",
-      meta:{index:1},
-      component: () => import("./components/HelloWorld.vue")
-    },
     { path: '*', component: Home },
     {
       path: "/",
@@ -25,11 +20,6 @@ export default new Router({
 
 
     // ======= 基本模版 =======
-      {// 案例列表
-        path: "/caselist",
-        meta:{index:6,title:"案例列表"},
-        component: () => import("./views/lists/caselist.vue")
-      },
       {// 产品列表
         path: "/prolist",
         meta:{index:7,title:"产品列表"},
@@ -64,13 +54,7 @@ export default new Router({
         path: "/setting",
         meta:{index:15,login:true,title:"设置中心"},
         component: () => import("./views/setting/setting.vue")
-      },
-      {// 用户配置
-        path: "/userconfig",
-        meta:{index:16,login:true,title:"用户配置"},
-        component: () => import("./views/setting/userconfig.vue")
-      },
-    
+      },    
 
     // ======= 工具类 =======
     

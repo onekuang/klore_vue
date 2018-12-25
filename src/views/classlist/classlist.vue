@@ -1,5 +1,5 @@
 <template>
-<div class="classlist">
+<div class="classlist page">
 <div class="search_wrapper">
 	<router-link tag="div" class="search_box" to="/search">
 		<div class="search_input">
@@ -100,16 +100,11 @@ export default {
 
 <style scoped lang="less">
 @import url('../../common/less/index.less');
-@bs_top: 50px; // BScroll 距离顶部的位置
+@bs_top: 50 + @header_height; // BScroll 距离顶部的位置
 
 
 
 .classlist {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 55px;
 	.pro_box{
 		display: flex;
 		.pro_left_box{
