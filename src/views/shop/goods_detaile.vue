@@ -30,14 +30,17 @@
 				<img src="./qd.png" width=24 height="24">
 				<p class="p1">分享</p>				
 			</div> -->
-			<div class="img" v-show=false>
-				<span class="weishoucang"><i class="iconfont icon-favor"></i></span>				
-				<p class="p1" v-show=false>收藏</p>				
+			<div class="img" @click="toggle_collect">
+				<span class="weishoucang">
+					<i class="iconfont icon-favor" v-show=collect></i>
+					<i class="iconfont icon-favorfill" style="color: #f10;" v-show="!collect"></i>
+				</span>				
+				<p class="p1">{{collect? '收藏' : '已收藏'}}</p>				
 			</div>
-			<div class="img" v-show=true>
+			<!-- <div class="img" v-show="!collect">
 				<span class="yishoucang"><i class="iconfont icon-favorfill"></i></span>
-				<p class="p1" v-show=true>已收藏</p>
-			</div>
+				<p class="p1" v-show="!collect">已收藏</p>
+			</div> -->
 		</div>
 		<div class="param">
 			<div class="item">已售 1568</div>
@@ -79,7 +82,9 @@
 	  </div>
 	  <K_List :row_type=1 :data=recommend />
 	</div>
-
+	<div class="more_box">
+	  <Load_more @tap_load="tap_load" :status=load_status />
+	</div>
 	
 	<!-- 图片生成dom -->
 	<div id="haibao" class="goods_info" v-show='created_img_show'>
@@ -158,7 +163,8 @@ export default {
 			detaile_show: true,
 			// 轮播图数据
 			swipe_banner_data:[],
-
+			load_status: 0,      //加载更多状态
+			collect: true,			// 收藏状态 true收藏 false未收藏
 			html:'goods_detail',
 			// 商品信息
 			goods:{
@@ -184,7 +190,6 @@ export default {
 		// 初始化
 		page_init() {
 			this.get_data()
-
 		},  
 		get_data() {
 			this.axios.get(this.$api.test,{
@@ -200,7 +205,10 @@ export default {
 				this.$toast("网络错误")
 			})
 		},
-
+		// 加载更多
+    tap_load() {
+      this.load_status= 2
+    },
     goto(url) {
     	let that = this
     	this.$loading.show()
@@ -219,9 +227,7 @@ export default {
     	
     	setTimeout(() => {
     		that.created_imgurl()
-    	},300)
-
-    	
+    	},300)    	
     },
     created_imgurl() {
     	let that = this
@@ -241,6 +247,9 @@ export default {
     // 切换详情toggle
     detaile_toggle() {
     	this.detaile_show = !this.detaile_show
+    },
+    toggle_collect() {
+    	this.collect = !this.collect
     },
 		// 后退按钮
 		back() {

@@ -68,13 +68,13 @@ export default {
 			this._get_data();
 		},
 		_get_data() {
-			this.axios.get("http://192.168.0.116/api/tbk_api/categorylist.html",{
+			this.axios.get("http://192.168.0.116/api/tbk/categorylist.html",{
 				params: {
 					access_token:"5b7f60aca7e7f6f8c680b1b219ad3ec6"
 				}
 			})
 			.then(res => {
-				this.class_data= res
+				this.class_data= res.data
 			})
 			.catch(res => {
 				this.$toast("网络错误")

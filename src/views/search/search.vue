@@ -5,7 +5,7 @@
 		<div class="search_top">
 			<div class="search_input">
 				<span class="span1"><i class="iconfont icon-search"></i></span>
-				<input type="text" placeholder="请输入要搜索的内容" v-model="search_text">
+				<input type="text" placeholder="请输入要搜索的内容" v-model="search_text" v-focus>
 			</div>
 			<div class="search_btn_box" @click="push_search">
 				<span>搜索</span>

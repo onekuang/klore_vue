@@ -56,6 +56,10 @@ import { Load_more, List_null } from './components/base/loading/index.js'
 Vue.use(Load_more)
 Vue.use(List_null)
 
+import directive from './common/klore/directive.js'
+import filter from './common/klore/filter.js'
+
+
 Vue.config.productionTip = false;
 
 

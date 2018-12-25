@@ -1,9 +1,17 @@
 <template>
 <div class="load_more_wrapper">
-	<div class="more_load" v-show="status" @click="tap_load">
+	<div class="more_load" v-show="status == 0" @click="tap_load">
 		{{load_text}}<i class="iconfont icon-gengduo"></i>
 	</div>
-	<div class="more_load" v-show="!status">
+	<div class="loadbox" v-show="status  == 1">
+		<div class="img">
+			<img src="./loading.gif" width="20" height="20">
+		</div>
+		<div class="text">
+			<p>加载中</p>
+		</div>
+	</div>
+	<div class="more_load" v-show="status  == 2">
 		{{none_text}}
 	</div>
 </div>
@@ -14,8 +22,8 @@ export default {
 	name:"load_more",
 	props: {
 		status: {
-			type: Boolean,
-			default: true
+			type: Number,
+			default: 0
 		},
 		load_text: {
 			type: String,
@@ -51,6 +59,20 @@ export default {
     font-size: 8px;
     color: #ccc;
     margin-left: 10px;
+  }  
+}
+.loadbox{
+	display: flex;
+	padding-top: 10px;
+	.img {
+ 		flex: 1;
+ 		text-align: right;
+ 		margin-right: 6px;
+  }
+  .text{
+ 		text-align: left;
+  	flex: 1;
+  	color: #888;
   }
 }
 </style>

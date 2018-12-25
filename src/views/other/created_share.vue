@@ -1,7 +1,11 @@
 <template>
 <div class="created_share page fff">
 	<div class="guize">
-		<p><i class="iconfont icon-jinbi"></i>奖励佣金预估: ￥1.67 <span class="pull-right">规则</span></p>
+		<p><i class="iconfont icon-jinbi"></i>奖励佣金预估: ￥1.67 
+			<span class="pull-right" @click='alert_guize'>
+				规则
+			</span>
+		</p>
 	</div>
 	<div class="info">
 		<p class="title">惊天动地小龙虾</p>
@@ -13,6 +17,7 @@
 				复制这条信息,<br>
 				￥1231asdfasdfsaf, &nbsp;&nbsp;打开【手机淘宝】即可查看<br>
 			</p>
+			<!-- <p class="text-right"><span>复制</span></p> -->
 		</div>
 	</div>
 
@@ -32,7 +37,9 @@
 	
 	<div class="btn_bos">
 		<div class="item">
-			<div class="btn">复制淘口令</div>
+			<div class="btn" v-clipboard:copy="tao_code"
+      			v-clipboard:success="onCopy"
+      			v-clipboard:error="onError">复制淘口令</div>
 		</div>
 		<div class="item">
 			<div class="btn">分享选中图片</div>
@@ -58,16 +65,27 @@ export default {
 	name:"created_share",
 	data() {
 		return {
+			tao_code: '123456',  // 淘指令
 			code_img:'',
 			page_img:false,
 		}
 	},
-	created() {
+	created() {	
+
 		this.get_data()
 	},
 	methods: {
+		vuetouch(s) {
+			console.log(s)
+		},
 		get_data() {
 			this.code_img = this.share_img
+		},
+		alert_guize() {
+			this.$alert({
+				title: '奖励计算规则',
+				content: '此处展示高佣为卖家设置佣金,不同用户申请到的佣金不同,最终以实际结算结果为准'
+			})
 		},
 		open_img() {
 			this.page_img = true
@@ -75,7 +93,14 @@ export default {
 		// 关闭海报
   	clone_img(){
   		this.page_img = false
-  	}
+  	},
+  	onCopy(e) {
+			console.log(e.text)
+			this.$toast(`${e.text} 复制成功`)
+		},
+		onError(e) {
+			this.$toast(`复制失败`)
+		}
   },
   computed: {
   	...mapGetters([

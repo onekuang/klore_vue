@@ -86,16 +86,16 @@ export default {
 			l_list: [],
 			r_list: [{},{},{},{},{},{},{},{},{},{},],
 			active: 0,
-      all_load_status: true,      //加载更多状态1
-      dir_load_status: true,      //加载更多状态2
+      all_load_status: 0,      //加载更多状态1
+      dir_load_status: 0,      //加载更多状态2
 		}
 	},
   methods: {
     all_tap_load() {
-      this.all_load_status = false
+      this.all_load_status = 2
     },
     dir_tap_load() {
-      this.dir_load_status = false
+      this.dir_load_status = 2
     }
   },
 	filters: {

@@ -1,7 +1,6 @@
 <template>
   <div class="home page fff">
   <div>
-
     <div class="search_wrapper">
       <router-link tag="div" class="search_box" to="/search">
         <div class="search_input">
@@ -131,7 +130,7 @@ export default {
         }
       },
       active_index:0,         // 当前导航索引
-      load_status: true,      //加载更多状态
+      load_status: 0,      //加载更多状态
       
     };
   },
@@ -193,7 +192,7 @@ export default {
     },
     // 加载更多
     tap_load() {
-      this.load_status= false
+      this.load_status= 2
     }
   },
   computed: {

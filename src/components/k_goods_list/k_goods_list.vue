@@ -5,7 +5,7 @@
 			<div 
 				class="item" 
 				@click="item_click(1)"
-				:class= "{'on on3': active == 1}"
+				:class= "{'on on3': active == 1 || active == 0}"
 			>
 				<div class="text">综合
 					<span class="span3"></span>				
@@ -54,7 +54,6 @@
 				<li class="on">综合排序</li>
 				<li>优惠劵面值由高到低</li>
 				<li>优惠劵面值由低到高</li>
-				<li>预估佣金由高到低</li>
 			</ul>
 		</div>
 
@@ -149,6 +148,7 @@ export default {
 	},
 	methods: {
 		item_click(index) {
+
 			if(index === 1) {
 				this.active = 1
 				this.list_box_show = !this.list_box_show
