@@ -1,12 +1,8 @@
 <template>
-<div class="sign ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
-	<!-- <div class="logo_box">
-		<img v-holder="'img=98x98?&bg=C7E1FF&text=LOGO'" class='logo'>
-	</div> -->
-
+<div class="sign page fff">
+<div class="main">
 	<form @submit.prevent="onSubmit">
+		<div class="main_box">
 		<div class="register_box">
 			<div class="username_box">
 				<div class="item">设置姓名:</div>
@@ -26,7 +22,6 @@
 					<input type="password" name="password2" placeholder="请重复您的密码" v-model="form_data.password2">
 				</div>
 			</div>
-			<div class="khr"></div>
 			<div class="new_mobile_box">
 				<div class="item">绑定手机:</div>
 				<div class="item">
@@ -36,15 +31,16 @@
 			<div class="code_box">
 				<div class="item ">验 证 码:</div>
 				<div class="item">
-					<input type="text" class="code" name="code" placeholder="请输入手机验证码" v-model="form_data.code" number>
+					<input type="text" class="code" name="code" placeholder="请输入验证码" v-model="form_data.code" number>
 				</div>
 				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
 				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span></div>	
 			</div>
 		</div>
-		<div class="khr"></div>
-		<div class="btn_box" style="margin-top: 30px;">
-			<button class="theme_btn" type="submit">确认注册</button>
+		</div>
+
+		<div class="login_btn_box" style="margin-top: 30px;">
+			<button class="login_btn" type="submit">确认注册</button>
 		</div>
 	</form>
 	<div class="sign_box">
@@ -52,17 +48,11 @@
 		<div class="clearfix"></div>
 	</div>
 
-
-	<!-- <div class="btn_box" style="margin-top: 16px;">
-		<button class="theme_btn" @click="goto_login">返回登录</button>
-	</div> -->
-
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
 var current_time = '';
 export default {
@@ -125,14 +115,25 @@ export default {
 			})
 		}
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 
 <style scoped lang="less">
 @import url('../../common/less/index.less');
+.sign{
+	background-image: url(https://lipstick.xsygood.com/testimg/login_bg.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	.main {
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 20%;
+		border-radius: 16px;
+		background: #fff;
+		border: 1px solid rgba(0, 0, 0, 0.05);		
+	}
+}
+
 .sign{
 	.logo_box{
 		text-align: center;
@@ -164,16 +165,14 @@ export default {
 		.item{
 			flex: 1;
 			&:nth-of-type(1) {
-				flex: 0 0 100px;
-				width: 100px;
-				font-size: 15px;
+				flex: 0 0 75px;
+				width: 75px;
+				font-size: 13px;
 				text-indent: 6px;
-				// color: #666;
-				letter-spacing: 1px;
 			}
 		}
 		.get_code {
-			padding: 0 12px;
+			padding: 0 4px;
 			border-left: 1px solid #eee;
 			font-size: 13px;
 		}
@@ -187,13 +186,13 @@ export default {
 
 }
 .sign_box{
-		margin-top: 14px;
   	padding: 0 16px;
   	height: 20px;
   	line-height: 20px;
+  	margin-bottom: 12px;
   	.sign1{
 			span{
-				font-size: 14px;
+				font-size: 13px;
 				color: #999;
 				margin-left: 6px;
 			}
@@ -202,4 +201,35 @@ export default {
   		color: @lan
   	}
   }
+
+  .login_btn_box{
+  	text-align: center;
+  	margin-top: 30px;
+  	padding-bottom: 34px;
+  	.login_btn{
+  		height: 40px;
+  		width: 90%;
+  		border-radius: 20px;
+  		color: #fff;
+  		background: linear-gradient(left, #A46BD7, #DE6DB8);
+  	}
+  	.forget{
+  		height: 40px;
+  		line-height: 40px;
+  		float: right;
+  		margin-right: 12px;
+  		width: 120px;
+  		font-size: 13px;
+  		display: flex;
+  		.register{
+  			flex: 1;
+  		}
+  		.forget_psw{
+  			flex: 1;
+  		}
+  	}
+  }
+.main_box{
+	padding: 0 8px;
+}
 </style>

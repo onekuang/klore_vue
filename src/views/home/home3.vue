@@ -59,7 +59,7 @@
                   相关推荐
                 </div>
               </div>
-              <K_List :row_type=goods_list_type :data=recommend />
+              <K_List :row_type=goods_list_type :goods_list=recommend />
             </div>
             <div class="more_box">
               <Load_more @tap_load="tap_load" :status=load_status />

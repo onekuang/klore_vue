@@ -1,7 +1,5 @@
 <template>
-<div class="order_detaile1 ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="order_detaile1 page page_bg">
 	<div class="order_wrapper" id="order_info">		
 		<div class="order_top">
 			<h2>德文制造股份有限公司</h2>
@@ -32,12 +30,10 @@
 		</div>
 	</div>
 
-</div></BScroll>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 export default {
 	name:"order_detaile1",
 	data() {
@@ -45,9 +41,6 @@ export default {
 
 		}
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 

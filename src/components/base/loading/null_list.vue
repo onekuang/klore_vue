@@ -10,7 +10,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '暂无数据'
+      default: '没有更多数据了'
     }
   }
 }

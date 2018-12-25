@@ -1,26 +1,7 @@
 <template>
-<div class="setting_wrapper ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="setting_wrapper page fff">
 
 <div class="setting">
-	<!-- <mu-list textline="three-line">
-	    <mu-list-item avatar :ripple="false" button>
-	      <mu-list-item-action>
-	        <mu-avatar>
-	          <img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132">
-	        </mu-avatar>
-	      </mu-list-item-action>
-	      <mu-list-item-content>
-	        <mu-list-item-title>
-	        	<span style="font-weight: 900;">Klore</span>
-	        </mu-list-item-title>
-	        <mu-list-item-sub-title>	          
-	          <span style="color: #999;">134 2183 6693</span>
-	          <br>are you OK?
-	        </mu-list-item-sub-title>
-	      </mu-list-item-content>
-	    </mu-list-item>
-	 </mu-list> -->
 			
 		<div class="k_avatar text-center" style="height: 130px;padding-top: 12px;">
 			<img :src="arvatar" width="80" height="80px" @click="addPicFront">
@@ -31,13 +12,9 @@
 
 			<div class="khr"></div>
 	    <mu-list>
-	      <!-- <mu-sub-header>基本设置</mu-sub-header> -->
 	      <mu-list-item avatar button :ripple="false" to="/updatename">
 	        <mu-list-item-action class="chen" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-pinglun1"/>
-	          <!-- <mu-avatar>
-	            <img src="https://img.4008823823.com.cn/kfcios/Version/533_420253.jpg">
-	          </mu-avatar> -->
 	        </mu-list-item-action>
 	        <mu-list-item-title>昵称修改</mu-list-item-title>
 	        <mu-list-item-action>
@@ -68,16 +45,6 @@
 
 	      
 
-	      <!-- <mu-list-item avatar button ripple :ripple="false" to="/banklist">
-	        <mu-list-item-action  class="chen" v-if="icon_show">
-	          <mu-icon slot="left" value=":iconfont icon-iconset0292" />
-	        </mu-list-item-action>
-	        <mu-list-item-title>银行卡管理</mu-list-item-title>
-	        <mu-list-item-action>
-	          <mu-icon slot="right" value=":iconfont icon-you" />
-	        </mu-list-item-action>
-	      </mu-list-item> -->
-
 	      <mu-list-item avatar button ripple :ripple="false" to="/bindalipay">
 	        <mu-list-item-action  class="chen" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-iconset0292" />
@@ -90,35 +57,14 @@
 	    </mu-list>
 
 			<div class="khr"></div>
-	    <!-- <mu-divider></mu-divider> -->
 	    <mu-list>
-	      <!-- <mu-sub-header>系统相关</mu-sub-header> -->
 
-	      <!-- <mu-list-item avatar button :ripple="false" @click="clearStroage">
-	        <mu-list-item-action class="green" v-if="icon_show">
-	          <mu-icon slot="left" value=":iconfont icon-delete"/>
-	        </mu-list-item-action>
-	        <mu-list-item-title>清除缓存</mu-list-item-title>
-	      </mu-list-item> -->
-
-	      <!-- <mu-list-item avatar button :ripple="false" to="/userconfig">
-	        <mu-list-item-action>
-	          <mu-icon slot="left" value=":iconfont icon-icon-test"/>
-	        </mu-list-item-action>
-	        <mu-list-item-title>系统配置</mu-list-item-title>
-	        <mu-list-item-action>
-	          <mu-icon slot="right" value=":iconfont icon-you"/>
-	        </mu-list-item-action>
-	      </mu-list-item> -->
-
-	      <mu-list-item avatar button :ripple="false" to="/login">
+	      <mu-list-item avatar button :ripple="false" @click="exit()">
 	        <mu-list-item-action class="red" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-qiehuanzuhu"/>
 	        </mu-list-item-action>
 	        <mu-list-item-title>注销</mu-list-item-title>
-	        <!-- <mu-list-item-action>
-	          <mu-icon slot="right" value=":iconfont icon-you"/>
-	        </mu-list-item-action> -->
+
 	      </mu-list-item>
 
 	    </mu-list>
@@ -126,7 +72,7 @@
 
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
@@ -156,6 +102,20 @@ export default {
 			this.$refs.upload.click();
 			return false;
 		},
+		exit() {
+	  	this.$confirm({
+	  		title: "提示",
+	  		content: "是否退出该帐号?",
+	  	}).then(success => {
+	  		l_storage.clear();
+	  		s_storage.clear();
+	  		this.$router.push({
+	  			path: `/login`
+	  		})
+	  	}).catch(fail => {
+	  		console.log('点击了取消')
+	  	})
+	  },
 	  upload (e) {  
 	    let files = e.target.files || e.dataTransfer.files;  
 	    if (!files.length) return;  
@@ -196,6 +156,7 @@ export default {
 	        }   
 	      }  
 	  },  
+	  
     postImg (img) {  
       //这里写接口  
       // console.log(img)

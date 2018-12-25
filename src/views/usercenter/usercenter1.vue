@@ -279,7 +279,7 @@ export default {
 						display: inline-block;
 						border-radius: 12px;
 						background: rgba(0, 0, 0, .3);
-						padding: 1px 6px;
+						padding: 0px 6px;
 						font-size: 12px;
 						margin-left: 10px;
 					}

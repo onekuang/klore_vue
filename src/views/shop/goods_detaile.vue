@@ -80,7 +80,7 @@
 	    	猜你喜欢
 	    </div>
 	  </div>
-	  <K_List :row_type=1 :data=recommend />
+	  <K_List :row_type=1 :goods_list=recommend />
 	</div>
 	<div class="more_box">
 	  <Load_more @tap_load="tap_load" :status=load_status />

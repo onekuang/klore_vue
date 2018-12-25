@@ -69,7 +69,7 @@ export default {
 	.item {
 		flex: 1;
 		color: #999;
-		padding-top: 4px;
+		padding-top: 2px;
 		.iconbox{
 			height: 34px;
 			line-height: 34px;

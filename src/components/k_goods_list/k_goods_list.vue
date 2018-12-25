@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="tab_sort_wrapper" v-show="tab_show">
+	<div class="tab_sort_wrapper" v-show="tab_show && goods_list.length != 0">
 		<div class="tab_sort_box">
 			<div 
 				class="item" 
@@ -60,19 +60,18 @@
 	</div>
 
 
-
-	<div class="pro_list_box" 
+	<div class="pro_list_box fff" >
+	<!-- <div class="pro_list_box" 
 		:class="{'fff' : type == 1,'ff5' : type == 2}"
-	>
+	> -->
 		<router-link 
 			tag='div' 
 			:class="{'item1' : type == 1 , 'item2' : type == 2}"
-			:to="{path:'/goodsdetaile',query:{id:item}}" 
-			v-for='item in data'
+			:to="{path:'/goodsdetaile',query:{id:index}}" 
+			v-for='(item,index) in goods_list'
 		>
 			<div class="goods_box">
 				<div class="img">
-					<!-- <img v-holder="'img=100x100?&bg=fd9a00&text=100x100'"> -->
 					<img src="https://img.4008823823.com.cn/kfcios/Version/533_420253.jpg">
 				</div>
 				<div class="goods_info">
@@ -104,7 +103,7 @@
 			<div class="clearfix"></div>
 
 
-		<K_null v-show='data.length == 0' style="margin-top: 10%;" />
+		<!-- <List_null v-show='goods_list.length == 0' style="margin-top: 10%;" /> -->
 
 
 	</div>
@@ -114,7 +113,6 @@
 </template>
 
 <script>
-import K_null from '@/components/base/loading/null_list'
 export default {
 	name:"goodslist",
 	props: {
@@ -126,7 +124,7 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		data: {
+		goods_list: {
 			type: Array,
 			default: function() {
 				return []
@@ -180,9 +178,6 @@ export default {
 			}
 		}
 	},
-	components: {
-		K_null,
-	}
 }
 </script>
 
@@ -227,7 +222,6 @@ export default {
 				    -webkit-box-orient: vertical;
 				    -webkit-line-clamp: 2;
 				    overflow: hidden;
-						// .ell();
 					}
 				}
 				.tags{
@@ -241,7 +235,6 @@ export default {
 						padding: 2px 5px;
 						border-radius: 8px;
 						color: #fd9a00;
-						// background: #eee;
 						border: 1px solid #fd9a00;
 						font-size: 12px;
 						margin-right: 8px;
@@ -250,8 +243,6 @@ export default {
 				.info{
 					height: 30px;
 					display: flex;
-					// justify-content: space-between;
-					// align-items:flex-end;
 					line-height: 30px;
 					.price{
 						flex: 1;
@@ -282,7 +273,6 @@ export default {
 					color: #999;
 				}
 				.yongjin_box{
-					// text-align: right;
 					margin-top: 6px;
 					.juan {
 						color: #f44336;
@@ -293,11 +283,13 @@ export default {
 							line-height: 16px;
 							padding: 0 4px;
 							float: left;
+							font-size: 10px;
 							border-radius: 4px;
 							background: rgba(244,141,141,.2);
 							display: inline-block;
 						}
 						.r_juan {
+							font-size: 10px;
 							margin-top: 3px;
 							height: 16px;
 							line-height: 16px;
@@ -315,7 +307,7 @@ export default {
 						display: inline-block;
 						background: rgba(244,141,141,.2);
 						padding: 1px 8px;
-						font-size: 12px;
+						font-size: 10px;
 						border-radius: 6px;
 						color: #f44336;
 					}
