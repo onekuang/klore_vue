@@ -145,6 +145,7 @@ export default {
 					margin-left: 8px;
 				}
 				input{
+					width: 90%;
 					padding-left: 12px;
 					background: #f7f7f7;
 					font-size: 12px;
