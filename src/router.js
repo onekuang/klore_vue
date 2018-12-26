@@ -103,16 +103,16 @@ export default new Router({
         meta:{index:20,login:true,title:"地址更改"},
         component: () => import("./views/address/address_update.vue")
       },
-      {// 我的银行卡
-        path: "/banklist",
-        meta: {index:17,title:"我的银行卡"},
-        component: () => import("@/views/bank/banklist.vue")
-      },
-      {// 添加银行卡
-        path: "/addbank",
-        meta: {index:20,title:"添加银行卡"},
-        component: () => import("@/views/bank/addbank.vue")
-      },
+      // {// 我的银行卡
+      //   path: "/banklist",
+      //   meta: {index:17,title:"我的银行卡"},
+      //   component: () => import("@/views/bank/banklist.vue")
+      // },
+      // {// 添加银行卡
+      //   path: "/addbank",
+      //   meta: {index:20,title:"添加银行卡"},
+      //   component: () => import("@/views/bank/addbank.vue")
+      // },
       {// 绑定支付宝
         path: "/bindalipay",
         meta: {index:20,title:"绑定支付宝"},
@@ -120,7 +120,7 @@ export default new Router({
       },
       {// 评论
         path: "/comment",
-        meta: {index:21,title:"评论"},
+        meta: {index:21,title:"反馈"},
         component: () => import("@/components/comment/comment.vue")
       },
     
@@ -131,31 +131,31 @@ export default new Router({
         meta:{index:15},
         component: () => import("./views/shop/goods_detaile.vue")
       },
-      {// 购物车
-        path: "/goodscart",
-        meta:{index:7,login:true,title:"帐变记录"},
-        component: () => import("./views/shop/shop_goodscart.vue")
-      },
-      {// 订单列表
-        path: "/orderlist",
-        meta:{index:18, login:true,title: "订单列表"},
-        component: () => import("./views/shop/order_list.vue")
-      },
-      {// 物流信息
-        path: "/wuliu",
-        meta:{index:20, login:true,title: "物流信息"},
-        component: () => import("./views/shop/wuliu.vue")
-      },
+      // {// 购物车
+      //   path: "/goodscart",
+      //   meta:{index:7,login:true,title:"帐变记录"},
+      //   component: () => import("./views/shop/shop_goodscart.vue")
+      // },
+      // {// 订单列表
+      //   path: "/orderlist",
+      //   meta:{index:18, login:true,title: "订单列表"},
+      //   component: () => import("./views/shop/order_list.vue")
+      // },
+      // {// 物流信息
+      //   path: "/wuliu",
+      //   meta:{index:20, login:true,title: "物流信息"},
+      //   component: () => import("./views/shop/wuliu.vue")
+      // },
       {// 搜索
         path: "/search",
         meta: {index:14,login:false,title: "搜索"},
         component: () => import("@/views/search/search.vue")
       },
-      {// 优惠劵
-        path: "/coupon",
-        meta: {index:14,login:false,title: "优惠劵"},
-        component: () => import("@/views/card_list/coupon.vue")
-      },
+      // {// 优惠劵
+      //   path: "/coupon",
+      //   meta: {index:14,login:false,title: "优惠劵"},
+      //   component: () => import("@/views/card_list/coupon.vue")
+      // },
     // ======= 分销类 =======
       {// 收益数据
         path: "/visual",
