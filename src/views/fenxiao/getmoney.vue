@@ -31,7 +31,7 @@
 			<div class="item">到账支付宝:</div>
 			<div class="item">
 				<input type="text" name="alipay" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.alipay" hidden>
-				<p class="hide_input">{{form_data.alipay}}</p>
+				<p class="hide_input" style="height: 33px;line-height: 33px;">{{form_data.alipay}}</p>
 			</div>	
 			<router-link tag="div" class="get_code on" to="/bindalipay">
 				修改

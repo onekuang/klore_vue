@@ -135,13 +135,14 @@ export default {
 }
 .team_box {
   padding: 4px;
-  .khr_bg();
+  // .khr_bg();
   .item{
   	display: flex;
   	background: #fff;
   	margin-bottom: 4px;
-  	border-radius: 6px;
+  	border-radius: 2px;
   	padding: 6px 0 0px 6px;
+    border-bottom: 1px solid #f5f5f5;
   	.img{
   		flex: 0 0 60px;
   		width: 60px;

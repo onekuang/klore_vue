@@ -11,9 +11,7 @@
 		<div class="item">
 			<div class="top">
 				付款笔数
-				<mu-tooltip placement="top" content="提示信息">
-				  <span><i class="iconfont icon-bangzhuwenhao"></i></span>
-				</mu-tooltip>
+				<span @click="open_info('上个月内确认收货的订单收益,将转入到余额中')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
 			<div class="center">￥123</div>
 			<div class="bottom">上月佣金</div>
@@ -126,6 +124,15 @@ export default {
       sounds: false,
       videoSounds: false
 		}
+	},
+	methods: {
+		open_info(text) {
+			this.$alert({
+				title: '提示',
+				content: text,
+				btnText: '知道了',
+			})
+		}
 	}
 }
 </script>
@@ -183,6 +190,11 @@ export default {
 					line-height: 30px;
 					font-size: 12px;
 					color: #777;
+					span {
+						i {
+							color: @lan;
+						}
+					}
 				}
 				.center{
 					font-size: 14px;

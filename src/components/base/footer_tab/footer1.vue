@@ -16,7 +16,7 @@
 
 	<div class="item" @click="goto('/')">
 		<div class="imgbox">
-			<img src="https://lipstick.xsygood.com/testimg/pyg_menu.png" width="50" height="50">
+			<img src="https://lipstick.xsygood.com/testimg/pyg_menu.png">
 		</div>
 	</div>
 
@@ -94,6 +94,8 @@ export default {
 		line-height: 56px;
 		img{
 			margin-top: 3px;
+			width: 50px;
+			height: 50px;
 		}
 	}
 }

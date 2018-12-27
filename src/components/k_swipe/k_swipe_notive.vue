@@ -11,7 +11,7 @@
 			<div class="k_sweipe_box">
 			  <swiper :options="swiperOption"  ref="mySwiper">   
 			      <swiper-slide v-for="(item, index) in swipe_data">  
-			      	<router-link :to="item.url || '##'" style="height: 20px;">
+			      	<router-link :to="item.url || '##'" tag='div' class="div1">
 				        <p class="notive_text">{{item.text}}</p>
 			        </router-link>
 			      </swiper-slide> 
@@ -21,7 +21,7 @@
 		</div>
 		
 		<div class="k_icon">
-			<img src="./notive.png" width="20" height="20">
+			<img src="./notive.png">
 		</div>
 	</div>
 
@@ -49,7 +49,7 @@ export default {
       // 轮播图weipe配置
       swiperOption: {  
         direction:'vertical',
-        height: 20,//强制Swiper的高度(px),垂直才用得上
+        // height: 28,//强制Swiper的高度(px),垂直才用得上
         effect:'slide',// 切换效果
         slidesPerView: 1,  
         centeredSlides: false,  
@@ -97,6 +97,10 @@ export default {
 		line-height: 30px;
 		font-size: 12px;
 	}	
+	.div1{
+		height: 28px;
+		line-height: 30px;
+	}
 }
 
 // 公告
@@ -126,6 +130,10 @@ export default {
 	  	width: 30px;
 	  	height: 30px;
 	  	line-height: 38px;
+			img{
+				width: 20px;
+				height: 20px;
+			}
 	  }
 	}
 

@@ -14,7 +14,7 @@
 
 		<div class="userinfo">
 			<div class="avatar">
-				<img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132" width="70" height="70">
+				<img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132">
 			</div>
 			<div class="desc_box">
 				<div class="nickname">
@@ -79,28 +79,28 @@
 
 	<router-link tag='div' class="item" to="/visual">
 		<div class="img">
-			<img src="./img/tab1.png" width="40" height="40">
+			<img src="./img/tab1.png">
 		</div>
 		<div class="title">收益</div>
 	</router-link>
 
 	<router-link tag='div' class="item" to="">
 		<div class="img">
-			<img src="./img/tab2.png" width="40" height="40">
+			<img src="./img/tab2.png">
 		</div>
 		<div class="title">订单</div>
 	</router-link>
 
 	<router-link tag='div' class="item" to="/team">
 		<div class="img">
-			<img src="./img/tab3.png" width="40" height="40">
+			<img src="./img/tab3.png">
 		</div>
 		<div class="title">粉丝</div>
 	</router-link>
 
 	<router-link tag='div' class="item" to="/myqrcode">
 		<div class="img">
-			<img src="./img/tab4.png" width="40" height="40">
+			<img src="./img/tab4.png">
 		</div>
 		<div class="title">邀请</div>
 	</router-link>
@@ -113,37 +113,37 @@
 	<div class="cz_menu_content">
 		<router-link class="item" to="/guide" >
 			<!-- <i class="iconfont icon-waibaoxinxi"></i> -->
-			<img src="./img/icon1.png" width="32" height="32">
+			<img src="./img/icon1.png">
 			<div class="title">新手指引</div>
 		</router-link>
 
 		<router-link class="item" to="" >
-			<img src="./img/icon2.png" width="32" height="32">
+			<img src="./img/icon2.png">
 			<div class="title">省钱收藏</div>
 		</router-link>
 
 		<router-link class="item" to="/issue" >
-			<img src="./img/icon3.png" width="32" height="32">
+			<img src="./img/icon3.png">
 			<div class="title">常见问题</div>
 		</router-link>
 
 		<router-link class="item" to="" >
-			<img src="./img/icon4.png" width="32" height="32">
+			<img src="./img/icon4.png">
 			<div class="title">专属客服</div>
 		</router-link>
 
 		<router-link class="item" to="/notivelist" >
-			<img src="./img/icon5.png" width="32" height="32">
+			<img src="./img/icon5.png">
 			<div class="title">官方公告</div>
 		</router-link>
 
 		<router-link class="item" to="/comment" >
-			<img src="./img/icon6.png" width="32" height="32">
+			<img src="./img/icon6.png">
 			<div class="title">意见反馈</div>
 		</router-link>
 
 		<router-link class="item" to="/about">
-			<img src="./img/icon7.png" width="32" height="32">
+			<img src="./img/icon7.png">
 			<div class="title">关于我们</div>
 		</router-link>
 	</div>
@@ -197,6 +197,8 @@ export default {
 @import url('../../common/less/index.less');
 .userinfo_wrapper{
 	background: url(http://tp5test.cms.sppcms.com/img/userboxbg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 	padding: 12px 12px 0 12px;
 	height: 200px;
 	.userinfo_box{
@@ -221,6 +223,8 @@ export default {
 				flex: 0 0 80px;
 				width: 80px;
 				img{
+					height: 70px;
+					width: 70px;
 					border-radius: 50%;
 					border: 4px solid rgba(0,0,0,.1);
 				}
@@ -411,6 +415,10 @@ export default {
 			height: 20px;
 			line-height: 20px;
 		}
+		img{
+			width: 40px;
+			height: 40px;
+		}
 	}
 }
 .cz_menu{
@@ -443,6 +451,10 @@ export default {
 				height: 20px;
 				line-height: 20px;
 				color: #333;
+			}
+			img {
+				widows: 32px;
+				height: 32px;
 			}
 		}
 	}

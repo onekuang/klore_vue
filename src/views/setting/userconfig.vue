@@ -1,10 +1,7 @@
 <template>
-<div class="userconfig_wrapper ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="userconfig_wrapper page">
 	
 	<div class="user_config">
-		<mu-divider></mu-divider>
 		<mu-list>
 		    <mu-sub-header>声音开启设置</mu-sub-header>
 		    <mu-list-item button :ripple="false" @click="events = !events">
@@ -63,12 +60,10 @@
 
 
 
-</div></BScroll>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 export default {
 	name:"userconfig",
 	data() {
@@ -81,12 +76,15 @@ export default {
       videoSounds: false
 		}
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 
 <style scoped lang="less">
 @import url('../../common/less/index.less');
+.user_config{
+	padding: 8px;
+	/deep/ .mu-item{
+		padding: 0 8px;
+	}
+}
 </style>

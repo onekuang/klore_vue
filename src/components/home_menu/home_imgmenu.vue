@@ -18,7 +18,7 @@
 				  {{item.dot_text}}
 				</span>
 			</div>
-			<p :style="{color:text_color, fontSize: text_size}">{{item.title}}</p>	
+			<p :style="{color:text_color}">{{item.title}}</p>	
 
 
 		</div>
@@ -35,10 +35,6 @@ export default {
 	  text_color: {
 	    type: String,
 	    default: "#666"
-	  },
-	  text_size: {
-	    type: String,
-	    default: "14px"
 	  },
 	  dot_bg: {
 	    type: String,
@@ -134,6 +130,7 @@ p{
 			p {
 				height: 20px;
 				line-height: 20px;
+				font-size: 13px;
 			}
 		}
 	}

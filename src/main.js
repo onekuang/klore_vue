@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store/index";
 
+import 'amfe-flexible';
+
 // axios
 import VueAxios from 'vue-axios'
 import instance from './http/http'
@@ -56,6 +58,7 @@ import { Load_more, List_null } from './components/base/loading/index.js'
 Vue.use(Load_more)
 Vue.use(List_null)
 
+import directive from './common/klore/directive.js'
 Vue.config.productionTip = false;
 
 

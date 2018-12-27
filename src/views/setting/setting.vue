@@ -1,6 +1,6 @@
 <template>
-<div class="setting_wrapper ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="setting_wrapper page">
+
 
 <div class="setting">
 	<!-- <mu-list textline="three-line">
@@ -22,8 +22,8 @@
 	    </mu-list-item>
 	 </mu-list> -->
 			
-		<div class="k_avatar text-center" style="height: 130px;padding-top: 12px;">
-			<img :src="arvatar" width="80" height="80px" @click="addPicFront">
+		<div class="k_avatar text-center">
+			<img :src="arvatar" @click="addPicFront">
 			<input type="hidden" value="" name="logo"  >
 		  <input type="file" @change="upload($event)" style="display: none;" ref="upload" id='upload' accept="image/*">
 			<p class="c999 changeavatar">点击更改头像</p>
@@ -55,6 +55,16 @@
 	        </mu-list-item-action>
 	      </mu-list-item>
 
+	      <mu-list-item avatar button ripple :ripple="false" to="/address">
+	        <mu-list-item-action  class="blue" v-if="icon_show">
+	          <mu-icon slot="left" value=":iconfont icon-biangengshoujihao"/>
+	        </mu-list-item-action>
+	        <mu-list-item-title>地址修改</mu-list-item-title>
+	        <mu-list-item-action>
+	          <mu-icon slot="right" value=":iconfont icon-you" />
+	        </mu-list-item-action>
+	      </mu-list-item>
+
 				<div class="khr"></div>
 	      <mu-list-item avatar button ripple :ripple="false" to="/updatephone">
 	        <mu-list-item-action  class="blue" v-if="icon_show">
@@ -68,7 +78,7 @@
 
 	      
 
-	      <!-- <mu-list-item avatar button ripple :ripple="false" to="/banklist">
+	      <mu-list-item avatar button ripple :ripple="false" to="/banklist">
 	        <mu-list-item-action  class="chen" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-iconset0292" />
 	        </mu-list-item-action>
@@ -76,7 +86,7 @@
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you" />
 	        </mu-list-item-action>
-	      </mu-list-item> -->
+	      </mu-list-item>
 
 	      <mu-list-item avatar button ripple :ripple="false" to="/bindalipay">
 	        <mu-list-item-action  class="chen" v-if="icon_show">
@@ -101,7 +111,7 @@
 	        <mu-list-item-title>清除缓存</mu-list-item-title>
 	      </mu-list-item> -->
 
-	      <!-- <mu-list-item avatar button :ripple="false" to="/userconfig">
+	      <mu-list-item avatar button :ripple="false" to="/userconfig">
 	        <mu-list-item-action>
 	          <mu-icon slot="left" value=":iconfont icon-icon-test"/>
 	        </mu-list-item-action>
@@ -109,7 +119,7 @@
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you"/>
 	        </mu-list-item-action>
-	      </mu-list-item> -->
+	      </mu-list-item>
 
 	      <mu-list-item avatar button :ripple="false" to="/login">
 	        <mu-list-item-action class="red" v-if="icon_show">
@@ -126,12 +136,11 @@
 
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import Exif from 'exif-js'  
 import {s_storage, l_storage} from '@/common/js/storage'
 export default {
@@ -332,9 +341,6 @@ export default {
 	  	// })
 	  }	
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 
@@ -397,8 +403,12 @@ export default {
 	font-size: 13px;
 }
 .k_avatar{
+	height: 130px;
+	padding-top: 12px;
 	img{
 		border-radius: 50%;
+		width: 80px;
+		height: 80px;
 	}
 }
 </style>

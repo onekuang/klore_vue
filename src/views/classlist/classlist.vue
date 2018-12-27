@@ -31,7 +31,7 @@
 				</div>	 -->			
 				<ul>
 				<li v-for='item in child_arr' @click='goto_detail(item.id)'> 
-					<img :src="item.image" width="50" height="50">
+					<img :src="$api.base_img + item.image">
 					<p>{{item.name}}</p>
 				</li>				
 			</ul>
@@ -50,47 +50,47 @@ export default {
 	data() {
 		return {
 			arr_index: 0,
-			class_data: [
-				{
-					id: 1,
-					name: '鞋子',
-					child: [
-						{
-							id:101,
-							pid: 1,
-							name: '女鞋',
-							image:"https://lipstick.xsygood.com/testimg/nvxie.png"
-						},
-						{
-							id:102,
-							pid: 1,
-							name: '高跟鞋',
-							image:"https://lipstick.xsygood.com/testimg/nvxie.png"
-						},
-					]
-				},
-				{
-					id: 2,
-					name: '彩妆',
-					child: [
-						{
-							id:103,
-							pid: 2,
-							name: '口红',
-							image:"http://lipadmin.xsygood.com/upload/lipstick/1544581412415.jpg"
-						},
-						{
-							id:104,
-							pid: 2,
-							name: '香水',
-							image:"http://lipadmin.xsygood.com/upload/lipstick/1544582284009.jpg"
-						},
-					]
-				},
-			],
-			// class_data:[
-			// 	{id:'',name:'',child:[]}
-			// ]
+			// class_data: [
+			// 	{
+			// 		id: 1,
+			// 		name: '鞋子',
+			// 		child: [
+			// 			{
+			// 				id:101,
+			// 				pid: 1,
+			// 				name: '女鞋',
+			// 				image:"https://lipstick.xsygood.com/testimg/nvxie.png"
+			// 			},
+			// 			{
+			// 				id:102,
+			// 				pid: 1,
+			// 				name: '高跟鞋',
+			// 				image:"https://lipstick.xsygood.com/testimg/nvxie.png"
+			// 			},
+			// 		]
+			// 	},
+			// 	{
+			// 		id: 2,
+			// 		name: '彩妆',
+			// 		child: [
+			// 			{
+			// 				id:103,
+			// 				pid: 2,
+			// 				name: '口红',
+			// 				image:"http://lipadmin.xsygood.com/upload/lipstick/1544581412415.jpg"
+			// 			},
+			// 			{
+			// 				id:104,
+			// 				pid: 2,
+			// 				name: '香水',
+			// 				image:"http://lipadmin.xsygood.com/upload/lipstick/1544582284009.jpg"
+			// 			},
+			// 		]
+			// 	},
+			// ],
+			class_data:[
+				{id:'',name:'',child:[]}
+			]
 		}
 	},
 	created() {
@@ -103,16 +103,16 @@ export default {
 	},
 	methods: {
 		page_init() {
-			// this._get_data();
+			this._get_data();
 		},
 		_get_data() {
-			this.axios.get("http://192.168.0.116/api/tbk_api/categorylist.html",{
+			this.axios.get("http://192.168.0.116/api/tbk/categorylist.html",{
 				params: {
 					// access_token:"5b7f60aca7e7f6f8c680b1b219ad3ec6"
 				}
 			})
 			.then(res => {
-				this.class_data= res
+				this.class_data= res.data
 			})
 			.catch(res => {
 				this.$toast("网络错误")
@@ -225,6 +225,8 @@ export default {
 							margin-bottom: 12px;
 							img{
 								margin-bottom: 6px;
+								width: 50px;
+								height: 50px;
 							}
 							p{
 								color: #888;
@@ -236,6 +238,9 @@ export default {
 			}
 		}
 	}
+}
+.classlist{
+	min-height: 48px;
 }
 .search_wrapper{
 	background: #fff;

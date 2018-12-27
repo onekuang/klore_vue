@@ -23,7 +23,7 @@
 		<h2>更多频道</h2>
 		<div class="more_menu_box">
 			<div class="item" v-for="item in swipe_data">
-				<img :src="item.src" width="40" height="40">
+				<img :src="item.src">
 				<div class="text">
 					{{item.title}}
 				</div>
@@ -183,7 +183,10 @@ export default {
 				text-align: center;
 				padding: 6px 0;
 				// margin-bottom: 12px;
-
+				img{
+					height: 40px;
+					width: 40px;
+				}
 				.text{
 					font-size: 12px;
 				}
