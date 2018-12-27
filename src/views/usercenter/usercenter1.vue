@@ -117,7 +117,7 @@
 			<div class="title">新手指引</div>
 		</router-link>
 
-		<router-link class="item" to="" >
+		<router-link class="item" to="/collect" >
 			<img src="./img/icon2.png" width="32" height="32">
 			<div class="title">省钱收藏</div>
 		</router-link>
@@ -127,7 +127,7 @@
 			<div class="title">常见问题</div>
 		</router-link>
 
-		<router-link class="item" to="" >
+		<router-link class="item" to="/service" >
 			<img src="./img/icon4.png" width="32" height="32">
 			<div class="title">专属客服</div>
 		</router-link>

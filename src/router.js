@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/home/home1.vue";
+import Home from "@/views/home/home3.vue";
 
 Vue.use(Router);
 
@@ -193,6 +193,16 @@ export default new Router({
         path: "/guide",
         meta:{index:19},
         component: () => import("./views/notive/guide.vue")
+      },
+      {// 客服
+        path: "/service",
+        meta:{index:19},
+        component: () => import("./views/other/service.vue")
+      },
+      {// 收藏
+        path: "/collect",
+        meta:{index:19},
+        component: () => import("./views/other/collect.vue")
       },
   ]
 });
