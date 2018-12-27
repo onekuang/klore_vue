@@ -111,38 +111,38 @@
 		<div class="title">我的工具</div>
 	</div>
 	<div class="cz_menu_content">
-		<router-link tag="div" class="item" to="/guide" >
+		<router-link class="item" to="/guide" >
 			<!-- <i class="iconfont icon-waibaoxinxi"></i> -->
 			<img src="./img/icon1.png" width="32" height="32">
 			<div class="title">新手指引</div>
 		</router-link>
 
-		<router-link tag="div" class="item" to="" >
+		<router-link class="item" to="" >
 			<img src="./img/icon2.png" width="32" height="32">
 			<div class="title">省钱收藏</div>
 		</router-link>
 
-		<router-link tag="div" class="item" to="/issue" >
+		<router-link class="item" to="/issue" >
 			<img src="./img/icon3.png" width="32" height="32">
 			<div class="title">常见问题</div>
 		</router-link>
 
-		<router-link tag="div" class="item" to="" >
+		<router-link class="item" to="" >
 			<img src="./img/icon4.png" width="32" height="32">
 			<div class="title">专属客服</div>
 		</router-link>
 
-		<router-link tag="div" class="item" to="/notivelist" >
+		<router-link class="item" to="/notivelist" >
 			<img src="./img/icon5.png" width="32" height="32">
 			<div class="title">官方公告</div>
 		</router-link>
 
-		<router-link tag="div" class="item" to="/comment" >
+		<router-link class="item" to="/comment" >
 			<img src="./img/icon6.png" width="32" height="32">
 			<div class="title">意见反馈</div>
 		</router-link>
 
-		<router-link tag="div" class="item" to="/about">
+		<router-link class="item" to="/about">
 			<img src="./img/icon7.png" width="32" height="32">
 			<div class="title">关于我们</div>
 		</router-link>
@@ -279,7 +279,7 @@ export default {
 						display: inline-block;
 						border-radius: 12px;
 						background: rgba(0, 0, 0, .3);
-						padding: 3px 6px;
+						padding: 1px 6px;
 						font-size: 12px;
 						margin-left: 10px;
 					}
@@ -442,6 +442,7 @@ export default {
 				font-size: 12px;
 				height: 20px;
 				line-height: 20px;
+				color: #333;
 			}
 		}
 	}
