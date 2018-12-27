@@ -11,9 +11,9 @@
       </keep-alive>
     </transition>
 
-    <div class="footer">
+   <!--  <div class="footer">
       <k_footer></k_footer>
-    </div>
+    </div> -->
 
   </div>
 </template>

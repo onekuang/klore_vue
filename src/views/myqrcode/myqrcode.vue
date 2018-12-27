@@ -1,7 +1,5 @@
 <template>
 <div class="myqrcode page" :class="{page_img: page_img}">
-<!-- <BScroll 	class="box_wrapper" ref="scroll" >
-<div> -->
 
 <div id="haibao" class="qrcode_wrapper" v-show="dom">
 	<img src="./qrcode_bg132.jpg" width="100%" style="display: block;">
@@ -16,12 +14,10 @@
 	<!-- <div class="crea_btn" @click=created_img v-show="dom">生成图片按钮</div> -->
 
 <img :src=dataURL width="100%" style="display: block;">
-<!-- </div></BScroll> -->
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import QRCode from 'qrcodejs2'
 
 var from_url = '';
@@ -77,9 +73,6 @@ export default {
           // that.$toast("生成图片成功,长按保存")
       });
   	}
-	},
-	components: {
-		BScroll
 	},
 	destroyed: function () {
     this.$loading.hide();

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/home/home3.vue";
+import Home from "@/views/home/home1.vue";
 
 Vue.use(Router);
 
@@ -10,7 +10,7 @@ export default new Router({
     { path: '*', component: Home },
     {
       path: "/",
-      meta:{index:5,title:"首页"},
+      meta:{index:5,title:"便宜购"},
       component: Home,
     },
 

@@ -67,34 +67,34 @@
 		<router-link 
 			tag='div' 
 			:class="{'item1' : type == 1 , 'item2' : type == 2}"
-			:to="{path:'/goodsdetaile',query:{id:index}}" 
+			:to="{path:'/goodsdetaile',query:{id:item.id}}" 
 			v-for='(item,index) in goods_list'
 		>
 			<div class="goods_box">
 				<div class="img">
-					<img src="https://img.4008823823.com.cn/kfcios/Version/533_420253.jpg">
+					<img :src="item.img">
 				</div>
 				<div class="goods_info">
 					<div class="title">
-						<h3>麦当劳麦辣鸡腿汉堡套餐麦当劳麦辣鸡腿汉堡套餐麦当劳麦辣鸡腿汉堡套餐麦当劳麦辣鸡腿汉堡套餐麦当劳麦辣鸡腿汉堡套餐麦当劳麦辣鸡腿汉堡套餐</h3>
+						<h3>{{item.title}}</h3>
 					</div>
 					<div class="tags hide">
 						<span>包邮</span>
 					</div>
 					<div class="info">
 						<div class="price">
-							<span class="money">￥18元</span>&nbsp;&nbsp;
-							<span class="through">35.5元</span>
+							<span class="money">￥{{item.current_money}}元</span>&nbsp;&nbsp;
+							<span class="through">{{item.old_money}}元</span>
 						</div>
 						<!-- <div class="site">已售 11万</div> -->
 					</div>
-					<div class="buy_num">已售 11万</div>
+					<div class="buy_num">已售 {{item.sales}}万</div>
 					<div class="yongjin_box">
 						<div class="juan">
 							<div class="l_juan">劵</div>
-							<div class="r_juan">￥3</div>
+							<div class="r_juan">￥{{item.coupos}}</div>
 						</div>
-						<div class="yongjin">预估佣金￥12.39</div>
+						<div class="yongjin">预估佣金￥{{item.award}}</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -191,7 +191,7 @@ export default {
 		margin-bottom: 8px;
 		// border-bottom: 1px solid #f9f9f9;
 		.goods_box {
-			display: flex;
+			display: flex;			
 			.img {
 				flex: 120px 0 0;
 				height: 120px;
@@ -206,7 +206,7 @@ export default {
 			.goods_info {
 				flex: 1;
 				margin-left: 8px;
-				min-width:0;
+				min-width:0;				
 				.title{
 					font-size: 13px;
 					line-height: 20px;
@@ -328,6 +328,7 @@ export default {
 		border-radius: 2px;
 		// border-bottom: 1px solid #f9f9f9;
 		.goods_box {
+			border: 1px solid #f8f8f8;
 			.img {
 				width: 100%;
 				height: auto;

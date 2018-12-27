@@ -5,7 +5,7 @@
 	<div class="k_sweipe_box">
 	  <swiper :options="swiperOption"  ref="hot_goods">   
 	      <swiper-slide v-for="(item, index) in swipe_data">  
-	      	<div style="padding: 6px;">
+	      	<router-link tag="div" style="padding: 6px;" to="/goodsdetaile">
 		        <img 
 		        	:src=item.src 
 		        	@click="banner_img_click(index)" 
@@ -15,7 +15,7 @@
 		        	<div class="title">{{item.title}}</div>
 		        	<div class="price">￥68元 <span>￥88</span></div>
 		        </div>
-	        </div>
+	        </router-link>
 	      </swiper-slide> 
 	      <!-- 轮播的小圆点 -->  
 	      <!-- <div class="swiper-pagination" slot="pagination"></div>   -->
