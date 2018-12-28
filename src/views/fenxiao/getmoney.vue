@@ -1,7 +1,5 @@
 <template>
-<div class="getmoney ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="getmoney page">
 
 <form @submit.prevent="onSubmit">
 	<div class="chang_mobile_box">
@@ -67,14 +65,12 @@
 
 
 
-</div></BScroll>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
-var current_time = '';
+
 export default {
 	name:"getmoney",
 	data() {
@@ -89,6 +85,9 @@ export default {
 				money: '',
 			}
 		}
+	},
+	created() {
+
 	},
 	methods: {
 
@@ -114,9 +113,6 @@ export default {
 			console.log(this.form_data)
 		},
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 

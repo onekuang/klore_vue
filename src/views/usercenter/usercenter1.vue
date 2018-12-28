@@ -272,7 +272,7 @@ export default {
 
 				.desc{
 					color: rgba(255,255,255,0.8);
-					font-size: 13px;
+					font-size: 12px;
 					height: 30px;
 					margin-top: 8px;
 					.span1 {
@@ -283,8 +283,8 @@ export default {
 						display: inline-block;
 						border-radius: 12px;
 						background: rgba(0, 0, 0, .3);
-						padding: 1px 6px;
-						font-size: 12px;
+						padding: 0px 6px;
+						font-size: 10px;
 						margin-left: 10px;
 					}
 				}

@@ -45,7 +45,7 @@
 		<div class="confirm" @click="close_picker(1)">确认</div>
 		<div class="clearfix"></div>
 	</div>
-  <mu-slide-picker :slots="addressSlots" :visible-item-count="7" @change="addressChange" :values="address"></mu-slide-picker>
+  <mu-slide-picker :slots="addressSlots" :visible-item-count="5" @change="addressChange" :values="address"></mu-slide-picker>
   
 </div>
 </div>
@@ -121,9 +121,9 @@ export default {
 		// 监听表单提交
 		onSubmit(e) {
 			// 过滤字段
-			if(!kk.is_username(this.form_data.username,this)){return}
+			if(!kk.is_username(this.form_data.username,this,'收件人不能为空')){return}
 			if(!kk.is_mobile(this.form_data.mobile,this)){return}
-			if(kk.is_null(this.form_data.address,this)){return}
+			if(kk.is_null(this.form_data.address,this,'地址不能留空')){return}
 			// 调用请求函数
 			this.send_request()
 		},

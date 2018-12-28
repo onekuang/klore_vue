@@ -124,7 +124,7 @@ export default {
 					}
 				}
 				.bottom{
-					font-size: 14px;
+					font-size: 13px;
 					color: #888;
 					i {
 						font-size: 18px;

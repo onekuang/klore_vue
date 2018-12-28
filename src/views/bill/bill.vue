@@ -1,8 +1,6 @@
 <template>
 <div class="bill page">
-<!-- <div class="bill ab_full page"> -->
-<!-- <BScroll 	class="box_wrapper" ref="scroll" >
-<div> -->
+
 <div class="bill_top">
 	<div class="count_box">
 		<div class="text">本月</div>
@@ -33,14 +31,14 @@
 				<div class="money on">+200</div>
 			</div>
 		</li>
+		<Load_more />
 	</ul>
 </div>
-<!-- </div></BScroll> -->
+
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import K_Date from '@/components/k_date/k_date'
 export default {
 	name:"bill",
@@ -59,7 +57,7 @@ export default {
 		}
 	},
 	components: {
-		BScroll,K_Date
+		K_Date
 	}
 }
 </script>

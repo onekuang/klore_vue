@@ -1,7 +1,8 @@
 export const kk = {
-	is_username: function(text, vue) {
+	is_username: function(text, vue,msg) {
 		if(!text){
-			vue.$toast('用户名不能为空');return false;
+			let m = msg? msg : "用户名不能为空"
+			vue.$toast(m);return false;
 		}
 		if(this.checkSpecificKey(text, vue)){
 			return false;
@@ -9,7 +10,7 @@ export const kk = {
 		return true
 	},
 	is_mobile: function (num, vue) {
-		if(!num || !/^[1][3,4,5,7,8][0-9]{9}$/.test(num) ){
+		if(!num || !/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(num) ){
 			vue.$toast("请输入正确手机号")
 			return false
 		}else{

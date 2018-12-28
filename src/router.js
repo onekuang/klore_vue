@@ -155,7 +155,7 @@ export default new Router({
       {// 订单列表
         path: "/orderlist",
         meta:{index:18, login:true,title: "订单列表"},
-        component: () => import("./views/shop/order_list.vue")
+        component: () => import("./views/order/order_list.vue")
       },
       {// 物流信息
         path: "/wuliu",
