@@ -36,19 +36,24 @@ instance.interceptors.response.use(
             if(res.status === 200 && res.data.code != 200) {
                 // 如果不是200 统一处理
                 _verify_code(res.data.code)
+                try {Vue.prototype.$loading.hide()}catch(err) {} 
                 return
             }
-			return res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res.data)
+            try {Vue.prototype.$loading.hide()}catch(err) {} 
+            
+            return res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res.data)
 		},
 		function(err) {
 			const { response } = err;
 			if (response) {
             // 请求已发出，但是不在2xx的范围
+            try {Vue.prototype.$loading.hide()}catch(err) {} 
             errorHandle(response.status, response.data.message);
             return Promise.reject(response);
         } else {
             // 处理断网的情况
             console.log('网络有误')
+            try {Vue.prototype.$loading.hide()}catch(err) {} 
         }
 		}
  );

@@ -51,10 +51,12 @@ Vue.use(AwesomePicker);
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
+// import Mcanvas from 'mcanvas'
+// Vue.use(Mcanvas)
+
 // 自定义
 import { Load_more, List_null } from './components/base/loading/index.js'
-Vue.use(Load_more)
-Vue.use(List_null)
+Vue.use(Load_more).use(List_null)
 
 import directive from './common/klore/directive.js'
 import filter from './common/klore/filter.js'

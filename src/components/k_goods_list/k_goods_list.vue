@@ -1,11 +1,11 @@
 <template>
-<div>
-	<div class="tab_sort_wrapper" v-show="tab_show && goods_list.length != 0">
+<div :class="{tab_fixed: tab_fixed}">
+	<div class="tab_sort_wrapper" v-show="tab_show">
 		<div class="tab_sort_box">
 			<div 
 				class="item" 
 				@click="item_click(1)"
-				:class= "{'on on3': active == 1 || active == 0}"
+				:class= "{'on': active == 1}"
 			>
 				<div class="text">综合
 					<span class="span3"></span>				
@@ -20,7 +20,7 @@
 					'on2': direction == 'down'  && active == 2}"
 			>
 				<div class="text">
-					劵后价
+					人气
 					<span class="span1"></span>
 					<span class="span2"></span>
 				</div>
@@ -35,7 +35,7 @@
 				}"
 			>
 				<div class="text">
-					销量
+					价格
 					<span class="span1"></span>
 					<span class="span2"></span>
 				</div>
@@ -48,12 +48,15 @@
 				<i class="iconfont icon-apps" v-show=list_mode></i>
 			</div>
 		</div>
-
-		<div class="list_box" v-show="list_box_show == true && active == 1">
+		<!-- 综合 弹出层-->
+		<div class="list_box" v-show="list_box_show == true">
 			<ul>
-				<li class="on">综合排序</li>
-				<li>优惠劵面值由高到低</li>
-				<li>优惠劵面值由低到高</li>
+				<li v-for="(item,index) in sort_list" 
+					@click="syenthesize_click(index,item.sid)" 
+					:class="{on : sort_clsss_i == index}"
+				>
+					{{item.title}}
+				</li>
 			</ul>
 		</div>
 
@@ -61,9 +64,6 @@
 
 
 	<div class="pro_list_box fff" >
-	<!-- <div class="pro_list_box" 
-		:class="{'fff' : type == 1,'ff5' : type == 2}"
-	> -->
 		<router-link 
 			tag='div' 
 			:class="{'item1' : type == 1 , 'item2' : type == 2}"
@@ -71,30 +71,33 @@
 			v-for='(item,index) in goods_list'
 		>
 			<div class="goods_box">
-				<div class="img">
-					<img :src="item.img">
+				<div class="bg_img" :style="{backgroundImage:'url(' + item.thumb + ')'}">
 				</div>
 				<div class="goods_info">
 					<div class="title">
-						<h3>{{item.title}}</h3>
+						<h3>
+							<span class="taobao" v-show='item.shop_type == 0'>淘宝</span>
+							<span class="tianmao" v-show='item.shop_type == 1'>天猫</span>
+							{{item.title}}
+						</h3>
 					</div>
 					<div class="tags hide">
 						<span>包邮</span>
 					</div>
 					<div class="info">
 						<div class="price">
-							<span class="money">￥{{item.current_money}}元</span>&nbsp;&nbsp;
-							<span class="through">{{item.old_money}}元</span>
+							<span class="money">￥{{item.price}}元</span>&nbsp;&nbsp;
+							<span class="through">{{item.reserve_price}}元</span>
 						</div>
 						<!-- <div class="site">已售 11万</div> -->
 					</div>
-					<div class="buy_num">已售 {{item.sales}}万</div>
+					<div class="buy_num">已售 {{item.volume}}</div>
 					<div class="yongjin_box">
-						<div class="juan">
+						<div class="juan" v-show="item.coupon_price">
 							<div class="l_juan">劵</div>
-							<div class="r_juan">￥{{item.coupos}}</div>
+							<div class="r_juan">￥{{item.coupon_price}}</div>
 						</div>
-						<div class="yongjin">预估佣金￥{{item.award}}</div>
+						<div class="yongjin">预估佣金￥{{item.commission}}</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -102,8 +105,6 @@
 		</router-link>
 			<div class="clearfix"></div>
 
-
-		<!-- <List_null v-show='goods_list.length == 0' style="margin-top: 10%;" /> -->
 
 
 	</div>
@@ -124,6 +125,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		tab_fixed: {
+			type: Boolean,
+			default: false,
+		},
 		goods_list: {
 			type: Array,
 			default: function() {
@@ -134,7 +139,6 @@ export default {
 	data() {
 		return {
 			type: this.row_type || 2,  // 2是一列1个,1是一列2个
-			// type: 2,
 			active: 0,
 			direction: 'down',  // item2
 			direction2: 'down', // item3
@@ -142,33 +146,51 @@ export default {
 			list_box_show: false,
 			list_style: 1,// 1列表模式,2为图文模式
 			// data: [{},{},{},{},{},{},{},]
+			
+			// 综合排序
+			sort_list: [
+				{sid:0,title:'综合排序'},
+				{sid:1,title:'销量由高到低'},
+				{sid:2,title:'销量由低到高'},
+				{sid:3,title:'佣金比率由高到低'},
+				{sid:4,title:'佣金比率由低到高'},
+			], 
+			sort_clsss_i: 0,
 		}
 	},
 	methods: {
 		item_click(index) {
-
 			if(index === 1) {
-				this.active = 1
+				// this.active = 1
 				this.list_box_show = !this.list_box_show
+				return
 			}
+			
+			this.sort_clsss_i = -1
+			this.list_box_show = false
+
 			if(index === 2) {
 				this.active = 2
 				if(this.direction === 'down'){
 					this.direction = 'up'
+					this._on_status(5)
 				}else {
 					this.direction = 'down'
+					this._on_status(6)
 				}
 			}
 			if(index === 3) {
 				this.active = 3
 				if(this.direction2 === 'down'){
 					this.direction2 = 'up'
+					this._on_status(7)
 				}else {
 					this.direction2 = 'down'
+					this._on_status(8)
 				}
 			}
 			if(index === 4) {
-				this.active = 4
+				// this.active = 4
 				this.list_mode=!this.list_mode
 				if(this.type == 1) {
 					this.type = 2 
@@ -176,6 +198,19 @@ export default {
 					this.type = 1
 				}
 			}
+
+			
+		},
+		syenthesize_click(index,sid) {
+			this.active = 1
+			this.sort_clsss_i = index
+			this._on_status(sid)
+			this.list_box_show = false
+		},
+		// 派发排序的状态到父组件,
+		_on_status(status) {
+			// console.log(status)
+			this.$emit('onSort',status)
 		}
 	},
 }
@@ -185,11 +220,11 @@ export default {
 @import url('../../common/less/index.less');
 .pro_list_box{
 	padding:4px 2px;
+	// 1行1个
 	.item1 {
 		overflow: hidden;
-		padding-bottom: 8px;
-		margin-bottom: 8px;
-		// border-bottom: 1px solid #f9f9f9;
+		padding: 4px 6px;
+		border-bottom: 1px solid #f9f9f9;
 		.goods_box {
 			display: flex;			
 			.img {
@@ -202,6 +237,12 @@ export default {
 					width: 120px;
 					height: 120px;
 				}
+			}
+			.bg_img{
+				width: 120px;
+				height: 120px;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
 			}
 			.goods_info {
 				flex: 1;
@@ -222,6 +263,23 @@ export default {
 				    -webkit-box-orient: vertical;
 				    -webkit-line-clamp: 2;
 				    overflow: hidden;
+				    span{
+							display: inline-block;
+							height: 16px;
+							line-height: 20px;
+							width: 30px;
+							border-radius: 4px;
+							color: #fff;
+							font-size: 10px;
+							margin-right: 6px;
+							text-align: center;
+							&.tianmao{
+								background: @red;
+							}
+							&.taobao {
+								background: @chen;
+							}
+						}
 					}
 				}
 				.tags{
@@ -280,7 +338,7 @@ export default {
 						.l_juan{
 							margin-top: 3px;
 							height: 16px;
-							line-height: 16px;
+							line-height: 20px;
 							padding: 0 4px;
 							float: left;
 							font-size: 10px;
@@ -292,7 +350,7 @@ export default {
 							font-size: 10px;
 							margin-top: 3px;
 							height: 16px;
-							line-height: 16px;
+							line-height: 20px;
 							float: left;
 							display: inline-block;
 							background: rgba(244,141,141,.2);
@@ -315,7 +373,7 @@ export default {
 			}
 		}
 	}
-
+	// 一行2个
 	.item2 {
 		background: #fff;
 		width: 48%;
@@ -326,9 +384,10 @@ export default {
 		padding-bottom: 8px;
 		margin-bottom: 8px;
 		border-radius: 2px;
-		// border-bottom: 1px solid #f9f9f9;
 		.goods_box {
 			border: 1px solid #f8f8f8;
+			border-radius: 4px;
+			padding-bottom: 6px;
 			.img {
 				width: 100%;
 				height: auto;
@@ -338,6 +397,13 @@ export default {
 					width: 100%;
 					height: auto;
 				}
+			}
+			.bg_img{
+				width: 100%;
+				height: 0;
+				padding-top: 100%;
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
 			}
 			.goods_info {
 				flex: 1;
@@ -349,6 +415,7 @@ export default {
 					height: 40px;
 					color: #333;
 					overflow: hidden;
+					margin-top: 4px;
 					h3{
 						font-weight: 600;
 						height: 40px;
@@ -358,7 +425,24 @@ export default {
 				    -webkit-box-orient: vertical;
 				    -webkit-line-clamp: 2;
 				    overflow: hidden;
-						// .ell();
+						span{
+							display: inline-block;
+							height: 16px;
+							line-height: 20px;
+							width: 24px;
+							border-radius: 4px;
+							background: @red;
+							color: #fff;
+							font-size: 10px;
+							margin-right: 4px;
+							text-align: center;
+							&.tiammao{
+								background: @red;
+							}
+							&.taobao {
+								background: @chen;
+							}
+						}
 					}
 				}
 				.tags{
@@ -372,7 +456,6 @@ export default {
 						padding: 2px 5px;
 						border-radius: 8px;
 						color: #fd9a00;
-						// background: #eee;
 						border: 1px solid #fd9a00;
 						font-size: 12px;
 						margin-right: 8px;
@@ -381,8 +464,6 @@ export default {
 				.info{
 					height: 30px;
 					display: flex;
-					// justify-content: space-between;
-					// align-items:flex-end;
 					line-height: 30px;
 					.price{
 						flex: 1;
@@ -413,7 +494,6 @@ export default {
 					color: #999;
 				}
 				.yongjin_box{
-					// text-align: right;
 					margin-top: 6px;
 					.juan {
 						color: #f44336;						
@@ -424,7 +504,7 @@ export default {
 							font-size: 10px;
 							padding: 0 4px;
 							float: left;
-							border-radius: 2px 4px 4px 2px;
+							border-radius: 2px 3px 3px 2px;
 							background: rgba(244,141,141,.2);
 							display: inline-block;
 						}
@@ -437,7 +517,7 @@ export default {
 							display: inline-block;
 							background: rgba(244,141,141,.2);
 							padding: 0 5px;
-							border-radius: 4px 2px 2px 4px;
+							border-radius: 3px 2px 2px 3px;
 						}
 					}
 					.yongjin{
@@ -465,6 +545,7 @@ export default {
 		line-height: 40px;
 		background: #fff;
 		position: relative;
+		border-bottom: 1px solid #eee;
 		.item {
 			flex: 1;
 			&.iconbox{
@@ -530,6 +611,7 @@ export default {
 		top: 40px;
 		ul{
 			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
 			li{
 				padding-left: 20px;
 				height: 40px;
@@ -543,4 +625,17 @@ export default {
 		}
 	}
 }
+.tab_fixed{
+	.tab_sort_wrapper{
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;	
+		height: 42px;		
+	}
+	.pro_list_box{
+		padding-top: 45px;
+	}
+}
+
 </style>

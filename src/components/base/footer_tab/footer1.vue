@@ -20,11 +20,11 @@
 		</div>
 	</div>
 
-	<div class="item" :class="{active:index==3}" @click="goto('',3)">
+	<div class="item" :class="{active:index==3}" @click="goto('/visual',3)">
 		<div class="iconbox">
-			<i class="iconfont icon-wodefankui"></i>
+			<i class="iconfont icon-maoyi-"></i>
 		</div>
-		<div class="title">社区</div>
+		<div class="title">收益</div>
 	</div>
 
 	<div class="item" :class="{active:index==4}" @click="goto('/usercenter',4)">

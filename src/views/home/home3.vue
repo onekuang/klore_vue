@@ -52,7 +52,7 @@
             </div>
 
             <!-- 相关推荐 -->
-            <div>
+            <!-- <div>
               <div class="title_wrapper">
                 <div class="title_box">
                   <i class="iconfont icon-xuanzhongpingjiadengji"></i> 
@@ -63,7 +63,7 @@
             </div>
             <div class="more_box">
               <Load_more @tap_load="tap_load" :status=load_status />
-            </div>
+            </div> -->
           </div>
           <div v-else class="text-center">
             <img src="@/components/base/loading/loading.gif" width="30" style="margin-top: 30%;">
@@ -145,6 +145,7 @@ export default {
     };
   },
   created() {
+    // this.$loading.show()
     this.page_init();
   },
   methods: {
@@ -155,7 +156,7 @@ export default {
     },
     // 获取导航数据
     get_nav_data() {
-      this.axios.post(this.$api.test3)
+      this.axios.post("http://192.168.0.109:80/api/Webdata/test3")
       .then(res => {
           this.swipe_nav_data = res.data
       })
@@ -167,7 +168,7 @@ export default {
     },
     // 获取数据
     get_data(id) {
-      this.axios.get(this.$api.test4,{
+      this.axios.get("http://192.168.0.109:80/api/Webdata/test4",{
         params: {
           id:id
         }

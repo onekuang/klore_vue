@@ -5,7 +5,7 @@
 <div> -->
 <div class="bill_top">
 	<div class="count_box">
-		<div class="text">本月</div>
+		<div class="text">{{month_text}}</div>
 		<div class="count">已累计: <span>123元</span></div>
 	</div>
 	<div class="filter on" @click="toggle_date">
@@ -46,6 +46,7 @@ export default {
 	name:"bill",
 	data() {
 		return {
+			month_text:"本月",
 			month: undefined,
 			date_show: false,
 		}
@@ -55,7 +56,10 @@ export default {
 			this.$refs.date.toggle_date();
 		},
 		onDate(date) {
-			console.log(date)
+			let n = date.length - 2
+			let str = date.substr(0, n)
+			this.month_text = str
+			console.log(str)
 		}
 	},
 	components: {

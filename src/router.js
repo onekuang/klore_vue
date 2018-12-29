@@ -159,7 +159,7 @@ export default new Router({
     // ======= 分销类 =======
       {// 收益数据
         path: "/visual",
-        meta: {index:11,login:true,title: "我的收益"},
+        meta: {index:7,login:true,title: "我的收益"},
         component: () => import("@/views/fenxiao/visual.vue")
       },
       {// 帐变记录
@@ -182,7 +182,8 @@ export default new Router({
       {// 创建分享
         path: "/goodsshare",
         meta:{index:24,title:"创建分享"},
-        component: () => import("@/views/other/created_share.vue")
+        // component: () => import("@/views/other/created_share.vue")
+        component: () => import("@/views/other/merge_img.vue")
       },
       {// 常见问题
         path: "/issue",

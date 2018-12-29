@@ -162,7 +162,7 @@ export default {
 		return {
 			detaile_show: true,
 			// 轮播图数据
-			swipe_banner_data:[],
+			swipe_banner_data:[{src:"https://img.alicdn.com/bao/uploaded/i2/3356053974/TB2hmL.gH_I8KJjy1XaXXbsxpXa_!!3356053974.jpg"}],
 			load_status: 0,      //加载更多状态
 			collect: true,			// 收藏状态 true收藏 false未收藏
 			html:'goods_detail',
@@ -196,7 +196,7 @@ export default {
 	methods: {
 		// 初始化
 		page_init() {
-			this.get_data()
+			// this.get_data()
 		},  
 		get_data() {
 			this.axios.get(this.$api.test,{
@@ -217,6 +217,10 @@ export default {
       this.load_status= 2
     },
     goto(url) {
+    	this.$router.push({
+    		path: `/goodsshare?id=123456`
+    	})
+    	return
     	let that = this
     	this.$loading.show()
     	if(this.created_img_show) {
