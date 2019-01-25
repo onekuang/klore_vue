@@ -11,28 +11,25 @@
     
     <!-- 导航组件 -->
     <k_swipe_nav 
-      @tap_nav=tap_nav 
+      @tap_nav=tap_nav
         :swipe_data=swipe_nav_data
         :current_index =active_index
         :bullet=false />
     
 
-    <swiper :options="swiperOption"  ref="mySwiper">  
+    <swiper :options="swiperOption"  ref="mySwiper_index">  
         <swiper-slide v-for="(item,index) in swipe_nav_data"> 
-          <div v-if="index==active_index">
+          <div>
             <!-- 轮播组件 -->
             <div>
-              <k_swipe_banner 
-                @banner_click=banner_click 
-                :swipe_data=swipe_banner_data 
-              />
+              <k_swipe_banner @banner_click=banner_click :swipe_data=page_data[index].banner />
             </div>
             <!-- 菜单组件 -->
-            <HomeMenu :lists=mene_data :wrap=true />
+            <HomeMenu :lists=page_data[index].menu :wrap=true @on_menu_click=on_menu_click />
 
             <!-- 公告头条 -->
-            <div v-show="swipe_notive_data.length">
-              <k_swipe_notive :swipe_data=swipe_notive_data />
+            <div v-show="page_data[index].notive.length">
+              <k_swipe_notive :swipe_data=page_data[index].notive />
             </div>
             <!-- 福利轮播 -->
             <div>
@@ -52,29 +49,21 @@
             </div>
 
             <!-- 相关推荐 -->
-            <!-- <div>
+            <div v-if="(recomment[index] !== undefined && recomment[index].data.length)">
               <div class="title_wrapper">
                 <div class="title_box">
                   <i class="iconfont icon-xuanzhongpingjiadengji"></i> 
                   相关推荐
                 </div>
               </div>
-              <K_List :row_type=goods_list_type :goods_list=recommend />
+              <K_List :row_type=goods_list_type :goods_list=recomment[index].data />
+              <!-- <div class="more_box">
+                <Load_more @tap_load="tap_load" :status=load_status />
+              </div> -->
             </div>
-            <div class="more_box">
-              <Load_more @tap_load="tap_load" :status=load_status />
-            </div> -->
           </div>
-          <div v-else class="text-center">
-            <img src="@/components/base/loading/loading.gif" width="30" style="margin-top: 30%;">
-          </div>  
         </swiper-slide>
     </swiper>  
-
-
-
-
-    
     
     
 
@@ -94,36 +83,29 @@ import k_swipe_nav from '@/components/k_swipe/k_swipe_nav';
 import k_swipe_notive from '@/components/k_swipe/k_swipe_notive';
 import HomeMenu from '@/components/home_menu/home_imgmenu';
 import K_List from '@/components/k_goods_list/k_goods_list'
+var vm;
 // import axios from 'axios'
 export default {
   name: "home",
   data() {
     var vm = this;
     return {    
-      swipe_nav_data:[],      // 导航菜单数据      
-      mene_data:[],           // 导航菜单数据      
-      swipe_banner_data:[],   // 轮播图数据      
-      swipe_notive_data:[],   // 头条公告数据      
+      swipe_nav_data:[ // 导航数据
+        { id:0,
+          image:'/public/upload/picture/20181031/6a13b08d427bd12b0585a55965b46722.jpg',
+          // image:'https://lipstick.xsygood.com/testimg/pyg_jx.jpg',
+          name:'精选',
+          child:[],
+        }
+      ],                
       swipe_wilfare_data:[],  // 活动图数据      
-      hot_goods_data:[],      // 热门商品数据      
-      // 相关推荐数据
-      recommend: [
-        {id:1,title:'3期免息现货【送壳膜+百元礼包】苹果',img:'http://img.alicdn.com/bao/uploaded/i2/1776456424/O1CN01AxVu6P1xKEoaLfGQ2_!!1776456424.jpg',current_money:'3858',old_money:'2958',sales:'222',coupos:'50',award:'100'},
-        {id:2,title:'Apple/苹果 iPhone 8 Plus',img:'https://img.alicdn.com/bao/uploaded/i1/1917047079/TB27ffoXxnaK1RjSZFtXXbC2VXa_!!1917047079.jpg',current_money:'5888',old_money:'5999',sales:'1999',coupos:'100',award:'123'},
-        {id:3,title:'现货发 3期免息/送壳膜+运费险 苹果6sp Apple/苹果 iPhone 6s Plus全网通4G手机中移动官方旗舰正品',img:'https://img.alicdn.com/bao/uploaded/i4/1776456424/O1CN01dGVql51xKEoZg8NxE_!!1776456424.jpg',current_money:'3999',old_money:'4999',sales:'123',coupos:'321',award:'122'},
-        {id:4,title:'【64G限时直降50元】Huawei/华为 畅享9 Plus 全面屏超清大屏四摄学生老人机正品智能游戏手机',img:'https://img.alicdn.com/bao/uploaded/i2/2838892713/O1CN01UCnIWi1Vub0xNdv8f_!!2838892713.jpg',current_money:'1499',old_money:'1599',sales:'999',coupos:'50',award:'100'},
-        {id:5,title:'Apple/苹果 iPhone X 全网通手机iphone10 无线充电',img:'https://img.alicdn.com/bao/uploaded/i3/263726286/TB22dGNmGagSKJjy0FbXXa.mVXa_!!263726286.jpg',current_money:'6258',old_money:'6888',sales:'123',coupos:'55',award:'100'},
-        {id:6,title:'Apple/苹果 iPhone X 全网通手机iphone10 无线充电',img:'https://img.alicdn.com/bao/uploaded/i3/2088045547/O1CN016oDwsp1qqZSm3FwcO_!!2088045547.jpg',current_money:'2099',old_money:'2199',sales:'678',coupos:'20',award:'50'},
-        {id:7,title:'Xiaomi/小米 小米8年度旗舰全面屏骁龙845双频GPS智能拍照手机 官方旗舰店正品',img:'https://img.alicdn.com/bao/uploaded/i3/1714128138/O1CN01PVTZVm29zFfjHn9eM_!!1714128138.jpg',current_money:'2750',old_money:'2799',sales:'999',coupos:'123',award:'111'},
-        {id:8,title:'Huawei/华为 畅享9 PLUS 全网通4G手机官方官网旗舰店正品新品畅想9/8plus/max 8c',img:'https://img.alicdn.com/bao/uploaded/i1/1730436394/O1CN01ZLmrN51x6UvR7UI7p_!!1730436394.jpg',current_money:'1299',old_money:'1399',sales:'56',coupos:'100',award:'100'},
-      ],
+      hot_goods_data:[],      // 热门商品数据   
+
       goods_list_type: 2,
       // weipe配置
       swiperOption: {  
         pagination: {
-          el : '.swiper-pagination' , 
-          bulletClass : 'my-bullet', // 点的class
-          bulletActiveClass: 'my-bullet-active',
+          el : '.swiper-pagination_index' 
         }, 
         autoHeight: true,
         initialSlide :0,
@@ -134,63 +116,149 @@ export default {
         spaceBetween: 0,// 间隔  
         on: {
           slideChange: function() {
-            // console.log(this.activeIndex)
             vm.get_swipe_index(this.activeIndex)
           }
         }
       },
+      view_id: 0,
       active_index:0,         // 当前导航索引
-      load_status: 0,      //加载更多状态
-      
+      page_current: 1,
+      page_sum: 1,
+      load_status:0,      
+      home_list:[],
+      page_data: [
+        {menu:[],recomment:[],notive:[],banner:[]}
+      ],
+      recomment: [],
     };
   },
   created() {
+    vm = this
     // this.$loading.show()
-    this.page_init();
+    this.$nextTick(function() {
+      this.page_init();
+    })
+  },
+  activated() {
+    window.addEventListener('scroll', this.onscroll)
   },
   methods: {
     // 初始化
     page_init() {
+      this.$loading.show()
       this.get_nav_data()    
-      this.get_data(1)
+      
     },
     // 获取导航数据
     get_nav_data() {
-      this.axios.post("http://192.168.0.109:80/api/Webdata/test3")
+      this.axios.get(this.$api.get_classify)
       .then(res => {
-          this.swipe_nav_data = res.data
-      })
-    },
-    // 导航点击
-    tap_nav(index) {
-      //切换slide，索引,速度,
-      this.$refs.mySwiper.swiper.slideTo(index, 400, false);
-    },
-    // 获取数据
-    get_data(id) {
-      this.axios.get("http://192.168.0.109:80/api/Webdata/test4",{
-        params: {
-          id:id
+        this.swipe_nav_data = this.swipe_nav_data.concat(res.data)
+
+        let arr = []
+        let arr2 = []
+        for (let i=0; i<this.swipe_nav_data.length;i++) {
+          arr.push({menu:[],notive:[],banner:[]})
+          arr2.push({data:[],page:1})
         }
+        this.page_data = arr
+        this.recomment = arr2
+
+        this.get_data()
+        
+      })      
+    },
+    
+    // 获取数据
+    get_data() {
+      let that = this
+
+      if(this.recomment[this.active_index].data.length){
+        return
+      }
+      this.axios.post(this.$api.page_init,{
+          cat:this.view_id
       })
-      .then(res => {
-        let data = res.data
-        let that = this
-        this.mene_data = data.menu
-        this.swipe_banner_data = data.banner
-        this.swipe_notive_data = data.notive
-        this.swipe_wilfare_data = data.fuli
-        this.hot_goods_data = data.hot_goods
+      .then(res => {        
+        let json = res.data
+        // 轮播
+        let banner = json.banner
+        this.page_data[this.active_index]['banner'] = this.re_arr(banner)
+        this.page_data[this.active_index]['menu']   = json.submenu
+        this.page_data[this.active_index]['notive'] = json.news
+        this.page_data[this.active_index]['ads'] = json.ads
+
+        this.get_home_list()
+        // document.body.scrollTop = document.documentElement.scrollTop = 0;
         setTimeout(() => {
-          that.$refs.mySwiper.swiper.updateAutoHeight();;
+          that.$refs.mySwiper_index.swiper.updateAutoHeight();
         },200)
       })
     },
+    // 获取相关列表
+    get_home_list(){   
+      this.$loading.show()   
+      let _page;
+      try {
+        _page = this.recomment[this.active_index].page
+      } catch(e) {
+        _page = 1
+      }
+
+      this.axios.post(this.$api.home_list,{
+        page: _page,
+        list_rows: 16,
+        cat: this.view_id
+      })
+      .then(res => {
+        if(res.data== []){
+          this.load_status = 2
+          return
+        }
+        
+        let arr = this.recomment[this.active_index].data
+        this.load_status = 0        
+        let dat = res.data
+        let data = {
+          data: arr.concat(dat),
+          page: this.recomment[this.active_index].page = parseInt(_page) + 1
+        }
+        this.$set(this.recomment,this.active_index,data)
+      })
+    },
+    goto(_id, _type) {
+      console.log('id=' + _id)
+      console.log('type=' + _type)
+      if(_type == "catlist") {
+        this.$router.push({
+          path: `/catlist?id=${_id}&type=${_type}`
+        })
+      }
+      if(_type == "materiallist") {
+        this.$router.push({
+          path: `/materiallist?id=${_id}&type=${_type}`
+        })
+      }
+      if(_type == "info") {
+        this.$router.push({
+          path: `/activity?id=${_id}&type=${_type}`
+        })
+      }
+      if(_type == "goods") {
+        this.$router.push({
+          path: `/goodsdetaile?id=${_id}&type=${_type}`
+        })
+      }
+    },
+    // 菜单点击
+    on_menu_click(item) {
+      this.goto(item.id,item.type)
+    },
     // 轮播图点击
     banner_click(index) {
-      console.log(index)
+      let item = this.page_data[this.active_index].banner[index]
+      this.goto(item.id,item.type)
     },
-
     // 监听当前轮播的索引
     get_swipe_index(index) {
       this.active_index = index;
@@ -199,20 +267,58 @@ export default {
       }else{
         this.goods_list_type = 2 
       }
-      this.get_data(index + 1)
+
+
+      let id = this.swipe_nav_data[index].id
+      this.view_id = id
+
+      this.load_status =0,
+      // document.body.scrollTop = document.documentElement.scrollTop = 0;
+      this.get_data()
     },
     // 加载更多
     tap_load() {
-      let that = this
-      that.load_status= 1
-      setTimeout(() => {
-        that.load_status= 2
-      },1000)
+      this.load_status = 1
+      this.get_home_list()
+    },
+    // 导航点击
+    tap_nav(index) {
+      //切换slide，索引,速度,
+      this.$refs.mySwiper_index.swiper.slideTo(index, 400, false);
+    },
+    // 重组轮播数组
+    re_arr(arr) {
+      let arr1 = arr
+      let arr2 = [];
+      for(let i =0; i<arr1.length; i++) {
+        let item = Object.assign({
+          src: vm.$api.base_img + arr1[i].image
+        }, arr1[i]);
+        arr2.push(item)
+      }
+      return arr2      
+    },
+    onscroll() {
+      let vm = this
+      // window.onscroll = function(){
+      //变量scrollTop是滚动条滚动时，距离顶部的距离顶部的距离
+      var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+      //变量windowHeight是可视区的高度
+      var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      //变量scrollHeight是滚动条的总高度
+      var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+      //滚动条到底部的条件
+        if(scrollTop+windowHeight==scrollHeight){
+          //写后台加载数据的函数
+          vm.get_home_list()
+          // console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+        }
+      // }  
     }
   },
   computed: {
     swiper() {  
-      return this.$refs.mySwiper.swiper;  
+      return this.$refs.mySwiper_index.swiper;  
     },
   },
   components: {
@@ -224,6 +330,15 @@ export default {
     Search,
     K_List,
     swiper,swiperSlide
+  },
+  // destroyed(){
+  //   console.log(123)
+  //   window.removeEventListener('scroll', this.onscroll);//监听页面滚动事件
+  // },
+  beforeRouteLeave (to, from, next) {
+    window.removeEventListener('scroll', this.onscroll);//监听页面滚动事件
+    next()
+    // 导航离开该组件的对应路由时调用，可以访问组件实例 `this`
   }
 };
 </script>

@@ -8,7 +8,7 @@
 		  <swiper :options="swiperOption"  ref="mySwiper">   
 		      <swiper-slide v-for="(item, index) in swipe_data">  
 		      	<div class="nav_li" :class="{on : index == active_index && !more_menu_show}">		
-		      		{{item.title}}
+		      		{{item.name}}
 		      	</div>
 		      </swiper-slide> 
 		      <!-- 轮播的小圆点 --> 
@@ -22,10 +22,10 @@
 	<div class="more_menu_wrapper" v-show="more_menu_show">
 		<h2>更多频道</h2>
 		<div class="more_menu_box">
-			<div class="item" v-for="item in swipe_data">
-				<img :src="item.src" width="40" height="40">
+			<div class="item" v-for="(item, index) in swipe_data" @click="tap_nav_item(index)">
+				<img :src="$api.base_img + item.image" width="40" height="40">
 				<div class="text">
-					{{item.title}}
+					{{item.name}}
 				</div>
 			</div>
 		</div>
@@ -111,6 +111,9 @@ export default {
   	// 更多菜单
   	show_menu() {
   		this.more_menu_show = !this.more_menu_show
+  	},
+  	toggle_index(index) {
+  		this.$emit('toggle_index', index)
   	}
   },
   computed: {
@@ -136,8 +139,8 @@ export default {
 		font-size: 14px;
 		text-align: center;
 		&.on {
-			color:#f44336;
-			border-bottom: 2px solid #f44336;
+			color:@color_base;
+			border-bottom: 2px solid @color_base;
 		}
 	}
 	.swipe_box{
@@ -152,7 +155,7 @@ export default {
 		text-align: center;
 		i {
 			font-size: 18px;
-			color: #f44336;
+			color: @color_base;
 		}
 	}
 }
@@ -172,7 +175,7 @@ export default {
 			height: 30px;
 			line-height: 30px;
 			font-weight: 900;
-			color: #f44336;
+			color: @color_base;
 
 		}
 		.more_menu_box{

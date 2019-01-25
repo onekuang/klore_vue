@@ -9,6 +9,21 @@
 		  <input type="file" @change="upload($event)" style="display: none;" ref="upload" id='upload' accept="image/*">
 			<p class="c999 changeavatar">点击更改头像</p>
 		</div>
+			
+
+			<!-- <div class="khr"></div>
+			<mu-list>
+	      <mu-list-item avatar button :ripple="false" to="/mytag">
+	        <mu-list-item-action class="chen" v-if="icon_show">
+	          <mu-icon slot="left" value=":iconfont icon-pinglun1"/>
+	        </mu-list-item-action>
+	        <mu-list-item-title>我的标签</mu-list-item-title>
+	        <mu-list-item-action>
+	          <mu-icon slot="right" value=":iconfont icon-you" />
+	        </mu-list-item-action>
+	      </mu-list-item>
+	    </mu-list> -->
+
 
 			<div class="khr"></div>
 	    <mu-list>
@@ -56,6 +71,20 @@
 	      </mu-list-item>
 	    </mu-list>
 
+	    <div class="khr"></div>
+	    <mu-list>
+	      <mu-list-item avatar button ripple :ripple="false" to="/userconfig">
+	        <mu-list-item-action  class="chen" v-if="icon_show">
+	          <mu-icon slot="left" value=":iconfont icon-iconset0292" />
+	        </mu-list-item-action>
+	        <mu-list-item-title>通知设置<span class="marke"></span></mu-list-item-title>
+	        <mu-list-item-action>
+	          <mu-icon slot="right" value=":iconfont icon-you" />
+	        </mu-list-item-action>
+	      </mu-list-item>
+
+	    </mu-list>
+
 			<div class="khr"></div>
 	    <mu-list>
 
@@ -84,11 +113,21 @@ export default {
 	data() {
 		return {
 			icon_show: false,
-			arvatar:"https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132",
+			arvatar:"",
 			picValue:'' ,
 		}
 	},
+	created() {
+		this.page_init()
+	},
 	methods: {
+		page_init() {
+			this.axios.get(this.$api.user_info)
+			.then(res => {
+				this.arvatar = this.$api.base_img + res.data.avatar
+				console.log(this.arvatar)
+			})
+		},
 		// 清除缓存
 		clearStroage() {
 			s_storage.clear()
@@ -280,17 +319,14 @@ export default {
 	  }, 
 	  // 头像上传
 	  _up_img(dataimg) {
-	  	console.log(dataimg)
-	  	// this.axios.post(api.edit_avatar,{
-	  	// 	sessionID  : s_storage.get('sessionID'),
-	  	// 	base64Data :dataimg
-	  	// })
-	  	// .then(res => {
-	  	// 	console.log(res.data)
-	  	// })
-	  	// .catch(res => {
-	  	// 	this.$toast("网络错误")
-	  	// })
+	  	// console.log(dataimg)
+	  	this.axios.post(this.$api.change_name,{
+	  		avatar:dataimg
+	  	})
+	  	.then(res => {
+	  		this.page_init()
+	  		this.$toast(res.msg)
+	  	})
 	  }	
 	},
 	components: {

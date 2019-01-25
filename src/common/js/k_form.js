@@ -41,6 +41,14 @@ export const kk = {
 			return false
 		}
 	},
+	is_int: function(val, vue, msg) {
+		if(/^[0-9]+$/.test(val)){
+			return true
+		}else{
+			vue.$toast( msg ? msg :'金额请填写正整数');
+			return false
+		}
+	},
 	// 检查是否有特殊符号
 	checkSpecificKey: function (keyCode, vue) {  
 	    var specialKey = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");

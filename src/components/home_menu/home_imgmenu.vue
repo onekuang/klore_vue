@@ -9,7 +9,7 @@
       @click=click_item(item)      
     >
 			<div class="imgbox">
-				<img :src=item.img :alt=item.title>
+				<img :src="$api.base_img + item.image">
 				<!-- 角标 -->
 				<span class="dot" 
 				  v-if="item.dot_text"
@@ -18,7 +18,7 @@
 				  {{item.dot_text}}
 				</span>
 			</div>
-			<p :style="{color:text_color, fontSize: text_size}">{{item.title}}</p>	
+			<p :style="{color:text_color, fontSize: text_size}">{{item.name}}</p>	
 
 
 		</div>
@@ -55,17 +55,8 @@ export default {
 	  }
 	},
 	methods: {
-	  click_item(data) {
-	    if (data.url) {
-	      this.$router.push({
-	        path: data.url
-	      });
-	    } else if (data.fn) {
-	      let fn = data.fn;
-	      fn();
-	    } else {
-	      console.warn("宫格组件传递的数据参数里,必须含有url 或者 fn");
-	    }
+	  click_item(item) {
+	  	this.$emit('on_menu_click', item)
 	  }
 	}
 }

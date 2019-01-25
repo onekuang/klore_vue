@@ -20,12 +20,12 @@
 					<input type="text" name="paynum" placeholder="请输入支付宝号" v-model="form_data.paynum">
 				</div>
 			</div>
-			<div class="new_mobile_box">
+			<!-- <div class="new_mobile_box">
 				<div class="item">手机号码:</div>
 				<div class="item">
 					<input type="text" class="new_mobile" name="mobile" placeholder="请输入手机号码" v-model="form_data.mobile">
 				</div>						
-			</div>
+			</div> -->
 			<div class="code_box">
 				<div class="item ">验 证 码:</div>
 				<div class="item">
@@ -73,7 +73,7 @@ export default {
 			// 过滤字段
 			if(!kk.is_username(this.form_data.username,this)){return}
 			if(kk.is_null(this.form_data.paynum,this)){return}				
-			if(!kk.is_mobile(this.form_data.mobile,this)){return}
+			// if(!kk.is_mobile(this.form_data.mobile,this)){return}
 			if(kk.is_null(this.form_data.code,this)){return}
 			// 调用请求函数
 			this.send_request()
@@ -81,6 +81,20 @@ export default {
 		// 发送请求
 		send_request() {
 			console.log(this.form_data)
+			this.axios.post(this.$api.bind_alipay,{
+				alipay:this.form_data.paynum,
+				alipayname:this.form_data.username,
+				smscode:this.form_data.code,
+			})
+			.then(res => {
+				if(res.code= 200) {
+					this.$alert(res.msg).then(success => {
+						window.history.back()
+					})					
+				}else{
+					this.$toast(res.msg)
+				}
+			})
 		},
 		// 获取验证码
 		get_code() {

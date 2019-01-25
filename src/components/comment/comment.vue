@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import Emotion from '@/components/base/emoji/index'
 import Exif from 'exif-js'  
 export default {
@@ -61,7 +60,7 @@ export default {
 		}
 	},
 	created() {
-		this.goods_id = this.$route.query.id
+		this.goods_id = this.$route.query.id || ''
 	},
 	methods: {
 		submit_data() {
@@ -72,6 +71,21 @@ export default {
 			console.log(this.goods_id)
 			console.log(this.textarea)
 			console.log(this.uploadimg)
+
+			this.axios.post(this.$api.feed_back,{
+				content:this.textarea,
+				images:this.uploadimg,
+			})
+			.then(res => {
+				if(res.code == 200) {
+					this.$alert(res.msg).then(success => {
+						window.history.back()
+					})
+				}else{
+					this.$toast(res.msg)
+				}
+			})
+
 			// this.$loading.show();
 			// this.axios.post(this.$api.comment_post,{
 			// 	applyid: this.goods_id,
@@ -310,7 +324,7 @@ export default {
 	  }
 	},
 	components: {
-		BScroll,Emotion
+		Emotion
 	}
 }
 </script>

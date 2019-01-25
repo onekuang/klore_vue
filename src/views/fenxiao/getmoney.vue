@@ -1,6 +1,5 @@
 <template>
-<div class="getmoney ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="getmoney page fff">
 <div>
 
 <form @submit.prevent="onSubmit">
@@ -8,29 +7,15 @@
 		<div class="old_mobile_box">
 			<div class="item">真实姓名:</div>
 			<div class="item">
-				<input type="text" name="username" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.username">
+				<input type="text" name="alipayname" class="old_mobile" placeholder="请输入真实姓名"  v-model="form_data.username" disabled>
 			</div>
 		</div>
-		
-		<div class="new_mobile_box" v-if="get_money_type === 'bank'">
-			<div class="item">到账银行卡:</div>
-			<div class="item">
-				<select name="bankName" id="k_select" v-model="form_data.bankName">
-					<option disabled value="">选择到账银行卡</option>
-					<option value="1">中国银行</option>
-					<option value="2">招商银行</option>
-					<option value="3">广发银行</option>
-				</select>
-			</div>	
-			<router-link tag="div" class="get_code on" to="/addbank">
-				添加银行卡
-			</router-link>
-		</div>
+
 
 		<div class="new_mobile_box" v-if="get_money_type === 'alipay'">
 			<div class="item">到账支付宝:</div>
 			<div class="item">
-				<input type="text" name="alipay" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.alipay" hidden>
+				<input type="text" name="alipay" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.alipay" hidden disabled>
 				<p class="hide_input" style="height: 33px;line-height: 33px;">{{form_data.alipay}}</p>
 			</div>	
 			<router-link tag="div" class="get_code on" to="/bindalipay">
@@ -67,12 +52,11 @@
 
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
 var current_time = '';
 export default {
@@ -80,28 +64,44 @@ export default {
 	data() {
 		return {
 			get_money_type: 'alipay', // alipay | bank
-			min_money: 100, // 最低提现额
+			min_money: 1, // 最低提现额
 			balance: 0, 		// 余额
 			form_data:{
 				username:'',
 				bankName:'',
-				alipay: '651776858@qq.com',
+				alipay: '',
 				money: '',
 			}
 		}
 	},
+	created() {
+		this.page_init()
+	},
 	methods: {
-
+		page_init() {
+			this.axios.get(this.$api.get_money_info)
+			.then(res => {
+				if(!res.data.alipay){
+					this.$alert("请先绑定支付宝").then(success => {
+						this.$router.push({
+							path: `/bindalipay`
+						})
+					})
+					return
+				}
+				this.form_data.username = res.data.alipayname
+				this.form_data.alipay = res.data.alipay
+				this.balance = res.data.meney
+			})
+		},
 		// 监听表单提交
 		onSubmit(e) {
 			// 过滤字段
-			if(!kk.is_username(this.form_data.username,this)){return}
-			if(this.get_money_type == 'bank') {
-				if(kk.is_null(this.form_data.bankName,this,'请选择到账银行卡')){return}
-			}
+			// 
 			if(kk.is_null(this.form_data.money,this)){return}
 			let money = parseInt(this.form_data.money)
 			if(!kk.is_number(money,this)){return}
+			if(!kk.is_int(money,this)){return}
 			if(this.form_data.money < this.min_money) {
 				this.$toast(`最低提现金额为${this.min_money}`)
 				return
@@ -112,11 +112,19 @@ export default {
 		// 发送请求
 		send_request() {
 			console.log(this.form_data)
+
+			this.axios.post(this.$api.get_money,{
+				meney:this.form_data.money
+			})
+			.then(res => {
+				if(res.code == 200) {					
+					this.$alert(res.msg).then(success => {
+						window.history.back()
+					})
+				}
+			})
 		},
 	},
-	components: {
-		BScroll
-	}
 }
 </script>
 
@@ -127,9 +135,14 @@ export default {
 		height: 100%;
 		width: 100%;
 		font-size: 13px;
+		&:disabled{
+		background-color:#fff;
+		color:#ACA899;
+		}
 	}
 	.old_mobile_box {
 		border-top: 1px solid #eee;
+		background: #fff;
 	}
 	.old_mobile_box, .new_mobile_box, .code_box {
 		box-sizing: border-box;

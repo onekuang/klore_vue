@@ -14,13 +14,10 @@
 
 	<div class="article_box">
 
-	 <h1 class="title">内容标题</h1>
-	 <p class="time">
-	 	{{"Oct 11, 2018 2:01:06 PM" | time}}
-	 </p>
+	 <h1 class="title">{{title}}</h1>
+	 <p class="time">{{time}}</p>
 	 <div class="content">
-	 		<div v-html=html>		
-	 		</div>
+	 		<div v-html=html></div>
 	 </div>
 	</div>
 
@@ -28,41 +25,32 @@
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll';
-import api from '@/assets/api/api.js'
 export default {
-	name:"article",
+	name:"article1",
 	data() {
 		return {
 			id:'',
 			data: '',
+			title:'',
+			time:'',
 			html:'html'
 		}
 	},
 	created() {
+		this.id = this.$route.query.id
 		this._getdata()
 	},
 	methods: {
 		_getdata() {
-			let self = this
-			this.id = this.$route.query.id
-			this.api = this.$route.query.api
-
-			return
-
-			this.axios.get(api.news_detail,{
+			this.axios.get(this.$api.article,{
 				params: {
-					toKenId : this.id
+					article_id: this.id
 				}
 			})
 			.then(res => {
-				this.data = res.data.result				
-				setTimeout(()=>{
-					self.$refs.scroll.refresh();
-				},2000)
-			})
-			.catch(res => {
-				this.$toast("网络错误")
+				this.title = res.data.name
+				this.time = res.data.update_time
+				this.html = `<div>${res.data.content}</div>`
 			})
 		}
 	},

@@ -1,14 +1,13 @@
 <template>
 <div class="prolist page" >
-
+materiallist
 <div>
 	<!-- 商品列表	 -->
 	<K_List 
 		:goods_list=goods_list 
-		:tab_show=true 
-		:tab_fixed=true 
+		:tab_show=false 
+		:tab_fixed=false 
 		:pid=list_id 
-		@onSort=onSort 
 		style="padding-top: 40px;"
 	/>
 	
@@ -21,11 +20,12 @@
 <script>
 import K_List from '@/components/k_goods_list/k_goods_list'
 export default {
-	name:"prolist",
+	name:"materiallist",
 	data() {
 		return {
 			goods_list: [],
       list_id:'',
+      list_type:'',
       list_rows: 16,
       page: 1,
       sort: 5, //排序，0默认，1销量高到低，2销量低到高，3佣金比率高到低，4佣金低到高，5人气高到低，6人气低到高，7价格高到低，8价格低到高
@@ -36,6 +36,7 @@ export default {
 	created() {		
 		this.$loading.show()
 		this.list_id = this.$route.query.id
+		this.list_type = this.$route.query.type
 		this.get_data()
 	},
 	mounted() {
@@ -44,14 +45,13 @@ export default {
 	methods: {
 		get_data() {
 			let that = this
-			this.axios.get(this.$api.pro_list,{
+			this.axios.get(this.$api.MaterialList,{
 				params: {
-					cid:this.list_id,
+					mid:this.list_id,
 					// cid:1,
 					list_rows: this.list_rows,
 					page:this.page,
-					sort: this.sort,
-					is_coupon: this.show_ticket,
+					type: this.list_type
 				}
 			})
 			.then(res => {

@@ -62,13 +62,24 @@
 
 	</div>
 
+	<div class="sort_btn_box" v-show="ticket_show">
+		<mu-list @click="basemsg = !basemsg">
+			<mu-list-item button>
+	      <mu-list-item-title>
+	        仅显示优惠卷商品
+	      </mu-list-item-title>
+	      <mu-list-item-action>
+	        <mu-switch v-model="basemsg" readonly color="#FD9A00" ></mu-switch>
+	      </mu-list-item-action>
+	    </mu-list-item>
+  	</mu-list>
+	</div>
 
 	<div class="pro_list_box fff" >
-		<router-link 
-			tag='div' 
+		<div 
 			:class="{'item1' : type == 1 , 'item2' : type == 2}"
-			:to="{path:'/goodsdetaile',query:{id:item.id}}" 
 			v-for='(item,index) in goods_list'
+			@click="goto_detaile(item.goods_id)"
 		>
 			<div class="goods_box">
 				<div class="bg_img" :style="{backgroundImage:'url(' + item.thumb + ')'}">
@@ -97,12 +108,12 @@
 							<div class="l_juan">劵</div>
 							<div class="r_juan">￥{{item.coupon_price}}</div>
 						</div>
-						<div class="yongjin">预估佣金￥{{item.commission}}</div>
+						<div class="yongjin" v-show="commission_show">预估佣金￥{{item.commission}}</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
-		</router-link>
+		</div>
 			<div class="clearfix"></div>
 
 
@@ -114,14 +125,23 @@
 </template>
 
 <script>
+import { l_storage } from '@/common/js/storage.js'
 export default {
 	name:"goodslist",
 	props: {
+		pid: {
+			type: Number | String,
+			default: 0
+		},
 		row_type: {
 			type: Number,
 			default: 2,
 		},
 		tab_show: {
+			type: Boolean,
+			default: false,
+		},
+		ticket_show: {
 			type: Boolean,
 			default: false,
 		},
@@ -146,16 +166,27 @@ export default {
 			list_box_show: false,
 			list_style: 1,// 1列表模式,2为图文模式
 			// data: [{},{},{},{},{},{},{},]
-			
+			commission_show: false,
 			// 综合排序
 			sort_list: [
 				{sid:0,title:'综合排序'},
 				{sid:1,title:'销量由高到低'},
-				{sid:2,title:'销量由低到高'},
-				{sid:3,title:'佣金比率由高到低'},
-				{sid:4,title:'佣金比率由低到高'},
+				// {sid:2,title:'销量由低到高'},
+				// {sid:3,title:'佣金比率由高到低'},
+				// {sid:4,title:'佣金比率由低到高'},
 			], 
-			sort_clsss_i: 0,
+			sort_clsss_i: 0,		
+
+			basemsg: false	
+		}
+	},
+	created() {
+		this.commission_show = l_storage.get('username') ? true : false
+	},
+	watch: {
+		basemsg: function(n, o) {
+			let s = n ? 1 : 0
+			this.$emit('on_show_ticket',s)
 		}
 	},
 	methods: {
@@ -200,6 +231,20 @@ export default {
 			}
 
 			
+		},
+		goto_detaile(id) {
+			if(this.pid){
+				this.$router.push({
+					path: `/goodsdetaile?pid=${this.pid}&id=${id}`
+				})
+			}else{
+				this.$router.push({
+					path: `/goodsdetaile?id=${id}`
+				})
+				// location. reload()
+			}
+			
+			// location. reload()
 		},
 		syenthesize_click(index,sid) {
 			this.active = 1
@@ -332,6 +377,7 @@ export default {
 				}
 				.yongjin_box{
 					margin-top: 6px;
+
 					.juan {
 						color: #f44336;
 						font-size: 12px;
@@ -495,6 +541,7 @@ export default {
 				}
 				.yongjin_box{
 					margin-top: 6px;
+					min-height: 20px;
 					.juan {
 						color: #f44336;						
 						.l_juan{
@@ -502,7 +549,7 @@ export default {
 							height: 16px;
 							line-height: 18px;
 							font-size: 10px;
-							padding: 0 4px;
+							padding: 0 2px;
 							float: left;
 							border-radius: 2px 3px 3px 2px;
 							background: rgba(244,141,141,.2);
@@ -626,16 +673,22 @@ export default {
 	}
 }
 .tab_fixed{
+		padding-top: 40px;
+		background: #fff;
 	.tab_sort_wrapper{
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;	
 		height: 42px;		
-	}
-	.pro_list_box{
-		padding-top: 45px;
+		z-index: 999;
 	}
 }
-
+.sort_btn_box{
+	z-index: 998;
+	background: #fff;
+	/deep/ .mu-switch-ripple-wrapper {
+		display: none;
+	}
+}
 </style>

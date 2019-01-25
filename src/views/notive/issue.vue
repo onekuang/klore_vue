@@ -2,9 +2,9 @@
 <div class="issue page">
 <!-- 常见问题 -->
 <mu-container>
-  <mu-expansion-panel :expand="panel === 'panel'+ index " @change="toggle('panel' + index)" v-for="(iten,index) in 15">
-    <div slot="header">issue {{index}}</div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum ab quaerat magnam sequi inventore quam quo. Assumenda quibusdam eum consectetur atque quaerat fuga, consequuntur culpa distinctio. Odit veniam ea, quis.
+  <mu-expansion-panel :expand="panel === 'panel'+ index " @change="toggle('panel' + index)" v-for="(item,index) in issue">
+    <div slot="header">{{item.name}}</div>
+    {{item.content}}
   </mu-expansion-panel>
 </mu-container>
 </div>
@@ -15,10 +15,25 @@ export default {
 	name:"issue",
 	data() {
 		return {
-			panel: ''
+			panel: '',
+      issue:[],
 		}
 	},
+  created() {
+    this.page_init()
+  },
 	methods: {
+    page_init() {
+      this.axios.get(this.$api.notice,{
+        params: {
+          category_id: 2,
+        }
+      })
+      .then(res => {
+        this.issue = res.data.data
+
+      })
+    },
     toggle (panel) {
       this.panel = panel === this.panel ? '' : panel;
     }

@@ -69,16 +69,9 @@ export default {
 			this._get_data();
 		},
 		_get_data() {
-			this.axios.get(this.$api.get_classify,{
-				params: {
-					access_token:"5b7f60aca7e7f6f8c680b1b219ad3ec6"
-				}
-			})
+			this.axios.get(this.$api.get_classify)
 			.then(res => {
 				this.class_data= res.data
-			})
-			.catch(res => {
-				this.$toast("网络错误")
 			})
 		},
 		goto_detail(id) {
@@ -203,6 +196,10 @@ export default {
 .search_wrapper{
 	background: #fff;
 	height: 48px;
+	position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 	.search_box{
 		text-align: center;
 		padding-top: 10px;

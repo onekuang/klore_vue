@@ -5,10 +5,14 @@
 		<div class="search_top">
 			<div class="search_input">
 				<span class="span1"><i class="iconfont icon-search"></i></span>
-				<input type="text" placeholder="请输入要搜索的内容" v-model="search_text" v-focus>
+				<input type="text" placeholder="请输入要搜索的内容" v-model="search_text" @blur="close_hint">
 			</div>
 			<div class="search_btn_box" @click="push_search">
 				<span>搜索</span>
+			</div>
+			<!-- 搜索提 -->
+			<div class="search_hint">
+				<div class="items" v-for="item in search_hint" @click="active_text(item)">{{item}}</div>
 			</div>
 		</div>
 	</div>
@@ -53,18 +57,28 @@ export default {
 	data() {
 		return {
 			search_text:'', // 搜索内容
+			search_hint:[], // 搜索提示
 			hot_data: [ 	// 热门搜索数据
-				{text:'热门1'},
-				{text:'热门2'},
-				{text:'热门3'},
-				{text:'热门4'},
-				{text:'热门5'},
-				{text:'热门6'},
-				{text:'热门7'},
-				{text:'热门8'},
+				{text:'年货'},
+				{text:'上衣'},
+				{text:'裤子'},
+				{text:'数码'},
+				{text:'食品'},
 			],
 			// 历史搜索
 			history:["鞋子","衣子","帽子","圣诞"]
+		}
+	},
+	watch: {
+		search_text: function(n, o) {
+			if(n) {
+				this.axios.post(this.$api.searchSug,{
+					q:this.search_text
+				})
+				.then(res => {
+					this.search_hint = res.data
+				})
+			}			
 		}
 	},
 	created() {
@@ -87,10 +101,15 @@ export default {
 			this.set_history(this.search_text);
 
 			console.log('搜索请求 =>' + this.search_text)
+
+			this.$router.push({
+				path: `/searchlist?msg=${this.search_text}`
+			})
 		},
 		// 获取被点击的值,
 		active_text(text) {
 			this.search_text = text
+			this.push_search();
 		},
 		// 初始化历史记录
 		init_history() {			
@@ -120,6 +139,10 @@ export default {
 			}).catch(fail => {
 				console.log('点击了取消')
 			})
+		},
+		// 管理联想
+		close_hint() {
+			this.search_hint = []
 		}
 	}
 }
@@ -137,6 +160,7 @@ export default {
 			line-height: 30px;
 			padding: 0 8px;
 			display: flex;
+			position: relative;
 			.search_input {
 				flex: 1;
 				background: #f7f7f7;
@@ -170,6 +194,20 @@ export default {
 					color: #fff;
 					border-radius: 4px;
 					font-size: 13px;
+				}
+			}
+			.search_hint{
+				background: #fff;
+				position: absolute;
+				top: 35px;
+				right: 0;
+				left: 0;
+				.items{
+					height: 40px;
+					line-height: 40px;
+					padding: 4px 16px;
+					font-size: 12px;
+					border-bottom: 1px solid rgba(0, 0, 0, .03);
 				}
 			}
 		}

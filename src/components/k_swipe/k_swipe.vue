@@ -6,10 +6,17 @@
 	  <swiper :options="swiperOption"  ref="mySwiper">   
 	      <swiper-slide v-for="(item, index) in swipe_data">  
 	        <img 
+	        	v-if="type == 1"
 	        	:src=item.src 
 	        	@click="banner_img_click(index)" 
 	        	width="100%" :height=height
 	        >
+	        <div 
+	        	v-if="type == 2"
+	        	:style="{backgroundImage:'url(' + item.src + ')'}"
+	        	class="bg_img" 
+	        	@click="banner_img_click(index)" 
+	        ></div>
 	      </swiper-slide> 
 	      <!-- 轮播的小圆点 -->  
 	      <div class="swiper-pagination" slot="pagination" v-show=bullet></div>  
@@ -24,6 +31,10 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
 	props: {
+		type: {
+			type:Number,
+			default: 1
+		},
 		swipe_data: {
 			type: Array,
 			default: function() {
@@ -104,6 +115,14 @@ export default {
 	  padding: 4px;
 	  // background: rgba(0,0,0,.3);
 	  background: @color_base;
+	}
+
+	.bg_img{
+		width: 100%;
+		height: 0;
+		padding-top: 100%;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
 	}
 }
 

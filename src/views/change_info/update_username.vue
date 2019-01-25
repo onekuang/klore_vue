@@ -1,6 +1,5 @@
 <template>
-<div class="change_username ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="change_username page fff">
 <div>
 
 <form @submit.prevent="onSubmit">
@@ -22,13 +21,13 @@
 
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
+import { l_storage } from '@/common/js/storage.js'
 var current_time = '';
 export default {
 	name:"change_username",
@@ -37,8 +36,10 @@ export default {
 			form_data:{}
 		}
 	},
+	created() {
+		this.form_data.nickname = l_storage.get('username') || ''
+	},
 	methods: {
-
 		// 监听表单提交
 		onSubmit(e) {
 			// 过滤字段
@@ -50,10 +51,22 @@ export default {
 		// 发送请求
 		send_request() {
 			console.log(this.form_data)
+			this.axios.post(this.$api.change_name,{
+				nickname:this.form_data.nickname
+			})
+			.then(res => {
+				if(res.code == 200) {
+					l_storage.set('username',this.form_data.nickname)
+					this.$alert(res.msg).then(success => {
+						window.history.back()
+					})					
+				}else{
+					this.$toast(res.msg)
+				}
+			})
 		},
 	},
 	components: {
-		BScroll
 	}
 }
 </script>

@@ -11,8 +11,8 @@
 			<div class="k_sweipe_box">
 			  <swiper :options="swiperOption"  ref="mySwiper">   
 			      <swiper-slide v-for="(item, index) in swipe_data">  
-			      	<router-link :to="item.url || '##'" style="height: 20px;">
-				        <p class="notive_text">{{item.text}}</p>
+			      	<router-link :to="'/article?id=' + item.id" style="height: 20px;">
+				        <p class="notive_text">{{item.name}}</p>
 			        </router-link>
 			      </swiper-slide> 
 			  </swiper>  
@@ -114,7 +114,7 @@ export default {
 	    span{
 	      margin-left: 1px;
 	      font-size: 15px;
-	      color:@red;
+	      color:@color_base;
 	      font-weight: 900;
 	    }
 	  }

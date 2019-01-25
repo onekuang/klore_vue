@@ -20,11 +20,12 @@
 		</div>
 	</div>
 
-	<div class="item" :class="{active:index==3}" @click="goto('/visual',3)">
+	<!-- <div class="item" :class="{active:index==3}" @click="goto('/visual',3)"> -->
+	<div class="item" :class="{active:index==3}" @click="goto('/news',3)">
 		<div class="iconbox">
-			<i class="iconfont icon-maoyi-"></i>
+			<i class="iconfont icon-wodefankui"></i>
 		</div>
-		<div class="title">收益</div>
+		<div class="title">社区</div>
 	</div>
 
 	<div class="item" :class="{active:index==4}" @click="goto('/usercenter',4)">
@@ -46,6 +47,10 @@ export default {
 	},
 	methods: {
 		goto(url,index) {
+			// if(index == 3) {
+			// 	this.$alert("社区正在升级,稍后对外开放,敬请期待")
+			// 	return
+			// }
 			this.index = index
 			this.$router.push({
 				path: url

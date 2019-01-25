@@ -6,7 +6,7 @@
 <div class="bill_top">
 	<div class="count_box">
 		<div class="text">{{month_text}}</div>
-		<div class="count">已累计: <span>{{sum_money}}元</span></div>
+		<div class="count">已累计: <span>123元</span></div>
 	</div>
 	<div class="filter on" @click="toggle_date">
 		<i class="iconfont icon-rili"></i>
@@ -19,30 +19,20 @@
 
 <div class="list">
 	<ul>
-		<li class="item" v-for="item in list">
+		<li class="item" v-for="i in 8">
 			<div class="info_box">
 				<div class="box">
-					<div class="title">{{item.alipay}}</div>
+					<div class="title">提现</div>
 					<div class="tag">
-						<span>[ {{item.desc}} ]</span>
+						<span>[ tag ]</span>
 					</div>
-					<div class="time">{{item.create_time}}</div>
+					<div class="time">2018-12-22 12:47:45</div>
 				</div>
 			</div>
 			<div class="money_box">
-				<div class="money on">{{item.meney}}</div>
-				<div class="status">
-					<div class="tag" 
-  					:class="{'status1' : item.pay_status == 0,
-  						'status2' : item.pay_status == 1, 
-  						'status0' : item.pay_status == -1}"
-  				>{{item.pay_status | f_status }}</div>
-				</div>
+				<div class="money on">+200</div>
 			</div>
 		</li>
-		<div class="more_box">
-      <Load_more @tap_load="tap_load" :status=load_status />
-    </div>
 	</ul>
 </div>
 <!-- </div></BScroll> -->
@@ -53,52 +43,15 @@
 import BScroll from '@/components/base/scroll/scroll'
 import K_Date from '@/components/k_date/k_date'
 export default {
-	name:"bill",
+	name:"orderlist",
 	data() {
 		return {
-			list:[],
-			sum_money: 0,
 			month_text:"本月",
 			month: undefined,
 			date_show: false,
-			page_current: 1,
-			page_sum: 1,
-			load_status:0,
 		}
 	},
-	created() {
-		document.body.scrollTop = document.documentElement.scrollTop = 0;
-		this.page_init()
-	},
-	methods: {		
-		page_init() {
-			let month = this.month_text == "本月" ? '' : this.month_text
-
-			this.axios.get(this.$api.get_money_list,{
-				params: {
-					page: this.page_current,
-					time: month
-				}
-			})
-			.then(res => {
-				this.sum_money = res.data.totalmeney || 0
-
-				this.page_sum = res.data.last_page
-				if(this.page_current > this.page_sum){
-					this.load_status = 2
-          return
-				}
-				let arr = this.list
-				let dat = res.data.data
-				this.load_status = 0				
-				this.list = arr.concat(dat)
-				this.page_current = parseInt(this.page_current) + 1
-			})
-		},
-		tap_load() {
-			this.load_status = 1
-			this.page_init()
-		},
+	methods: {
 		toggle_date() {
 			this.$refs.date.toggle_date();
 		},
@@ -106,20 +59,8 @@ export default {
 			let n = date.length - 2
 			let str = date.substr(0, n)
 			this.month_text = str
-			this.list = []
-			this.page_current = 1
-			this.page_sum = 1
-			this.load_status = 0
-			this.page_init()
-			// console.log(str)
+			console.log(str)
 		}
-	},
-	filters: {
-		f_status :function(input) {
-			if(input == 1){return "成功"}
-			else if(input == 0){return "正在处理"}
-			else {return "失败"}
-		},
 	},
 	components: {
 		BScroll,K_Date
@@ -205,31 +146,6 @@ export default {
 					font-weight: 900;
 					&.on {
 						color: @red;
-					}
-				}
-				.status{
-					font-size: 12px;
-					margin-right: 8px;
-					margin-top: 16px;
-					.tag{
-						display:inline-block;
-						background: #eee;
-						padding: 0 6px;
-						border-radius: 12px;
-						color: #ccc;
-						font-size: 12px;
-					}
-					.status1{
-						background: @chen;
-						color: #fff;
-					}
-					.status2{
-						background: @green;
-						color: #fff;
-					}
-					.status0{
-						background: @red;
-						color: #fff;
 					}
 				}
 			}

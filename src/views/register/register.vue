@@ -4,10 +4,25 @@
 	<form @submit.prevent="onSubmit">
 		<div class="main_box">
 		<div class="register_box">
-			<div class="username_box">
-				<div class="item">设置姓名:</div>
+			<div class="new_mobile_box">
+				<div class="item">绑定手机:</div>
 				<div class="item">
-					<input type="text" name="username" placeholder="请输入您的姓名" v-model="form_data.username">
+					<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone" @blur="check_mobile">
+				</div>						
+			</div>
+			<div class="code_box">
+				<div class="item ">验 证 码:</div>
+				<div class="item">
+					<input type="text" class="code" name="code" placeholder="请输入验证码" v-model="form_data.code" number>
+				</div>
+				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
+				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span></div>	
+			</div>
+
+			<div class="username_box">
+				<div class="item">邀 请 码:</div>
+				<div class="item">
+					<input type="text" name="invitation" placeholder="请输入邀请码" v-model="form_data.invitation">
 				</div>
 			</div>
 			<div class="username_box">
@@ -22,20 +37,7 @@
 					<input type="password" name="password2" placeholder="请重复您的密码" v-model="form_data.password2">
 				</div>
 			</div>
-			<div class="new_mobile_box">
-				<div class="item">绑定手机:</div>
-				<div class="item">
-					<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone" number>
-				</div>						
-			</div>
-			<div class="code_box">
-				<div class="item ">验 证 码:</div>
-				<div class="item">
-					<input type="text" class="code" name="code" placeholder="请输入验证码" v-model="form_data.code" number>
-				</div>
-				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
-				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span></div>	
-			</div>
+			
 		</div>
 		</div>
 
@@ -54,6 +56,7 @@
 
 <script>
 import { kk } from '@/common/js/k_form.js'
+import { l_storage } from '@/common/js/storage.js'
 var current_time = '';
 export default {
 	name:"sign",
@@ -64,30 +67,70 @@ export default {
 			form_data:{}
 		}
 	},
+	created() {
+		this.form_data.invitation =l_storage.get('inivid') || ''
+	},
 	methods: {
 		// 监听表单提交
 		onSubmit(e) {
 			// 过滤字段
-			if(!kk.is_username(this.form_data.username,this)){return}
+			// if(!kk.is_username(this.form_data.invitation,this)){return}
+			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
+			if(kk.is_null(this.form_data.code,this,'验证码不能为空')){return}
 			if(!kk.is_password(this.form_data.password1,this)){return}
 			if(this.form_data.password1 != this.form_data.password2 ){
 				this.$toast('两次密码不一致');
 			}
-			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
-			if(kk.is_null(this.form_data.code,this)){return}
 			// 调用请求函数
 			this.send_request()
 		},
 		// 发送请求
 		send_request() {
 			console.log(this.form_data)
+			this.axios.post(this.$api.register,{
+				mobile: this.form_data.new_phone,
+				smscode: this.form_data.code,
+				invitation_code: this.form_data.invitation,
+				password: this.form_data.password1,
+			})
+			.then(res => {
+				console.log(res.data)
+				if(res.code == 200) {
+					l_storage.set('user_token', res.data.user_token)
+					l_storage.set('user_code', res.data.invitation_code)
+					this.$toast(res.msg)
+					this.$router.push({
+						path: `/home`
+					})
+				}
+			})
+
+		},
+		check_mobile() {
+			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
+			this.axios.post(this.$api.VerifyMobile,{
+				mobile:this.form_data.new_phone,
+			})
+			.then(res => {
+				console.log(res)
+			})
 		},
 		// 获取验证码
 		get_code() {
 			if(this.code_disabled){
 				return
 			}
-			this._start_code_time();
+			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
+
+			this.axios.post(this.$api.get_code,{
+				mobile: this.form_data.new_phone
+			})
+			.then(res => {
+				this.$toast(res.msg)
+				if(res.code == 200) {
+					this._start_code_time();
+				}
+			})
 		},
 		// 验证码开始倒计时
 		_start_code_time() {

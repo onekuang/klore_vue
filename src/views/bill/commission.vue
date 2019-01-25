@@ -1,12 +1,8 @@
 <template>
 <div class="bill page">
-<!-- <div class="bill ab_full page"> -->
-<!-- <BScroll 	class="box_wrapper" ref="scroll" >
-<div> -->
 <div class="bill_top">
 	<div class="count_box">
-		<div class="text">{{month_text}}</div>
-		<div class="count">已累计: <span>{{sum_money}}元</span></div>
+		<div class="back" @click="back"><i class="iconfont icon-icon--"></i></div>
 	</div>
 	<div class="filter on" @click="toggle_date">
 		<i class="iconfont icon-rili"></i>
@@ -22,21 +18,22 @@
 		<li class="item" v-for="item in list">
 			<div class="info_box">
 				<div class="box">
-					<div class="title">{{item.alipay}}</div>
+					<div class="title">来自:{{item.fromuser}}</div>
 					<div class="tag">
-						<span>[ {{item.desc}} ]</span>
+						<span>[ {{item.eventname}} ]</span>
 					</div>
 					<div class="time">{{item.create_time}}</div>
 				</div>
 			</div>
 			<div class="money_box">
-				<div class="money on">{{item.meney}}</div>
+				<div class="money on" v-show="item.meney != '0.00'">+{{item.meney}} 元</div>
+				<div class="money on" v-show="item.integral"><span></span>+{{item.integral}} 成长值</div>
 				<div class="status">
 					<div class="tag" 
-  					:class="{'status1' : item.pay_status == 0,
-  						'status2' : item.pay_status == 1, 
-  						'status0' : item.pay_status == -1}"
-  				>{{item.pay_status | f_status }}</div>
+  					:class="{'status1' : item.is_settle == 0,
+  						'status2' : item.is_settle == 1, 
+  						'status0' : item.is_settle == -1}"
+  				>{{item.is_settle | f_status }}</div>
 				</div>
 			</div>
 		</li>
@@ -45,15 +42,13 @@
     </div>
 	</ul>
 </div>
-<!-- </div></BScroll> -->
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import K_Date from '@/components/k_date/k_date'
 export default {
-	name:"bill",
+	name:"commission",
 	data() {
 		return {
 			list:[],
@@ -74,7 +69,7 @@ export default {
 		page_init() {
 			let month = this.month_text == "本月" ? '' : this.month_text
 
-			this.axios.get(this.$api.get_money_list,{
+			this.axios.get(this.$api.IncomeList,{
 				params: {
 					page: this.page_current,
 					time: month
@@ -112,17 +107,20 @@ export default {
 			this.load_status = 0
 			this.page_init()
 			// console.log(str)
+		},
+		back() {
+			window.history.back()
 		}
 	},
 	filters: {
 		f_status :function(input) {
-			if(input == 1){return "成功"}
-			else if(input == 0){return "正在处理"}
-			else {return "失败"}
+			if(input == 1){return "已结算"}
+			else if(input == 0){return "未结算"}
+			else {return "已失效"}
 		},
 	},
 	components: {
-		BScroll,K_Date
+		K_Date
 	}
 }
 </script>
@@ -136,11 +134,18 @@ export default {
 		// .khr_bg();
 	}
 	.bill_top{
-		.khr_bg();
-		padding: 8px 12px;
+		// .khr_bg();
+		background: #fff;
+		padding: 4px 12px;
 		display: flex;
 		.count_box{
 			flex: 1;
+			.back{
+				height: 40px;
+				width: 40px;
+				line-height: 38px;
+				font-size: 16px;
+			}
 			.text{
 				height: 20px;
 				font-size: 13px;
@@ -197,12 +202,12 @@ export default {
 				}
 			}
 			.money_box{
-				flex: 0 0 100px;
+				flex: 0 0 200px;
 				text-align: right;
 				.money {
-					font-size: 20px;
+					font-size: 14px;
 					margin-right: 8px;
-					font-weight: 900;
+					// font-weight: 900;
 					&.on {
 						color: @red;
 					}
@@ -210,7 +215,7 @@ export default {
 				.status{
 					font-size: 12px;
 					margin-right: 8px;
-					margin-top: 16px;
+					margin-top: 20px;
 					.tag{
 						display:inline-block;
 						background: #eee;

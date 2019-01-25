@@ -13,19 +13,19 @@
     	<div class="box">
     		<div class="item" v-for="item in l_list">
     			<div class="img">
-    				<img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132" width="100%" class="radius">
+    				<img :src="$api.base_img + item.avatar" width="100%">
     			</div>
     			<div class="info">
     				<div class="nickname">
     					<div class="user_lv">
     						<span class="icon"><i class="iconfont icon-crownfill"></i></span>
-    						<span class="lv_name">超级会员</span>
+    						<span class="lv_name">{{item.levelname}}</span>
     						<!-- <img src="./img/lv.png" height="24" width="80"> -->
     					</div>
-    					木有昵称
+    					{{item.nickname}}
     				</div>
     				<div class="desc">
-    					<div class="mobile">{{13421936693 | phome}} <span class="time">2020-11-12</span></div>
+    					<div class="mobile">{{item.mobile}} <span class="time">{{item.create_time}}</span></div>
     				</div>
     			</div>
     		</div>
@@ -45,19 +45,19 @@
     	<div class="box">
     		<div class="item" v-for="item in r_list">
     			<div class="img">
-    				<img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132" width="100%" class="radius">
+    				<img :src="$api.base_img + item.avatar" width="100%">
     			</div>
     			<div class="info">
     				<div class="nickname">
     					<div class="user_lv">
     						<span class="icon"><i class="iconfont icon-crownfill"></i></span>
-    						<span class="lv_name">超级会员</span>
+    						<span class="lv_name">{{item.levelname}}</span>
     						<!-- <img src="./img/lv.png" height="24" width="80"> -->
     					</div>
-    					木有昵称
+    					{{item.nickname}}
     				</div>
     				<div class="desc">
-    					<div class="mobile">{{13421936693 | phome}} <span class="time">2020-11-12</span></div>
+    					<div class="mobile">{{item.mobile}} <span class="time">{{item.create_time}}</span></div>
     				</div>
     			</div>
     		</div>
@@ -84,44 +84,71 @@ export default {
 	data() {
 		return {
 			l_list: [],
-			r_list: [{},{},{},{},{},{},{},{},{},{},],
+      l_current_page: 1,
+      l_sum_page: 1,
+			r_list: [],
+      r_current_page: 1,
+      r_sum_page: 1,
 			active: 0,
       all_load_status: 0,      //加载更多状态1
       dir_load_status: 0,      //加载更多状态2
 		}
 	},
+  created() {
+    this.page_init()
+    this.page_init(1)
+  },
   methods: {
+    page_init(type) {
+      let state = type
+      this.axios.post(this.$api.fans_list,{
+        type:type ? type : '',
+        // list_rows: 1,
+        page: type ? this.r_current_page : this.l_current_page
+      })
+      .then(res => {
+        if(state) {
+          this.r_sum_page = res.data.last_page
+          if(this.r_current_page > this.r_sum_page){
+            this.dir_load_status = 2
+            return
+          }else{
+            let arr = this.r_list
+            let dat = res.data.data
+            this.dir_load_status = 0
+            this.r_list = arr.concat(dat)
+          }
+          this.r_current_page = parseInt(this.r_current_page) + 1
+        }else{     
+          this.l_sum_page = res.data.last_page
+          if(this.l_current_page > this.l_sum_page){
+            this.all_load_status = 2
+            return
+          }else{
+            let arr = this.l_list
+            let dat = res.data.data
+            this.all_load_status = 0
+            this.l_list = arr.concat(dat)
+          }
+          this.l_current_page = parseInt(this.l_current_page) + 1
+        } 
+      })
+      .catch(res => {
+        this.$toast("网络错误")
+      })
+    },
+
     all_tap_load() {
-      this.all_load_status = 2
+      this.all_load_status = 1
+      this.page_init()
+      console.log('all')
     },
     dir_tap_load() {
-      this.dir_load_status = 2
+      this.dir_load_status = 1
+      this.page_init(1)
+      console.log('dir')
     }
   },
-	filters: {
-		phome: function(val) {
-			let str = val.toString();
-			let a = str.substr(0 , 3);
-			let b = str.substr(-4);
-			return a + '****' +b
-		},
-	  time: function (input) {
-	    var d       = new Date(input)
-	    var year    = d.getFullYear()
-	    var month   = d.getMonth()    + 1
-	    var day     = d.getDate()     < 10 ? '0' + d.getDate()    : '' + d.getDate()
-	    var hour    = d.getHours()    < 10 ? '0' + d.getHours()   : '' + d.getHours()
-	    var minutes = d.getMinutes()  < 10 ? '0' + d.getMinutes() : '' + d.getMinutes()
-	    var seconds = d.getSeconds()  < 10 ? '0' + d.getSeconds() : '' + d.getSeconds()
-	
-	    return year + '-' 
-	      + month   + '-' 
-	      + day     + ' ' 
-	      + hour    + ':' 
-	      + minutes + ':' 
-	      + seconds;
-	  }
-	},
 }
 </script>
 

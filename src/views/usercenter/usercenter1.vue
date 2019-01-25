@@ -14,14 +14,14 @@
 
 		<div class="userinfo">
 			<div class="avatar">
-				<img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132" width="70" height="70">
+				<img :src="$api.base_img + user_info.avatar" width="70" height="70">
 			</div>
 			<div class="desc_box">
 				<div class="nickname">
-					木有昵称
+					{{user_info.nickname}}
 					<div class="user_lv">
 						<span class="icon"><i class="iconfont icon-crownfill"></i></span>
-						<span class="lv_name">超级会员</span>
+						<span class="lv_name">{{user_info.levelname}}</span>
 						<!-- <img src="./img/lv.png" height="24" width="80"> -->
 					</div>
 				</div>
@@ -37,19 +37,20 @@
 		</div>
 
 		<div class="tag_box">
-			<div class="item">粉丝 <span>0</span></div>
-			<div class="item">成长值 <span>8</span></div>
+			<div class="item">粉丝 <span>{{user_info.fans}}</span></div>
+			<div class="item">成长值 <span>{{user_info.integral}}</span></div>
 			<div class="clearfix"></div>
 		</div>
 
 		<div class="balance_box">
 			<div class="balance_left pull-left">
 				<div class="balance">
-					余额<span>￥0.0</span>
+					余额<span>￥{{user_info.meney}} </span>
 				</div>
 				<div class="goto_balance">
 					每月25号结算上月收入 >
 				</div>
+				<div class="clearfix"></div>
 			</div>
 
 			<div class="get_money pull-right" @click="goto('/getmoney','getmoney')">
@@ -60,17 +61,17 @@
 </div>
 <div class="visual_box" @click="goto('/visual')">
 	<div class="item">
-		<div class="money">￥<span>5323</span></div>
+		<div class="money">￥<span>{{user_info.monthprofit}}</span></div>
 		<div class="text">本月预估</div>
 		<div class="count">
-			上月结算<span>￥</span><span>3865</span>
+			上月结算<span>￥</span><span>{{user_info.lastprofitjs}}</span>
 		</div>
 	</div>
 	<div class="item">
-		<div class="money">￥<span>423</span></div>
+		<div class="money">￥<span>{{user_info.dayprofit}}</span></div>
 		<div class="text">今日收益</div>
 		<div class="count">
-			上月预估<span>￥</span><span>4536</span>
+			上月预估<span>￥</span><span>{{user_info.lastprofit}}</span>
 		</div>
 	</div>
 </div>
@@ -84,7 +85,7 @@
 		<div class="title">收益</div>
 	</router-link>
 
-	<router-link tag='div' class="item" to="">
+	<router-link tag='div' class="item" to="/orderlist">
 		<div class="img">
 			<img src="./img/tab2.png" width="40" height="40">
 		</div>
@@ -98,7 +99,7 @@
 		<div class="title">粉丝</div>
 	</router-link>
 
-	<router-link tag='div' class="item" to="/myqrcode">
+	<router-link tag='div' class="item" :to="`/myqrcode?id=${yao_qing_ma}`">
 		<div class="img">
 			<img src="./img/tab4.png" width="40" height="40">
 		</div>
@@ -159,14 +160,35 @@
 
 <script>
 import BScroll from '@/components/base/scroll/scroll'
+import { l_storage } from '@/common/js/storage.js'
 export default {
 	name:"usercenter1",
 	data() {
 		return {
-			yao_qing_ma:"DFH3A56",
+			user_info:{
+				nickname:'',
+				avatar:'',
+				levelname:''
+			},
+			yao_qing_ma:"",
 		}
 	},
+	created() {
+		this.page_init()
+	},
 	methods: {
+		page_init() {
+			this.axios.post(this.$api.user_info)
+			.then(res => {
+				let data = res.data
+				this.yao_qing_ma = data.invitation_code
+				this.user_info =data
+				l_storage.set('username', data.nickname)
+			})
+			.catch(res => {
+				this.$toast("网络错误")
+			})
+		},
 		goto(url,condition) {
 			// 筛选前往提现
 			if(condition && condition == "getmoney") {
@@ -196,7 +218,7 @@ export default {
 <style scoped lang="less">
 @import url('../../common/less/index.less');
 .userinfo_wrapper{
-	background: url(http://tp5test.cms.sppcms.com/img/userboxbg.jpg);
+	background: url(https://lipstick.xsygood.com/testimg/pyg_usbg.jpg);
 	padding: 12px 12px 0 12px;
 	height: 200px;
 	.userinfo_box{
@@ -211,7 +233,7 @@ export default {
 			}
 			i {
 				font-size: 20px;
-				color:#fff;
+				color:#333;
 			}
 		}
 		.userinfo{
@@ -229,7 +251,7 @@ export default {
 				flex: 1;
 				// margin-top: 10px;
 				.nickname{
-					color: rgba(255,255,255,0.95);
+					color: #333;
 					font-size: 14px;
 					height: 30px;
 					font-family: fantasy;
@@ -267,7 +289,7 @@ export default {
 				}
 
 				.desc{
-					color: rgba(255,255,255,0.8);
+					color: #333;
 					font-size: 13px;
 					height: 30px;
 					margin-top: 8px;
@@ -278,7 +300,8 @@ export default {
 					.copy {
 						display: inline-block;
 						border-radius: 12px;
-						background: rgba(0, 0, 0, .3);
+						// background: rgba(0, 0, 0, .3);
+						background: #FFE5B2;
 						padding: 0px 6px;
 						font-size: 12px;
 						margin-left: 10px;
@@ -288,10 +311,11 @@ export default {
 		}
 		.tag_box {
 			padding-left: 8px;
-			color: rgba(255, 255, 255, .8);
+			color: #333;
 			font-size: 12px;
 			height: 40px;
 			line-height: 40px;
+			overflow:hidden;
 			.item {
 				float: left;
 				margin-right: 16px;

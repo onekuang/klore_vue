@@ -1,8 +1,8 @@
 import axios from 'axios'
 import Qs from 'qs'
 import Vue from "vue";
-
-
+import router from "../router";
+import { l_storage } from '@/common/js/storage.js'
 
 // # 创建一个axios实例
 var instance = axios.create({
@@ -15,7 +15,7 @@ var instance = axios.create({
 // # 设置Content-Type
     headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
     params: {
-      access_token: '5b7f60aca7e7f6f8c680b1b219ad3ec6'
+      // access_token: '5b7f60aca7e7f6f8c680b1b219ad3ec6'
     },
 })
 
@@ -26,6 +26,8 @@ var instance = axios.create({
  */ 
 instance.interceptors.request.use(    
     config => {   
+        config.params.access_token = '5b7f60aca7e7f6f8c680b1b219ad3ec6'
+        config.params.user_token = l_storage.get('user_token') || 0
         return config;    
     },    
     error => Promise.error(error))
@@ -36,7 +38,11 @@ instance.interceptors.response.use(
             if(res.status === 200 && res.data.code != 200) {
                 // 如果不是200 统一处理
                 _verify_code(res.data.code)
+
+                Vue.prototype.$toast(res.data.msg)
+
                 try {Vue.prototype.$loading.hide()}catch(err) {} 
+                
                 return
             }
             try {Vue.prototype.$loading.hide()}catch(err) {} 
@@ -51,6 +57,7 @@ instance.interceptors.response.use(
             errorHandle(response.status, response.data.message);
             return Promise.reject(response);
         } else {
+            Vue.prototype.$toast('网络错误,请稍后再试')
             // 处理断网的情况
             console.log('网络有误')
             try {Vue.prototype.$loading.hide()}catch(err) {} 
@@ -84,7 +91,7 @@ const errorHandle = (status, other) => {
             break;
         default:
             Vue.prototype.$toast('服务器错误,请稍后再试')
-            console.log('网络错误');   
+            console.log('网络错误1');   
     }
 }
 
@@ -95,8 +102,14 @@ function _verify_code(code) {
         case 1:
             console.log('code=1')
             break;
+        case 205:
+            Vue.prototype.$toast('请先登录')
+            router.push({
+                path: `/login`
+            })
+            break;
         default: 
-            console.log('网络错误')
+            console.log('网络错误2')
             
     }
 }

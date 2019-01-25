@@ -46,7 +46,7 @@ export function arrHasValue(v, arr) {
 // console.log(arrHasValue(1,arrs)); //true
 
 
-export function urlparam() {
+export function UrlSearch() {
   var name,value; 
 
   var str=location.href; //取得整个地址栏
@@ -67,3 +67,36 @@ export function urlparam() {
 // var Request = new UrlSearch(); //实例化
 // let code    = Request.code || '';
 // let state   = Request.state || '';
+
+
+export function isWeiXin(){
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+export function formatting_time(time, type) {
+  let t = type || 1
+  var d       = new Date(time)
+  var year    = d.getFullYear()
+  var month   = d.getMonth()    + 1
+  var day     = d.getDate()     < 10 ? '0' + d.getDate()    : '' + d.getDate()
+  var hour    = d.getHours()    < 10 ? '0' + d.getHours()   : '' + d.getHours()
+  var minutes = d.getMinutes()  < 10 ? '0' + d.getMinutes() : '' + d.getMinutes()
+  var seconds = d.getSeconds()  < 10 ? '0' + d.getSeconds() : '' + d.getSeconds()
+  if(t == 1) { 
+    return year + '-' 
+      + month   + '-' 
+      + day     + ' ' 
+      + hour    + ':' 
+      + minutes + ':' 
+      + seconds;
+  }else if(t == 2) {
+    return year + '-' 
+      + month   + '-' 
+      + day     + ' '
+  }
+}

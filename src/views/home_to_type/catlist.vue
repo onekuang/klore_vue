@@ -1,12 +1,12 @@
 <template>
 <div class="prolist page" >
-
+catlist
 <div>
 	<!-- 商品列表	 -->
 	<K_List 
 		:goods_list=goods_list 
-		:tab_show=true 
-		:tab_fixed=true 
+		:tab_show=false 
+		:tab_fixed=false 
 		:pid=list_id 
 		@onSort=onSort 
 		style="padding-top: 40px;"
@@ -21,7 +21,7 @@
 <script>
 import K_List from '@/components/k_goods_list/k_goods_list'
 export default {
-	name:"prolist",
+	name:"homelist",
 	data() {
 		return {
 			goods_list: [],

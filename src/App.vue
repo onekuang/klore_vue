@@ -19,31 +19,49 @@
 </template>
 <script>
 import k_footer from "./components/base/footer_tab/footer1";
+import { l_storage } from '@/common/js/storage.js'
+import { UrlSearch } from '@/common/js/util.js'
 export default {
   name: "app",
   data() {
     return {
-      include:['home','list','about'],
+      include:['home','list','about','classlist'],
       transitionName: '',
+    }
+  },
+  created() {
+    var Request = new UrlSearch(); //实例化
+    let inivid    = Request.invitation_code || '';
+    // console.log(Request)
+    if(inivid){
+      l_storage.set('invitation_code',inivid)
+      console.log('邀请码进入' + inivid)
     }
   },
   watch: {
     $route(to, from) {
-      // if(to.meta.login) {
-      //   console.log('需要登录')
-      //   return
-      // }
-      //如果to索引大于from索引,判断为前进状态,反之则为后退状态
-      if(to.meta.index > from.meta.index){
-        //设置动画名称
-        this.transitionName = 'slide-left';
+      if(to.meta.login) {
+        if(l_storage.get('user_token')){
+          // console.log('已登录')
+        }else{
+          this.$toast('请先登录')
+          this.goto_login();
+          return
+        }        
+      }
 
-        // if(to.meta.index > 9 || to.meta.index == 7 ){
-        //   kk.is_login(s_storage.get('sessionID'), this);
-        // }
+      if(to.meta.index > from.meta.index){
+        this.transitionName = 'slide-left';
       }else{
         this.transitionName = 'slide-right';
       }
+    }
+  },
+  methods: {
+    goto_login(){
+      this.$router.push({
+        path: `/login`
+      })
     }
   },
   components: {

@@ -11,10 +11,10 @@
 
 				<div class="input_box">
 					<div class="inpu">
-						<input type="text" name="username" placeholder="用户名/手机" v-model="form_data.username">
+						<input type="text" name="username" placeholder="手机号码" v-model="form_data.username">
 					</div>
 					<div class="icon">
-						<i class="iconfont icon-people"></i>
+						<i class="iconfont icon-tel"></i>
 					</div>
 				</div>
 				<div class="input_box">
@@ -28,6 +28,10 @@
 				
 				<div class="login_btn_box">
 					<button class="login_btn">登录</button>
+					<div></div>
+					<router-link tag="div" class="phone_login" to="/login2">
+						短信验证登录
+					</router-link>
 					<div class="forget">
 						<router-link tag='div' to="/register" class="register">注册</router-link>
 						<router-link tag='div' to="/findPassword" class="forget_psw">忘记密码</router-link>
@@ -47,6 +51,7 @@
 
 <script>
 import K_login_btn from './other_login.vue'
+import { l_storage } from '@/common/js/storage.js'
 import { kk } from '@/common/js/k_form.js'
 export default {
 	name:"login3",
@@ -65,6 +70,22 @@ export default {
 		// 登录请求
 		send_request() {
 			console.log(this.form_data)
+			this.axios.post(this.$api.login,{
+				mobile:this.form_data.username,
+				password:this.form_data.password,
+				invitation_code: l_storage.get('inivid')
+			})
+			.then(res => {
+				if(res.code == 200) {
+					console.log(res.data)
+					l_storage.set('user_token', res.data.user_token)
+					l_storage.set('user_code', res.data.invitation_code)
+					this.$toast(res.msg)
+					this.$router.push({
+						path: `/home`
+					})
+				}
+			})
 		},
 	},
 	components: {
@@ -129,6 +150,15 @@ export default {
 					border-radius: 20px;
 					color: #fff;
 					background: linear-gradient(left, #A46BD7, #DE6DB8);
+				}
+				.phone_login{
+					height: 40px;
+					line-height: 40px;
+					margin-right: 12px;
+					width: 120px;
+					font-size: 13px;
+					float:left;
+					color: #999;
 				}
 				.forget{
 					height: 40px;

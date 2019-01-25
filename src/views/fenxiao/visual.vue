@@ -1,9 +1,9 @@
 <template>
 <div class="visual page">
 <div class="header">
-	<div class="money">￥<span>0</span></div>
+	<div class="money">￥<span>{{earnings.totaljs}}</span></div>
 	<div class="text">累计结算收益(元)</div>
-	<div class="text2">账户余额(元):&nbsp;&nbsp;￥<span>0</span></div>
+	<div class="text2">账户余额(元):&nbsp;&nbsp;￥<span>{{earnings.balance}}</span></div>
 </div>
 
 <div class="tab_wrapper">
@@ -13,22 +13,23 @@
 				付款笔数 
 				<span @click="open_info('上个月内确认收货的订单收益,将转入到余额中')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">￥123</div>
+			<div class="center">￥{{earnings.lastmonthjs}}</div>
 			<div class="bottom">上月佣金</div>
 		</div>
 		<div class="item">
 			<div class="top">
 				预估佣金
+				<span @click="open_info('本月内创建的所有订单预估收益')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">￥123</div>
-			<div class="bottom">本月佣金</div>
+			<div class="center">￥{{earnings.thismonth}}</div>
+			<div class="bottom">本月收益</div>
 		</div>
 		<div class="item">
 			<div class="top">
-				预估收入
+				预估收入<span @click="open_info('上月内创建的所有订单预估收益')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">￥123</div>
-			<div class="bottom">上月佣金</div>
+			<div class="center">￥{{earnings.lastmonth}}</div>
+			<div class="bottom">上月收益</div>
 		</div>
 	</div>
 </div>
@@ -42,21 +43,21 @@
 	<div class="tab_box">
 		<div class="item">
 			<div class="top">
-				付款笔数
+				付款笔数 <span @click="open_info('今日内所有付款的订单数量')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">12</div>
+			<div class="center">{{earnings.dayorder}}</div>
 		</div>
 		<div class="item">
 			<div class="top">
-				预估佣金
+				预估佣金 <span @click="open_info('今日内创建的有效订单预估收益')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">￥123</div>
+			<div class="center">￥{{earnings.day}}</div>
 		</div>
 		<div class="item">
 			<div class="top">
 				其他
 			</div>
-			<div class="center">￥123</div>
+			<div class="center">￥0</div>
 		</div>
 	</div>
 </div>
@@ -72,28 +73,28 @@
 	<div class="tab_box">
 		<div class="item">
 			<div class="top">
-				付款笔数
+				付款笔数 <span @click="open_info('昨天所有付款的订单数量')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">4</div>
+			<div class="center">{{earnings.lastorder}}</div>
 		</div>
 		<div class="item">
 			<div class="top">
-				预估佣金
+				预估佣金 <span @click="open_info('昨天创建的有效订单预估收益')"><i class="iconfont icon-bangzhuwenhao"></i></span>
 			</div>
-			<div class="center">￥123</div>
+			<div class="center">￥{{earnings.last}}</div>
 		</div>
 		<div class="item">
 			<div class="top">
 				其他
 			</div>
-			<div class="center">￥123</div>
+			<div class="center">￥0</div>
 		</div>
 	</div>
 </div>
 <div class="khr"></div>
 
 <mu-list>
-  <mu-list-item avatar button :ripple="false" to="">
+  <mu-list-item avatar button :ripple="false" to="/commission">
     <mu-list-item-title>消费佣金明细</mu-list-item-title>
     <mu-list-item-action>
       <mu-icon slot="right" value=":iconfont icon-you" />
@@ -117,9 +118,21 @@ export default {
 	name:"visual",
 	data() {
 		return {
+			earnings:{}
 		}
 	},
+	created() {		
+		this.page_init()
+	},
 	methods: {
+		page_init() {
+			this.$loading.show()
+			this.axios.get(this.$api.earnings)
+			.then(res => {
+				this.earnings = res.data
+				this.$loading.hide()
+			})
+		},
 		open_info(text) {
 			this.$alert({
 				title: '提示',

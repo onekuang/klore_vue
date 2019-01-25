@@ -3,53 +3,58 @@
 	<span class="back" @click=back>
 		<i class="iconfont icon-icon--"></i>
 	</span>
-
+	
 	<!-- 轮播图 -->
 	<!-- 轮播组件 -->
     <div>
-    <k_swipe_banner :swipe_data=swipe_banner_data />
+    <k_swipe_banner :swipe_data=swipe_banner_data :type=2 />
     </div>
 	<!-- 轮播图end -->
 	
 	<div class="goods_info">
-		<div class="goods_money">
-			<div class="item">
-				<span>劵后价</span>
-			</div>
-			<div class="item">
-				<span>￥218</span>
-			</div>
-			<div class="item">
-				<span style="text-decoration:line-through;">淘宝价￥228</span>
-			</div>
-		</div>
-		<div class="clearfix"></div>
+		
 		<div class="goods_head">
-			<div class="title">惊天动地小龙虾</div>
-			<!-- <div class="img">
-				<img src="./qd.png" width=24 height="24">
-				<p class="p1">分享</p>				
-			</div> -->
+			<div class="title">
+				<span class="taobao" v-show="shop_info.shopType == 'C'">淘宝</span>
+				<span class="tianmao" v-show="shop_info.shopType == 'B'">天猫</span>
+				{{title}}
+			</div>
 			<div class="img" @click="toggle_collect">
 				<span class="weishoucang">
-					<i class="iconfont icon-favor" v-show=collect></i>
-					<i class="iconfont icon-favorfill" style="color: #f10;" v-show="!collect"></i>
+					<i class="iconfont icon-favor" v-show="collect == 0"></i>
+					<i class="iconfont icon-favorfill" style="color: #f10;" v-show="collect"></i>
 				</span>				
-				<p class="p1">{{collect? '收藏' : '已收藏'}}</p>				
+				<p class="p1">{{collect == 0 ? '收藏' : '已收藏'}}</p>				
 			</div>
 			<!-- <div class="img" v-show="!collect">
 				<span class="yishoucang"><i class="iconfont icon-favorfill"></i></span>
 				<p class="p1" v-show="!collect">已收藏</p>
 			</div> -->
 		</div>
+
+		<div class="goods_money">
+			<div class="item">
+				<span>劵后价</span>
+			</div>
+			<div class="item">
+				<span>￥{{goods.price}}</span>
+			</div>
+			<div class="item">
+				<span style="text-decoration:line-through;">原价￥{{goods.reserve_price}}</span>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+
+
 		<div class="param">
-			<div class="item">已售 1568</div>
-			<div class="item"><span class="tag_juan">预估佣金￥1.21</span></div>
+			<div class="item">已售 {{goods.volume}}</div>
+			<div class="item"><span class="tag_juan">预估佣金￥{{goods.commission}}</span></div>
 		</div>
 		<div class="store_name">
 			<div class="item">
-				<i class="iconfont icon-shop"></i>
-				Klore旗舰店
+				<!-- <i class="iconfont icon-shop"></i> -->
+				<img :src="shop_info.shopIcon" height="30" width="30">
+				{{shop_info.shopName}}
 			</div>
 		</div>
 	</div>
@@ -67,7 +72,9 @@
 			</div>
 		</div>
 		<div class="content" v-show=detaile_show >
-			<div v-html="html"></div>
+			<div v-for ="item in goods_detaile">
+				<img :src="item" v-show="item">
+			</div>
 		</div>
 	</div>
 	<div class="khr"></div>
@@ -80,51 +87,12 @@
 	    	猜你喜欢
 	    </div>
 	  </div>
-	  <K_List :row_type=1 :goods_list=recommend />
+	  <K_List :row_type=1 :goods_list=recommend :pid=pid />
 	</div>
-	<div class="more_box">
+	<!-- <div class="more_box">
 	  <Load_more @tap_load="tap_load" :status=load_status />
-	</div>
+	</div> -->
 	
-	<!-- 图片生成dom -->
-	<div id="haibao" class="goods_info" v-show='created_img_show'>
-		
-		<div class="goods_head">
-			<div class="title">惊天动地小龙虾</div>
-			<!-- <div class="img">
-				<img src="./qd.png" width=24 height="24">
-				<p class="p1">分享</p>				
-			</div> -->
-		</div>
-		
-		<br>
-		<div class="">
-			<img :src="banner_one" style="max-width: 100%;" />
-		</div>
-
-		<div class="goods_money">
-			<div class="item">
-				<span>劵后价</span>
-			</div>
-			<div class="item">
-				<span>￥218</span>
-			</div>
-			<div class="item">
-				<span style="text-decoration:line-through;">淘宝价￥228</span>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-
-		<div class="qrcode_box">
-			<div class="item">
-				<p>便宜购 - 少花钱, 多省钱</p>
-				<p>长按图片, 扫码领取优惠卷</p>
-			</div>
-			<div class="item">
-				<div id="qrcode" class="qrcode" ref="qrcode"></div>	
-			</div>
-		</div>
-	</div>
 
 <div class="share_box">
 	<div class="item" @click="goto('/goodsshare')">
@@ -135,137 +103,250 @@
 			分享
 		</div>
 	</div>
-	<div class="item">
+  <div class="item" @click="click_copy">
 		<div class="icon">
 			<i class="iconfont icon-wodeyouhuiquan"></i>
+			<!-- <i class="iconfont icon-wodeyouhuiquan" v-if="goods.coupon_price"></i>
+			<i class="iconfont icon-chanpinzhanshi" v-else></i> -->
 		</div>
-		<div class="text">
-		 	领劵￥30
+		<div class="text" v-if="goods.coupon_price" >
+		 	领劵￥{{goods.coupon_price}}
 		</div>
+		<div class="text" v-else>
+		 	购买
+		</div>		
 	</div>
 </div>
 
-
+<Scroll_top />
 
 </div>
 </template>
 
 <script>
-import QRCode from 'qrcodejs2'
 import k_swipe_banner from '@/components/k_swipe/k_swipe';
 import K_List from '@/components/k_goods_list/k_goods_list'
+import { l_storage } from '@/common/js/storage.js'
+import { isWeiXin } from '@/common/js/util.js'
 import { mapGetters , mapMutations } from 'vuex'
 
 export default {
 	name:"goods_detaile",
 	data() {
 		return {
-			detaile_show: true,
-			// 轮播图数据
-			swipe_banner_data:[{src:"https://img.alicdn.com/bao/uploaded/i2/3356053974/TB2hmL.gH_I8KJjy1XaXXbsxpXa_!!3356053974.jpg"}],
-			load_status: 0,      //加载更多状态
-			collect: true,			// 收藏状态 true收藏 false未收藏
-			html:'goods_detail',
+			pid:0,
+			goods_id: "",
+			title:"",
 			// 商品信息
 			goods:{
-				id:1,
-				name: 'name',
-				price: 22,
+				// title:'',// 标题
+				volume:'',// 销量
+				price:'',// 券后价
+				reserve_price:'', // 原价
+				coupon_price:'', // 券值
+				commission:'',// 佣金
 			},
+			shop_info:{
+				shopIcon:'',
+				shopName:'',
+			},
+			kouling:'',//淘宝口令
+			tb_location:'',//淘宝地址
+			detaile_show: true,
+			// 轮播图数据
+			swipe_banner_data:[],
+			load_status: 0,      //加载更多状态
+			collect: 0,			// 收藏状态 
+			goods_detaile:[],
 	  	selectFoods:[
 				{id:1,name:'pos3',price:321,count:1},
 			],
 			// 相关推荐数据
-      recommend: [
-        {id:1,title:'3期免息现货【送壳膜+百元礼包】苹果',img:'http://img.alicdn.com/bao/uploaded/i2/1776456424/O1CN01AxVu6P1xKEoaLfGQ2_!!1776456424.jpg',current_money:'3858',old_money:'2958',sales:'222',coupos:'50',award:'100'},
-        {id:2,title:'Apple/苹果 iPhone 8 Plus',img:'https://img.alicdn.com/bao/uploaded/i1/1917047079/TB27ffoXxnaK1RjSZFtXXbC2VXa_!!1917047079.jpg',current_money:'5888',old_money:'5999',sales:'1999',coupos:'100',award:'123'},
-        {id:3,title:'现货发 3期免息/送壳膜+运费险 苹果6sp Apple/苹果 iPhone 6s Plus全网通4G手机中移动官方旗舰正品',img:'https://img.alicdn.com/bao/uploaded/i4/1776456424/O1CN01dGVql51xKEoZg8NxE_!!1776456424.jpg',current_money:'3999',old_money:'4999',sales:'123',coupos:'321',award:'122'},
-        {id:4,title:'【64G限时直降50元】Huawei/华为 畅享9 Plus 全面屏超清大屏四摄学生老人机正品智能游戏手机',img:'https://img.alicdn.com/bao/uploaded/i2/2838892713/O1CN01UCnIWi1Vub0xNdv8f_!!2838892713.jpg',current_money:'1499',old_money:'1599',sales:'999',coupos:'50',award:'100'},
-        {id:5,title:'Apple/苹果 iPhone X 全网通手机iphone10 无线充电',img:'https://img.alicdn.com/bao/uploaded/i3/263726286/TB22dGNmGagSKJjy0FbXXa.mVXa_!!263726286.jpg',current_money:'6258',old_money:'6888',sales:'123',coupos:'55',award:'100'},
-        {id:6,title:'Apple/苹果 iPhone X 全网通手机iphone10 无线充电',img:'https://img.alicdn.com/bao/uploaded/i3/2088045547/O1CN016oDwsp1qqZSm3FwcO_!!2088045547.jpg',current_money:'2099',old_money:'2199',sales:'678',coupos:'20',award:'50'},
-        {id:7,title:'Xiaomi/小米 小米8年度旗舰全面屏骁龙845双频GPS智能拍照手机 官方旗舰店正品',img:'https://img.alicdn.com/bao/uploaded/i3/1714128138/O1CN01PVTZVm29zFfjHn9eM_!!1714128138.jpg',current_money:'2750',old_money:'2799',sales:'999',coupos:'123',award:'111'},
-        {id:8,title:'Huawei/华为 畅享9 PLUS 全网通4G手机官方官网旗舰店正品新品畅想9/8plus/max 8c',img:'https://img.alicdn.com/bao/uploaded/i1/1730436394/O1CN01ZLmrN51x6UvR7UI7p_!!1730436394.jpg',current_money:'1299',old_money:'1399',sales:'56',coupos:'100',award:'100'},
-      ],
+      recommend: [],
       created_img_show: false, // 生成二维码前显示dom
       banner_one: '', // banner 第一张图
 		}
 	},
 	created() {
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		this.$loading.show()
 		this.page_init();
+	},
+	watch: {
+		$route(to, from){
+			console.log(to)
+			console.log(from)
+			location. reload()
+		}
 	},
 	methods: {
 		// 初始化
 		page_init() {
-			// this.get_data()
+			this.goods_id = this.$route.query.id
+			this.pid = this.$route.query.pid
+			this.get_data()	// 获取商品数据
+			this.get_juan() // 获取优惠卷
+			this.get_like() // 猜你喜欢
 		},  
 		get_data() {
-			this.axios.get(this.$api.test,{
+			let that = this
+			this.axios.get(this.$api.goods_info,{
 				params: {
-					id: 2
+					goods_id: this.goods_id
 				}
 			})
 			.then(res => {
-				this.html = res.data.img
-				this.swipe_banner_data = res.data.banner
+				let data = res.data
+				this.goods = data
+				this.collect = data.iscollection
 			})
-			.catch(res => {
-				this.$toast("网络错误")
+
+			this.$jsonp(`https://h5api.m.taobao.com/h5/mtop.taobao.detail.getdetail/6.0/?jsv=2.4.8&api=mtop.taobao.detail.getdetail&v=6.0&dataType=jsonp&ttid=2017%40taobao_h5_6.6.0&AntiCreep=true&type=jsonp&data=%7B"itemNumId"%3A"${this.goods_id}"%7D`)
+			.then(json => {
+				this.title = json.data.item.title
+				// 轮播
+				let banner = json.data.item.images
+				let arr1 = []
+				banner.forEach(function(item){
+					let t = that.fil_banner(item)
+					arr1.push(t)
+				})
+				this.re_arr(arr1)
+
+
+				// 店铺信息
+				// console.log(json.data.seller)
+				this.shop_info = json.data.seller
+
+				// 销量
+				// console.log(JSON.parse(json.data.apiStack[0].value).item.vagueSellCount) 
+				this.goods.volume = JSON.parse(json.data.apiStack[0].value).item.vagueSellCount
 			})
+
+			this.$jsonp(`https://h5api.m.taobao.com/h5/mtop.taobao.detail.getdesc/6.0/?api=mtop.taobao.detail.getdesc&v=6.0&dataType=jsonp&data={%22id%22:%22${this.goods_id}%22,%22type%22:%220%22}`)
+			.then(json => {
+				let a = json.data.wdescContent.pages
+				let arr = [];
+				a.forEach(function(item, i){
+					let t = that.fil_img(item)
+					arr.push(t)
+				})
+				this.goods_detaile = arr
+			}).catch(err => {
+			　　console.log(err)
+			})			
+		},
+		// 领劵
+		get_juan() {
+			if(l_storage.get('user_token')){
+				let that = this		
+				this.axios.post(this.$api.goods_url,{
+					user_token: l_storage.get('user_token'),
+					goods_id: this.goods_id
+				})
+				.then(res => {
+					if(res.code == 200) {
+						this.tb_location = res.data.url
+						this.kouling = res.data.tpwd
+					}
+				})
+			}
+		},
+		get_like() {
+			this.axios.get(this.$api.goods_like,{
+				params: {
+					goods_id: this.goods_id
+				}
+			})
+			.then(res => {
+				this.recommend = res.data
+			})
+		},
+		// 商品链接
+		click_copy() {
+			let that = this		
+			if(!l_storage.get('user_token')){
+					this.$toast('请先登录')
+					this.$router.push({
+	        path: `/login`
+	      })
+				return
+			}
+			if(isWeiXin()) {
+				that.$copyText(that.kouling).then(function (e) {
+           that.$alert(`淘口令${e.text}复制成功,打开淘宝粘贴,领取优惠卷`)
+        }, function (e) {
+           that.$alert(`淘口令${e.text}复制失败`)
+        })
+			}else{
+				window.location.href = this.tb_location
+			}
+		},
+		// 详情过滤html标签
+		fil_img(item) {
+			let s = item.replace(/<[^>]+>/g,""); 
+			if(s.indexOf("//")!= -1) {
+				return s+"_2200x2200Q90s50.jpg_.webp"
+			}
+		},
+		// 轮播图片压缩
+		fil_banner(item) {
+			return item+"_2200x2200Q80s50.jpg"
+		},
+		// 重组轮播数组
+		re_arr(arr) {
+			let arr1 = arr
+			let arr2 = [];
+			for(let i =0; i<arr1.length; i++) {
+				let item = {};
+				item.src = arr1[i]
+				arr2.push(item)
+			}
+			this.swipe_banner_data = arr2
 		},
 		// 加载更多
     tap_load() {
       this.load_status= 2
     },
     goto(url) {
+    	if(!l_storage.get('user_token')){
+    			this.$toast('请先登录')
+					this.$router.push({
+	        path: `/login`
+	      })
+				return
+			}
     	this.$router.push({
-    		path: `/goodsshare?id=123456`
-    	})
-    	return
-    	let that = this
-    	this.$loading.show()
-    	if(this.created_img_show) {
-    		return
-    	}
-    	this.created_img_show = true
-    	this.banner_one = this.swipe_banner_data[0].src
-    	let qrcode = new QRCode('qrcode', {  
-	      width: 100,  
-	      height: 100, // 高度  	      
-	     	text: 123, // 二维码内容
-	      background: '#ffffff', 
-	     	foreground: "#ffffff"
-	    })
-    	
-    	setTimeout(() => {
-    		that.created_imgurl()
-    	},300)    	
-    },
-    created_imgurl() {
-    	let that = this
-    	html2canvas(document.getElementById('haibao')).then(function(canvas) {
-          let img_url = canvas.toDataURL("image/jpeg");
-          that.add_qrcode(img_url)
-          // console.log(img_url)
-      }).then(function() {
-      	that.created_img_show = false
-      	document.getElementById('qrcode').innerHTML= ''
-      	that.$loading.hide()
-      	that.$router.push({
-    		path: `/goodsshare?id=123456`
-    	})
-      })
+    		path: `/goodsshare?id=${this.goods_id}`
+    	})    	
     },
     // 切换详情toggle
     detaile_toggle() {
     	this.detaile_show = !this.detaile_show
     },
     toggle_collect() {
-    	this.collect = !this.collect
+    	this.$loading.show()
+    	this.axios.post(this.$api.goods_collect,{
+    		goods_id:this.goods_id
+    	})
+    	.then(res => {
+    		this.collect = !this.collect
+    		this.$loading.hide()
+    	})
+    	
     },
 		// 后退按钮
 		back() {
-			this.$router.back()
+			window.history.back()
+			// if(this.pid) {
+			// 	this.$router.push({
+			// 		path: `/prolist?id=${this.pid}`
+			// 	})
+			// }else{
+			// 	this.$router.back()
+			// }
 		},
+		
 		...mapMutations({
     	add_qrcode: 'ADD_QRCODE',
     })
@@ -276,10 +357,10 @@ export default {
 	},
 	destroyed() {
 		this.created_img_show = false
-    document.getElementById('qrcode').innerHTML= ''
-		console.log('监听页面离开')
+		// console.log('监听页面离开')
 	}
 }
+
 </script>
 
 <style scoped lang="less">
@@ -352,6 +433,23 @@ export default {
 				font-size: 14px;
 				color: #000;
 				font-weight: 600;
+		    span{
+					display: inline-block;
+					height: 16px;
+					line-height: 20px;
+					width: 30px;
+					border-radius: 4px;
+					color: #fff;
+					font-size: 10px;
+					margin-right: 6px;
+					text-align: center;
+					&.tianmao{
+						background: @red;
+					}
+					&.taobao {
+						background: @chen;
+					}
+				}
 			}
 			.img{
 				text-align: center;
@@ -417,6 +515,10 @@ export default {
 			line-height: 30px;
 			font-size: 13px;
 			color:#333;
+			img{
+				margin-right: 4px;
+				float: left;
+			}
 			i {
 				color:#999;
 				margin-right: 6px;

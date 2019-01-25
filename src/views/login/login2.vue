@@ -1,29 +1,18 @@
 <template>
-<div class="forget_password page fff">
+<div class="sign page fff">
+<div class="main">
+	<div class="logo text-center">
+		<img src="https://lipstick.xsygood.com/testimg/pyg_logo.png" alt="" width="120">
+	</div>
 
-
-	<div class="main">
 	<form @submit.prevent="onSubmit">
 		<div class="main_box">
-		<div class="forget_password_box">
-			<div class="username_box">
-				<div class="item">新 密 码:</div>
-				<div class="item">
-					<input type="password" name="password1" placeholder="请输入您的密码" v-model="form_data.password1">
-				</div>
-			</div>
-			<div class="username_box">
-				<div class="item">重复密码:</div>
-				<div class="item">
-					<input type="password" name="password2" placeholder="请重复您的密码" v-model="form_data.password2">
-				</div>
-			</div>
+		<div class="register_box">
 			<div class="new_mobile_box">
-				<div class="item">预留手机:</div>
+				<div class="item">绑定手机:</div>
 				<div class="item">
-					<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone" number>
-				</div>
-							
+					<input type="text" class="new_mobile" name="new_phone" placeholder="请输入手机号码" v-model="form_data.new_phone" number>
+				</div>						
 			</div>
 			<div class="code_box">
 				<div class="item ">验 证 码:</div>
@@ -31,33 +20,32 @@
 					<input type="text" class="code" name="code" placeholder="请输入验证码" v-model="form_data.code" number>
 				</div>
 				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
-				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
-				</div>
+				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span></div>	
 			</div>
+
+			
 		</div>
-	</div>
+		</div>
 
 		<div class="login_btn_box" style="margin-top: 30px;">
-			<button class="login_btn" type="submit">找回密码</button>
+			<button class="login_btn" type="submit">登录</button>
 		</div>
 	</form>
-
 	<div class="sign_box">
-		<div class="sign1 pull-right"><span @click="goto_login">返回登录</span></div>
+		<div class="sign1 pull-right"><span @click="goto_login">账号密码登录</span></div>
 		<div class="clearfix"></div>
-	</div>		
-		<!-- <div class="btn_box" style="margin-top: 16px;">
-			<button class="theme_btn" @click="goto_login">返回登录</button>
-		</div> -->
 	</div>
+
+</div>
 </div>
 </template>
 
 <script>
 import { kk } from '@/common/js/k_form.js'
-var current_time;
+import { l_storage } from '@/common/js/storage.js'
+var current_time = '';
 export default {
-	name:"forget_password",
+	name:"login2",
 	data() {
 		return {
 			code_time: 60,
@@ -66,29 +54,31 @@ export default {
 		}
 	},
 	methods: {
-
 		// 监听表单提交
 		onSubmit(e) {
 			// 过滤字段
-			if(!kk.is_password(this.form_data.password1,this)){return}
-			if(this.form_data.password1 != this.form_data.password2 ){
-				this.$toast('两次密码不一致');
-			}
+			// if(!kk.is_username(this.form_data.invitation,this)){return}
 			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
-			if(kk.is_null(this.form_data.code,this)){return}
+			if(kk.is_null(this.form_data.code,this,'验证码不能为空')){return}
 			// 调用请求函数
 			this.send_request()
 		},
 		// 发送请求
 		send_request() {
 			console.log(this.form_data)
-			this.axios.post(this.$api.changepassword,{
+			this.axios.post(this.$api.login,{
 				mobile:this.form_data.new_phone,
 				smscode:this.form_data.code,
-				new_password:this.form_data.password1,
 			})
 			.then(res => {
-				console.log(res.data)
+				if(res.code == 200) {
+					console.log(res.data)
+					l_storage.set('user_token', res.data.user_token)
+					this.$toast(res.msg)
+					this.$router.push({
+						path: `/home`
+					})
+				}
 			})
 		},
 		// 获取验证码
@@ -96,7 +86,17 @@ export default {
 			if(this.code_disabled){
 				return
 			}
-			this._start_code_time();
+			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
+
+			this.axios.post(this.$api.get_code,{
+				mobile: this.form_data.new_phone
+			})
+			.then(res => {
+				this.$toast(res.msg)
+				if(res.code == 200) {
+					this._start_code_time();
+				}
+			})
 		},
 		// 验证码开始倒计时
 		_start_code_time() {
@@ -129,7 +129,7 @@ export default {
 
 <style scoped lang="less">
 @import url('../../common/less/index.less');
-.forget_password{
+.sign{
 	background-image: url(https://lipstick.xsygood.com/testimg/login_bg.png);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -139,15 +139,33 @@ export default {
 		margin-top: 20%;
 		border-radius: 16px;
 		background: #fff;
-		border: 1px solid rgba(0, 0, 0, 0.05);		
+		border: 1px solid rgba(0, 0, 0, 0.05);	
+		.logo{
+				padding-top: 40px;
+				margin-bottom: 30px;
+			}	
 	}
 }
-.forget_password_box {
+
+.sign{
+	.logo_box{
+		text-align: center;
+		.logo {
+		  width: 98px;
+		  height: 98px;
+		  margin: 32px auto 24px;
+		}
+	}	
+}
+.register_box {
 	
 	input {
 		height: 100%;
 		width: 100%;
 		font-size: 14px;
+	}
+	.username_box {
+		// border-top: 1px solid #eee;
 	}
 	.username_box, .new_mobile_box, .code_box {
 		box-sizing: border-box;
@@ -172,12 +190,13 @@ export default {
 			font-size: 13px;
 		}
 		.on{
-			color: #333;
+			color:#333;
 		}
 		.off {
 			color: #ccc;
 		}
-	}	
+	}
+
 }
 .sign_box{
   	padding: 0 16px;
@@ -195,7 +214,8 @@ export default {
   		color: @lan
   	}
   }
-.login_btn_box{
+
+  .login_btn_box{
   	text-align: center;
   	margin-top: 30px;
   	padding-bottom: 34px;
@@ -221,7 +241,7 @@ export default {
   			flex: 1;
   		}
   	}
-}
+  }
 .main_box{
 	padding: 0 8px;
 }

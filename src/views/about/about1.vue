@@ -11,7 +11,7 @@
     
     <mu-list-item-title>当前版本</mu-list-item-title>
     <mu-list-item-action>
-      V1.0.1
+      V1.0.0
     </mu-list-item-action>
   </mu-list-item>
 
@@ -30,7 +30,7 @@
 
 
 <div class="aboutus">
-	东莞市新视野网络科技有限公司
+	东莞新视野网络科技
 </div>
 
 

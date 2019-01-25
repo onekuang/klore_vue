@@ -12,7 +12,7 @@
 	        			<div id="qrcode1" class="qrcode" ref="qrcode"></div>			
 	        		</div>
 	        		<div class="name">邀请码</div>
-	        		<div class="code">K2A45d789</div>
+	        		<div class="code">{{yaoqingma}}</div>
 	        	</div>
 	        </div>
 	      </swiper-slide> 
@@ -24,7 +24,7 @@
 	        			<div id="qrcode2" class="qrcode" ref="qrcode"></div>			
 	        		</div>
 	        		<div class="name">邀请码</div>
-	        		<div class="code">K2A45d789</div>
+	        		<div class="code">{{yaoqingma}}</div>
 	        	</div>
 	        </div>
 	      </swiper-slide> 
@@ -36,7 +36,7 @@
 	        			<div id="qrcode3" class="qrcode" ref="qrcode"></div>			
 	        		</div>
 	        		<div class="name">邀请码</div>
-	        		<div class="code">K2A45d789</div>
+	        		<div class="code">{{yaoqingma}}</div>
 	        	</div>
 	        </div>
 	      </swiper-slide> 
@@ -62,6 +62,7 @@
 <script>
 import QRCode from 'qrcodejs2'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'  
+import { l_storage } from '@/common/js/storage.js'
 
 var from_url = '';
 export default {
@@ -69,9 +70,10 @@ export default {
 	data() {
 		var vm = this;
 		return {
-			qrcode_url:"baidu.com",
-			qrcode_h : 64,
-			qrcode_w : 64,
+			yaoqingma:'',
+			qrcode_url:"",
+			qrcode_h : 80,
+			qrcode_w : 80,
 			dom: true,
 			page_img:false,
 			dataURL:'',
@@ -100,6 +102,12 @@ export default {
       bullet: false,
       active_index:0, // 当前索引
 		}
+	},
+	created() {
+		let id = this.$route.query.id
+		this.yaoqingma= id || l_storage.get('user_code')
+		this.qrcode_url = `${this.$api.url}/#/register?invitation_code=${this.yaoqingma}`
+		console.log(this.qrcode_url)
 	},
 	mounted() {
 
@@ -194,7 +202,7 @@ export default {
 				text-align: center;
 				// padding: 4px;
 				.qrcode{
-					width: 68px;
+					width: 84px;
 					margin: 0 auto;
 					padding: 2px;
 					background: #fff;
