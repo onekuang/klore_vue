@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { l_storage } from '@/common/js/storage.js'
 export default {
 	data() {
 		return {
@@ -15,9 +16,14 @@ export default {
 	},
 	methods: {
 		wx_login() {
-			this.axios.get(this.$api.wx_login)
+			this.axios.post(this.$api.wx_login,{
+				invitation_code:l_storage.get('inivid')
+			})
 			.then(res => {
-				window.location.href = res.data
+				if(res.code == 200) {
+					console.log(res.data)
+					window.location.href = res.data					
+				}
 			})
 		}
 	}

@@ -56,7 +56,7 @@
                   相关推荐
                 </div>
               </div>
-              <K_List :row_type=goods_list_type :goods_list=recomment[index].data />
+              <K_List :row_type=goods_list_type :goods_list=recomment[index].data :commission_show=commission_show />
               <!-- <div class="more_box">
                 <Load_more @tap_load="tap_load" :status=load_status />
               </div> -->
@@ -83,6 +83,7 @@ import k_swipe_nav from '@/components/k_swipe/k_swipe_nav';
 import k_swipe_notive from '@/components/k_swipe/k_swipe_notive';
 import HomeMenu from '@/components/home_menu/home_imgmenu';
 import K_List from '@/components/k_goods_list/k_goods_list'
+import { l_storage } from '@/common/js/storage.js'
 var vm;
 // import axios from 'axios'
 export default {
@@ -140,6 +141,7 @@ export default {
     })
   },
   activated() {
+    // this.commission_show = l_storage.get('username') ? true : false 
     window.addEventListener('scroll', this.onscroll)
   },
   methods: {

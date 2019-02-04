@@ -47,10 +47,10 @@ export default {
 	},
 	methods: {
 		goto(url,index) {
-			// if(index == 3) {
-			// 	this.$alert("社区正在升级,稍后对外开放,敬请期待")
-			// 	return
-			// }
+			if(index == 3) {
+				this.$alert("社区正在升级,稍后对外开放,敬请期待")
+				return
+			}
 			this.index = index
 			this.$router.push({
 				path: url

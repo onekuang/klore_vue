@@ -108,7 +108,7 @@
 							<div class="l_juan">劵</div>
 							<div class="r_juan">￥{{item.coupon_price}}</div>
 						</div>
-						<div class="yongjin" v-show="commission_show">预估佣金￥{{item.commission}}</div>
+						<div class="yongjin" v-show="commis_show">预估佣金￥{{item.commission}}</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -149,6 +149,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		commission_show: {
+			type: Boolean,
+			default: false,
+		},
 		goods_list: {
 			type: Array,
 			default: function() {
@@ -166,7 +170,7 @@ export default {
 			list_box_show: false,
 			list_style: 1,// 1列表模式,2为图文模式
 			// data: [{},{},{},{},{},{},{},]
-			commission_show: false,
+			// commission_show: false,
 			// 综合排序
 			sort_list: [
 				{sid:0,title:'综合排序'},
@@ -181,7 +185,16 @@ export default {
 		}
 	},
 	created() {
-		this.commission_show = l_storage.get('username') ? true : false
+		// this.commission_show = l_storage.get('username') ? true : false
+	},
+	computed:{
+		commis_show() {
+			if(this.commission_show) {
+				return this.commission_show
+			}else{
+				return l_storage.get('username') ? true : false			
+			}
+		}
 	},
 	watch: {
 		basemsg: function(n, o) {
