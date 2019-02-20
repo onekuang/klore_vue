@@ -1,10 +1,10 @@
 <template>
-<div class="about1 ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="about1 page">
+	<k_header title="白手创客" />
 <div>
 
 <div class="logo text-center" style="background-color: #f7f7f7;">
-	<img src="https://lipstick.xsygood.com/testimg/pyg_logo.png" width="200">
+	<!-- <img src="https://lipstick.xsygood.com/testimg/pyg_logo.png" width="200"> -->
 </div>
 <mu-list>
   <mu-list-item avatar button :ripple="false" to="">
@@ -25,7 +25,7 @@
 
 
 
-</div></BScroll>
+</div>
 
 
 
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
+import k_header from '@/components/app_head/app_head'
 export default {
 	name:"about1",
 	data() {
@@ -48,7 +48,7 @@ export default {
 		}
 	},
 	components: {
-		BScroll
+		k_header
 	}
 }
 </script>

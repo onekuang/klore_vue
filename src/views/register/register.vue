@@ -199,7 +199,7 @@ export default {
 			}
   	}
   	.forget_password {
-  		color: @lan
+  		color: @blue;
   	}
   }
 </style>

@@ -1,5 +1,9 @@
 <template>
 <div class="testvue page fff">
+
+<k_header title="密码修改" />
+
+
 <form @submit.prevent="onSubmit">
 	<div class="chang_mobile_box">
 		<div class="old_mobile_box">
@@ -35,6 +39,7 @@
 </template>
 
 <script>
+import k_header from '@/components/app_head/app_head'
 import { kk } from '@/common/js/k_form.js'
 export default {
 	name:"change_password",
@@ -68,6 +73,9 @@ export default {
 		},
 
 	},
+	components: {
+		k_header
+	}
 }
 </script>
 

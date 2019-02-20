@@ -1,6 +1,5 @@
 <template>
-<div class="k-article ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="k-article page">
 <div>
 
 	<!-- <div class="article_box">
@@ -15,11 +14,15 @@
 	</div> -->
 
 	<div class="article_box">
-
 	 <h1 class="title">内容标题</h1>
-	 <p class="time">
-	 	{{"Oct 11, 2018 2:01:06 PM" | time}}
-	 </p>
+	 <div class="other">
+	 	<div class="avatar">
+	 		<img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132" alt="">
+	 	</div>
+		 <div class="time">
+		 	<div class="name">金闪闪</div>{{"Oct 11, 1999 2:01:06 PM" | time}}
+		 </div>		 
+	 </div>
 	 <div class="content">
 	 		<div>
 	 			<p v-for="item in 10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium aliquid, quia qui vel inventore culpa omnis ex illo voluptate atque, laboriosam magnam dolor quo, veritatis. Nulla consectetur, a iste quis!<br><br></p>				
@@ -28,12 +31,11 @@
 	</div>
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll';
 import api from '@/assets/api/api.js'
 export default {
 	name:"article",
@@ -69,34 +71,14 @@ export default {
 			})
 		}
 	},
-	filters: {
-	  time: function (input) {
-	    var d       = new Date(input)
-	    var year    = d.getFullYear()
-	    var month   = d.getMonth()    + 1
-	    var day     = d.getDate()     < 10 ? '0' + d.getDate()    : '' + d.getDate()
-	    var hour    = d.getHours()    < 10 ? '0' + d.getHours()   : '' + d.getHours()
-	    var minutes = d.getMinutes()  < 10 ? '0' + d.getMinutes() : '' + d.getMinutes()
-	    var seconds = d.getSeconds()  < 10 ? '0' + d.getSeconds() : '' + d.getSeconds()
-	
-	    return year + '-' 
-	      + month   + '-' 
-	      + day     + ' ' 
-	      + hour    + ':' 
-	      + minutes + ':' 
-	      + seconds;
-	  }
-	},
-	components: {
-		BScroll
-	}
+	components: {}
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import url('../../common/less/config.less');
 .k-article{
-	padding: 8px;
+	// padding: 8px;
 	html,body,p,h1,h2,h3,h4,h5,h6{
 		padding: 0;
 		margin: 0;
@@ -128,5 +110,21 @@ export default {
 	  text-decoration: none;
 	}
 }
-
+.other{
+	display: flex;
+	.avatar{
+		flex: 0 0 50px;
+		img{
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+		}
+	}
+	.name{
+		margin-left: 2px;
+	}
+	.time{
+		flex: 1;
+	}
+}
 </style>

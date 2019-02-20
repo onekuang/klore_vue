@@ -1,6 +1,8 @@
 <template>
-<div class="notive_list ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="notive_list page">
+
+	<k_header title="通知信息" />
+
 <div>
 
 <div class="notive_wrapper">
@@ -8,11 +10,12 @@
 		<div class="item" v-for="i in 3">
 			<div class="top">
 				<div class="img">
-					<img src="https://gw.alicdn.com/imgextra/i2/69/O1CN01yo4uzk1CNdoBTmBZl_!!69-0-lubanu.jpg_790x10000Q75.jpg_.webp" width="100%">
+					<!-- <img src="https://lipstick.xsygood.com/bsck_img/sqrz.png" width="100%"> -->
+					<img v-holder="'img=100px200?&bg=C7E1FF&text=100px200'">
 				</div>
 			</div>
 			<div class="bottom">
-				<p class="p1">大吉大利,今晚吃鸡</p>
+				<p class="p1">新版本1.0更新啦</p>
 				<p class="p2">2019-11-11 12:13:14</p>
 			</div>
 		</div>
@@ -20,12 +23,12 @@
 </div>
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
+import k_header from '@/components/app_head/app_head'
 export default {
 	name:"notive_list",
 	data() {
@@ -34,7 +37,7 @@ export default {
 		}
 	},
 	components: {
-		BScroll
+		k_header
 	}
 }
 </script>

@@ -7,27 +7,33 @@
 		<div class="title">首页</div>
 	</div>
 
-	<div class="item" :class="{active:index==2}" @click="goto('/classlist',2)">
+	<div class="item" :class="{active:index==2}" @click="goto('/message',2)">
 		<div class="iconbox">
-			<i class="iconfont icon-liebiao"></i>
+			<i class="iconfont icon-home1"></i>
 		</div>
-		<div class="title">分类</div>
+		<div class="title">资讯</div>
 	</div>
 
-	<div class="item" @click="goto('/')">
+	<!-- <div class="item" @click="goto('/')">
 		<div class="imgbox">
 			<img src="https://lipstick.xsygood.com/testimg/pyg_menu.png">
 		</div>
-	</div>
-
-	<div class="item" :class="{active:index==3}" @click="goto('',3)">
+	</div> -->
+	<div class="item" :class="{active:index==3}" @click="goto('/classlist',3)">
 		<div class="iconbox">
-			<i class="iconfont icon-wodefankui"></i>
+			<i class="iconfont icon-home1"></i>
 		</div>
-		<div class="title">社区</div>
+		<div class="title">创业</div>
 	</div>
 
-	<div class="item" :class="{active:index==4}" @click="goto('/usercenter',4)">
+	<div class="item" :class="{active:index==4}" @click="goto('/videolist',4)">
+		<div class="iconbox">
+			<i class="iconfont icon-home1"></i>
+		</div>
+		<div class="title">学院</div>
+	</div>
+
+	<div class="item" :class="{active:index==5}" @click="goto('/usercenter',5)">
 		<div class="iconbox">
 			<i class="iconfont icon-yonghuzhongxin"></i>
 		</div>
@@ -81,13 +87,13 @@ export default {
 			font-size: 12px;
 			height: 20px;
 		}	
-		&:nth-of-type(3) {
-			padding-top: 0;
-		}	
+		// &:nth-of-type(3) {
+		// 	padding-top: 0;
+		// }	
 	}
 	& .active {
 		.title, i {
-			color: @active;
+			color: @orange;
 		}
 	}
 	.imgbox {

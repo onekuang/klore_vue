@@ -85,4 +85,18 @@ export default {
 .slide-left-leave-active {
   transform: translate3d(-100%, 0, 0);
 }
+
+// ====== home页面 ======
+.index_title{
+  padding: 10px 8px!important;
+  font-size: 14px!important;
+  color: #666!important;
+  .more{
+    float: right;
+    font-size: 12px;
+    margin-top: 2px;
+    color: #aaa;
+    margin-right: 8px;
+  }
+}
 </style>

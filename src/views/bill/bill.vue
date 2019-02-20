@@ -95,7 +95,7 @@ export default {
 			}
 			&.on{
 				i {
-					color: @lan;
+					color: @blue;
 				}
 			}
 		}

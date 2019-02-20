@@ -3,8 +3,8 @@
 
 // ===== 主题颜色配置 =====
 
-@color_base 	: #F729A6;// 基准色
-// @color_base 	: #ff5d51;// 基准色
+// @color_base 	: #F729A6;// 基准色
+@color_base 	: #fd9a00;// 基准色
 // @color_base 	: #55b4fe;// 基准色
 // @color_base 	: #fd9a00;// 基准色
 
@@ -30,8 +30,10 @@
 .c333{color: #333;}
 .c666{color: #666;}
 .c999{color: #999;}
+// 业务颜色
+@yewu: #fd9a00;
 // 选中颜色
-@active: #F729A6;
+@active: #fd9a00;
 
 // 渐变色
 @jianbian:linear-gradient( @color_base, @color_liang);
@@ -46,9 +48,9 @@
 @btn_hover: lighten(@btn_bg, 20%);
 
 @red : #FF3B00;
-@chen : #fd9a00;
-@lan : #55b4fe;
-
+@orange : #fd9a00;
+@blue : #55b4fe;
+@green: #3BBD39;
 // 按钮包裹层
 .btn_box{
   padding: 6px 12px;
@@ -76,12 +78,12 @@
  	padding-bottom: 10px;
  	color: #fff;
  	height: 44px;
- 	.yewu_btn();
+ 	.hui_btn();
 }
 // 灰白渐变底色
 .hui_btn {
 	background: linear-gradient(#f5f5f5, #eee);
-	color: #000;
+	color: #333;
 }
 // 蓝色渐变底色
 .blue_btn {
@@ -93,12 +95,17 @@
 	background: linear-gradient( #ff675b,#ea1000 );
 }
 // 橙色渐变底色
-.chen_btn {
+.orange_btn {
 	background: linear-gradient( #ffb57a,#ff6700 );
+}
+// 绿色渐变底色
+.green_btn {
+	background: linear-gradient( #3BBD39,#3BBD39 )!important;
+	color: #fff;
 }
 // 业务渐变底色
 .yewu_btn {
-	background: linear-gradient( #ff92ce,#ff009c );
+	background: linear-gradient( #ffb57a,#ff6700 );
 }
 
 // xs普通按钮
@@ -116,3 +123,23 @@
 	font-size: 14px;
 	padding: 6px 16px;
 }
+
+// 后退按钮
+.back{
+		display: inline-block;
+		position: fixed;
+		left: 12px;
+		top: 12px;
+		z-index: 99;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+		background: rgba(0,0,0,.35);
+		i{
+			font-size: 20px;
+			font-weight: 900;
+			color: #fff;
+		}
+	}

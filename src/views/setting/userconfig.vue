@@ -1,12 +1,12 @@
 <template>
 <div class="userconfig_wrapper page">
-	
+	<k_header title="系统设置" />
 	<div class="user_config">
 		<mu-list>
-		    <mu-sub-header>声音开启设置</mu-sub-header>
+		    <mu-sub-header>通知设置</mu-sub-header>
 		    <mu-list-item button :ripple="false" @click="events = !events">
 		      <mu-list-item-title>
-		        事件和提醒
+		        通知栏提醒
 		      </mu-list-item-title>
 		      <mu-list-item-action>
 		        <mu-switch v-model="events" readonly></mu-switch>
@@ -14,22 +14,22 @@
 		    </mu-list-item>
 		    <mu-list-item button :ripple="false" @click="calls = !calls">
 		      <mu-list-item-title>
-		        电话
+		        短信通知提醒
 		      </mu-list-item-title>
 		      <mu-list-item-action>
 		        <mu-switch v-model="calls" readonly></mu-switch>
 		      </mu-list-item-action>
 		    </mu-list-item>
-		    <mu-list-item button :ripple="false" @click="messages = !messages">
+		    <!-- <mu-list-item button :ripple="false" @click="messages = !messages">
 		      <mu-list-item-title>
 		        信息
 		      </mu-list-item-title>
 		      <mu-list-item-action>
 		        <mu-switch v-model="messages" readonly></mu-switch>
 		      </mu-list-item-action>
-		    </mu-list-item>
+		    </mu-list-item> -->
 		  </mu-list>
-		<mu-list>
+		<!-- <mu-list>
 		  <mu-sub-header>通知设置</mu-sub-header>
 		  <mu-list-item button :ripple="false" @click="notifications = !notifications">
 		    <mu-list-item-action>
@@ -55,7 +55,7 @@
 		      视频的声音
 		    </mu-list-item-title>
 		  </mu-list-item>
-		</mu-list>
+		</mu-list> -->
 	</div>
 
 
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import k_header from '@/components/app_head/app_head'
 export default {
 	name:"userconfig",
 	data() {
@@ -76,6 +77,9 @@ export default {
       videoSounds: false
 		}
 	},
+	components:{
+		k_header
+	}
 }
 </script>
 
@@ -85,6 +89,9 @@ export default {
 	padding: 8px;
 	/deep/ .mu-item{
 		padding: 0 8px;
+	}
+	/deep/ .mu-switch-ripple-wrapper {
+		display: none;
 	}
 }
 </style>

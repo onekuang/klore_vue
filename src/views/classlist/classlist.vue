@@ -3,7 +3,7 @@
 <div class="search_wrapper">
 	<router-link tag="div" class="search_box" to="/search">
 		<div class="search_input">
-			<i class="iconfont icon-search"></i>&nbsp;&nbsp;先领劵在购买
+			<i class="iconfont icon-search"></i>&nbsp;&nbsp;搜索
 		</div>
 	</router-link>
 </div>
@@ -31,7 +31,7 @@
 				</div>	 -->			
 				<ul>
 				<li v-for='item in child_arr' @click='goto_detail(item.id)'> 
-					<img :src="$api.base_img + item.image">
+					<img :src="item.image">
 					<p>{{item.name}}</p>
 				</li>				
 			</ul>
@@ -50,47 +50,65 @@ export default {
 	data() {
 		return {
 			arr_index: 0,
-			// class_data: [
-			// 	{
-			// 		id: 1,
-			// 		name: '鞋子',
-			// 		child: [
-			// 			{
-			// 				id:101,
-			// 				pid: 1,
-			// 				name: '女鞋',
-			// 				image:"https://lipstick.xsygood.com/testimg/nvxie.png"
-			// 			},
-			// 			{
-			// 				id:102,
-			// 				pid: 1,
-			// 				name: '高跟鞋',
-			// 				image:"https://lipstick.xsygood.com/testimg/nvxie.png"
-			// 			},
-			// 		]
-			// 	},
-			// 	{
-			// 		id: 2,
-			// 		name: '彩妆',
-			// 		child: [
-			// 			{
-			// 				id:103,
-			// 				pid: 2,
-			// 				name: '口红',
-			// 				image:"http://lipadmin.xsygood.com/upload/lipstick/1544581412415.jpg"
-			// 			},
-			// 			{
-			// 				id:104,
-			// 				pid: 2,
-			// 				name: '香水',
-			// 				image:"http://lipadmin.xsygood.com/upload/lipstick/1544582284009.jpg"
-			// 			},
-			// 		]
-			// 	},
-			// ],
-			class_data:[
-				{id:'',name:'',child:[]}
-			]
+			class_data: [
+				{
+					id: 1,
+					name: '热门',
+					child: [
+						{
+							id:101,
+							pid: 1,
+							name: '机器人教育',
+							image:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"
+						},
+						{
+							id:102,
+							pid: 1,
+							name: '英语',
+							image:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"
+						},
+					]
+				},
+				{
+					id: 2,
+					name: '精品',
+					child: [
+						{
+							id:103,
+							pid: 2,
+							name: '饮品',
+							image:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"
+						},
+						{
+							id:104,
+							pid: 2,
+							name: '小吃',
+							image:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"
+						},
+					]
+				},
+				{
+					id: 3,
+					name: '教育',
+					child: [
+						{
+							id:103,
+							pid: 2,
+							name: '1对1辅导',
+							image:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"
+						},
+						{
+							id:104,
+							pid: 2,
+							name: '英语',
+							image:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"
+						},
+					]
+				},
+			],
+			// class_data:[
+			// 	{id:'',name:'',child:[]}
+			// ]
 		}
 	},
 	created() {
@@ -106,17 +124,6 @@ export default {
 			this._get_data();
 		},
 		_get_data() {
-			this.axios.get("http://192.168.0.116/api/tbk/categorylist.html",{
-				params: {
-					// access_token:"5b7f60aca7e7f6f8c680b1b219ad3ec6"
-				}
-			})
-			.then(res => {
-				this.class_data= res.data
-			})
-			.catch(res => {
-				this.$toast("网络错误")
-			})
 		},
 		goto_detail(id) {
 			this.$router.push({

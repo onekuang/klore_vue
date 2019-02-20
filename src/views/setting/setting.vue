@@ -1,6 +1,7 @@
 <template>
 <div class="setting_wrapper page">
 
+<k_header title="我的设置" />
 
 <div class="setting">
 	<!-- <mu-list textline="three-line">
@@ -55,7 +56,7 @@
 	        </mu-list-item-action>
 	      </mu-list-item>
 
-	      <mu-list-item avatar button ripple :ripple="false" to="/address">
+	      <!-- <mu-list-item avatar button ripple :ripple="false" to="/address">
 	        <mu-list-item-action  class="blue" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-biangengshoujihao"/>
 	        </mu-list-item-action>
@@ -63,9 +64,9 @@
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you" />
 	        </mu-list-item-action>
-	      </mu-list-item>
+	      </mu-list-item> -->
 
-				<div class="khr"></div>
+				<!-- <div class="khr"></div>
 	      <mu-list-item avatar button ripple :ripple="false" to="/updatephone">
 	        <mu-list-item-action  class="blue" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-biangengshoujihao"/>
@@ -96,7 +97,7 @@
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you" />
 	        </mu-list-item-action>
-	      </mu-list-item>
+	      </mu-list-item> -->
 	    </mu-list>
 
 			<div class="khr"></div>
@@ -112,9 +113,9 @@
 	      </mu-list-item> -->
 
 	      <mu-list-item avatar button :ripple="false" to="/userconfig">
-	        <mu-list-item-action>
+	        <!-- <mu-list-item-action>
 	          <mu-icon slot="left" value=":iconfont icon-icon-test"/>
-	        </mu-list-item-action>
+	        </mu-list-item-action> -->
 	        <mu-list-item-title>系统配置</mu-list-item-title>
 	        <mu-list-item-action>
 	          <mu-icon slot="right" value=":iconfont icon-you"/>
@@ -141,6 +142,7 @@
 </template>
 
 <script>
+import k_header from '@/components/app_head/app_head'
 import Exif from 'exif-js'  
 import {s_storage, l_storage} from '@/common/js/storage'
 export default {
@@ -341,6 +343,9 @@ export default {
 	  	// })
 	  }	
 	},
+	components: {
+		k_header
+	}
 }
 </script>
 
@@ -403,8 +408,8 @@ export default {
 	font-size: 13px;
 }
 .k_avatar{
-	height: 130px;
-	padding-top: 12px;
+	height: 180px;
+	padding-top: 40px;
 	img{
 		border-radius: 50%;
 		width: 80px;

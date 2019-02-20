@@ -1,6 +1,7 @@
 <template>
-<div class="change_username ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="change_username page">
+	<k_header title="昵称修改" />
+
 <div>
 
 <form @submit.prevent="onSubmit">
@@ -13,7 +14,7 @@
 		</div>
 	</div>
 	<div class="khr"></div>
-	<div class="btn_box" style="margin-top: 30px;">
+	<div class="btn_box" style="margin-top: 20px;">
 		<button class="theme_btn" type="submit">确认修改</button>
 	</div>
 </form>
@@ -22,12 +23,12 @@
 
 
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
+import k_header from '@/components/app_head/app_head'
 import { kk } from '@/common/js/k_form.js'
 var current_time = '';
 export default {
@@ -53,7 +54,7 @@ export default {
 		},
 	},
 	components: {
-		BScroll
+		k_header
 	}
 }
 </script>

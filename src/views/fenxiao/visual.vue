@@ -174,7 +174,7 @@ export default {
 			font-size: 15px;
 			border-bottom: 1px solid #eee;
 			i {
-				color: @chen;
+				color: @orange;
 				font-size: 20px;
 				margin-right: 10px;
 			}
@@ -192,7 +192,7 @@ export default {
 					color: #777;
 					span {
 						i {
-							color: @lan;
+							color: @blue;
 						}
 					}
 				}

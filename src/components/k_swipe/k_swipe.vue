@@ -103,7 +103,8 @@ export default {
 	  // width: 20px;
 	  padding: 4px;
 	  // background: rgba(0,0,0,.3);
-	  background: @color_base;
+	  background: rgba(255,255,255,1);
+	  // background: @color_base;
 	}
 }
 

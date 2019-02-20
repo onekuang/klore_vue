@@ -163,7 +163,7 @@ export default {
 					margin-top: 2px;
 					line-height: 28px;
 					width: 50px;
-					background: @chen;
+					background: @orange;
 					color: #fff;
 					border-radius: 4px;
 					font-size: 13px;
