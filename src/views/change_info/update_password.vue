@@ -1,5 +1,5 @@
 <template>
-<div class="testvue page fff">
+<div class="testvue page fff app_head">
 
 <k_header title="密码修改" />
 

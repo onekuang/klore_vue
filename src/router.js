@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/home/home4.vue";
+import Home from "@/views/home/home5.vue";
+import Message from "@/views/message/message.vue";
 
 Vue.use(Router);
 
-export default new Router({
+var router = new Router({
   // mode: 'history',
   routes: [
     {// 测试
@@ -17,29 +18,91 @@ export default new Router({
       path: "/",
       meta:{index:5,title:"首页"},
       component: Home,
+      children:[
+        {
+          path: "/",
+          meta:{index:5,title:"首页"},
+          component: Message
+        },
+        {
+          path: "/lessons",
+          meta:{index:5,title:"学院"},
+          component: () => import("./views/lists/lessons.vue")
+        },
+        {
+          path: "/book",
+          meta:{index:5,title:"电子书"},
+          component: () => import("./views/lists/book_list.vue")
+        },
+        {
+          path: "/voice_book",
+          meta:{index:6,title:"有声阅读"},
+          component: () => import("./views/lists/voice_book_list.vue")
+        }
+      ]
     },
-
+    // { path: '*', component: Message },
+    // {// 资讯页面
+    //   path: "/",
+    //   meta:{index:5,title:"资讯"},
+    //   component: Message
+    // },
 
 
 
 
 
     // ======= 基本模版 =======
-      {// 案例列表
-        path: "/caselist",
-        meta:{index:6,title:"案例列表"},
-        component: () => import("./views/lists/caselist.vue")
+      {// 加盟
+        path: "/jiameng",
+        meta:{index:8,title:"加盟"},
+        component: () => import("./views/jiameng/jiameng.vue")
       },
+      {// 投资页面
+        path: "/touzhi",
+        meta:{index:6,title:"投资"},
+        component: () => import("./views/touzhi/touzhi.vue")
+      },
+      {// 投资机构-列表
+        path: "/touzhijigou_list",
+        meta:{index:12,title:"投资机构",hide_footer:true},
+        component: () => import("./views/touzhi/touzhi_jigou_list.vue")
+      },
+      {// 投资机构详情
+        path: "/touzhi_jigou_detail",
+        meta:{index:13,title:"投资机构详情",hide_footer:true},
+        component: () => import("./views/touzhi/touzhi_jigou_detail.vue")
+      },
+      {// 投资人列表
+        path: "/touzhiren_list",
+        meta:{index:12,title:"投资人"},
+        component: () => import("./views/touzhi/touzhiren_list.vue")
+      },
+      {// 投资人详情
+        path: "/touzhiren_detail",
+        meta:{index:18,title:"投资人简介",hide_footer:true},
+        component: () => import("./views/touzhi/touzhiren_detail.vue")
+      },
+      {// 投资项目列表
+        path: "/touzhi_case_list",
+        meta:{index:12,title:"创业公司"},
+        component: () => import("./views/touzhi/touzhi_case_list.vue")
+      },
+      {// 项目详情
+        path: "/touzhi_case_detail",
+        meta:{index:14,title:"项目详情"},
+        component: () => import("./views/touzhi/touzhi_case_detail.vue")
+      },
+      
+
+
+
       {// 产品列表
         path: "/prolist",
         meta:{index:9,title:"产品列表"},
         component: () => import("./views/prolist/prolist2.vue")
       },
-      {// 资讯页面
-        path: "/message",
-        meta:{index:6,title:"资讯"},
-        component: () => import("./views/message/message.vue")
-      },
+      
       {// 视频列表
         path: "/videolist",
         meta:{index:8,title:"学院"},
@@ -55,6 +118,11 @@ export default new Router({
         meta:{index:20,title:"详情"},
         component: () => import("./views/video/video_info.vue")
       },
+      {// 课程列表
+        path: "/lessons_list",
+        meta:{index:18,title:"课程列表"},
+        component: () => import("./views/lists/lessons_list.vue")
+      },
       {// 分类列表
         path: "/classlist",
         meta:{index:7,title:"分类列表"},
@@ -62,7 +130,7 @@ export default new Router({
       },
       {// 所有分类
         path: "/classify",
-        meta:{index:8,title:"所有分类"},
+        meta:{index:9,title:"所有分类"},
         component: () => import("./views/classlist/classlist.vue")
       },
       {// 关于我们
@@ -114,21 +182,21 @@ export default new Router({
         meta:{index:20, login:true,title:"修改昵称"},
         component: () => import("./views/change_info/update_password.vue")
       },
-      // {// 登录
-      //   path: "/login",
-      //   meta:{index:1},
-      //   component: () => import("./views/login/login3.vue")
-      // },
-      // {// 注册
-      //   path: "/register",
-      //   meta:{index:2},
-      //   component: () => import("./views/register/register.vue")
-      // },
-      // {// 找回密码
-      //   path: "/findPassword",
-      //   meta:{index:2},
-      //   component: () => import("./views/register/forget_password.vue")
-      // },
+      {// 登录
+        path: "/login",
+        meta:{index:1},
+        component: () => import("./views/login/login3.vue")
+      },
+      {// 注册
+        path: "/register",
+        meta:{index:2},
+        component: () => import("./views/register/register.vue")
+      },
+      {// 找回密码
+        path: "/findPassword",
+        meta:{index:2},
+        component: () => import("./views/register/forget_password.vue")
+      },
       // {// 我的二维码
       //   path: "/myqrcode",
       //   meta:{index:20,login:true,title:"我的二维码"},
@@ -159,101 +227,37 @@ export default new Router({
       //   meta: {index:20,title:"绑定支付宝"},
       //   component: () => import("@/views/bank/bind_alipay.vue")
       // },
-      // {// 评论
-      //   path: "/comment",
-      //   meta: {index:21,title:"评论"},
-      //   component: () => import("@/components/comment/comment.vue")
-      // },
-    
-    // ======= 商城类 =======
-    
       {// 商品详情
         path: "/goodsdetaile",
-        meta:{index:15},
+        meta:{index:15,hide_footer:true},
         component: () => import("./views/prodetaile/prodetaile2.vue")
       },
-      // {// 购物车
-      //   path: "/goodscart",
-      //   meta:{index:7,login:true,title:"帐变记录"},
-      //   component: () => import("./views/shop/shop_goodscart.vue")
-      // },
-      // {// 订单列表
-      //   path: "/orderlist",
-      //   meta:{index:18, login:true,title: "订单列表"},
-      //   component: () => import("./views/order/order_list.vue")
-      // },
-      // {// 物流信息
-      //   path: "/wuliu",
-      //   meta:{index:20, login:true,title: "物流信息"},
-      //   component: () => import("./views/shop/wuliu.vue")
-      // },
       {// 搜索
         path: "/search",
         meta: {index:14,login:false,title: "搜索"},
         component: () => import("@/views/search/search.vue")
       },
-      // {// 优惠劵
-      //   path: "/coupon",
-      //   meta: {index:14,login:false,title: "优惠劵"},
-      //   component: () => import("@/views/card_list/coupon.vue")
-      // },
-    // ======= 分销类 =======
-      // {// 收益数据
-      //   path: "/visual",
-      //   meta: {index:11,login:true,title: "我的收益"},
-      //   component: () => import("@/views/fenxiao/visual.vue")
-      // },
-      // {// 帐变记录
-      //   path: "/bill",
-      //   meta: {index:12,login:true,title:"帐变记录"},
-      //   component: () => import("@/views/bill/bill.vue")
-      // },
-      // {// 提现
-      //   path:"/getmoney",
-      //   meta: {index:12,login:true,title:"提现"},
-      //   component: () => import("@/views/fenxiao/getmoney.vue")
-      // },
-      // {// 团队
-      //   path:"/team",
-      //   meta: {index:18,login:true,title:"我的粉丝"},
-      //   component: () => import("@/views/fenxiao/team.vue")
-      // },
+      {// 帐变记录
+        path: "/bill",
+        meta: {index:18,login:true,title:"积分记录"},
+        component: () => import("@/views/bill/bill.vue")
+      },
+      {// 提现
+        path:"/getmoney",
+        meta: {index:20,login:true,title:"提现"},
+        component: () => import("@/views/fenxiao/getmoney.vue")
+      },
     
     // ======= 特殊类 =======
-      // {// 常见问题
-      //   path: "/issue",
-      //   meta:{index:19},
-      //   component: () => import("./views/notive/issue.vue")
-      // },
-      // {// 新手指导
-      //   path: "/guide",
-      //   meta:{index:19},
-      //   component: () => import("./views/notive/guide.vue")
-      // },
-      // {// 报名
-      //   path: "/apply",
-      //   meta:{index:12,title:"我要报名"},
-      //   component: () => import("./views/login/login2.vue")
-      // },
-      // {// 排行榜
-      //   path: "/ranking",
-      //   meta:{index:13,title:"排行榜"},
-      //   component: () => import("@/components/ranking/ranking.vue")
-      // },
-      // {// 投票详情
-      //   path: "/votedetail",
-      //   meta:{index:10,title:"商家详情"},
-      //   component: () => import("@/views/prodetaile/prodetaile.vue")
-      // },
-      // {// 奖品详情
-      //   path: "/jiangpin",
-      //   meta:{index:24,title:"奖品"},
-      //   component: () => import("@/views/jiangping/jiangping.vue")
-      // },
       {// 意见反馈
         path: "/opinion",
         meta:{index:19,title:"意见反馈"},
         component: () => import("@/views/opinion/opinion.vue")
+      },
+      {// 会员开通
+        path: "/paymenber",
+        meta:{index:19,title:"会员开通",hide_footer:true},
+        component: () => import("@/views/pay/paymenber.vue")
       },
       {// 充值
         path: "/recharge",
@@ -265,5 +269,69 @@ export default new Router({
         meta:{index:19,title:"任务"},
         component: () => import("@/views/task/task.vue")
       },
-  ]
+      {// 入驻申请
+        path: "/ruzhu",
+        meta:{index:19,title:"入驻申请"},
+        component: () => import("@/views/other/shenqing.vue")
+      },
+      {// 申请直通
+        path: "/zhitong",
+        meta:{index:19,title:"申请直通"},
+        component: () => import("@/views/other/zhitong.vue")
+      },
+      {// 我的收藏
+        path: "/collect",
+        meta:{index:19,title:"我的收藏"},
+        component: () => import("@/views/other/my_shoucang.vue")
+      },
+      {// 我的评论
+        path: "/my_comment",
+        meta:{index:19,title:"我的评论"},
+        component: () => import("@/views/other/my_comment.vue")
+      },
+      {// 我的关注
+        path: "/my_concern",
+        meta:{index:19,title:"我的关注"},
+        component: () => import("@/views/other/my_concern.vue")
+      },
+      {// 我的课程
+        path: "/my_video",
+        meta:{index:19,title:"我的课程"},
+        component: () => import("@/views/other/my_video.vue")
+      },
+      {// 读物
+        path: "/music",
+        meta:{index:19,title:"读物",hide_footer:true},
+        component: () => import("@/views/lists/music.vue")
+      },
+      {// 品牌认证
+        path: "/pinpai",
+        meta:{index:19,title:"品牌认证"},
+        component: () => import("@/views/other/pinpai.vue")
+      },
+
+      {// 电子书分类
+        path: "/book_cla_list",
+        meta:{index:18,title:"电子书分类"},
+        component: () => import("@/views/lists/book_class_list.vue")
+      },
+      {// 电子书详情
+        path: "/book_info",
+        meta:{index:19,title:"电子书详情"},
+        component: () => import("@/views/lists/book_info.vue")
+      },
+      {// 资金池
+        path: "/jiangjinchi",
+        meta:{index:7,title:"资金池"},
+        component: () => import("@/views/other/jiangjinchi.vue")
+      },
+  ],
+
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });
+
+
+
+export default router;

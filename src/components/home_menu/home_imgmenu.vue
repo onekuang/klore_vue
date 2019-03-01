@@ -94,13 +94,13 @@ p{
 			text-align:center;
 			font-size:14px;
 			overflow:hidden;
-			padding-bottom: 6px;
-			padding-top: 6px;
+			padding-bottom: 8px;
+			padding-top: 8px;
 			.imgbox{
 				position: relative;
 				margin:0 auto;
-				height:50px;
-				width:50px;
+				height:40px;
+				width:40px;
 				border-radius:30%;
 				color:#fff;
 				font-size:14px;

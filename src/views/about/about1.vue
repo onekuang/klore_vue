@@ -1,18 +1,16 @@
 <template>
-<div class="about1 page">
-	<k_header title="白手创客" />
+<div class="about1 page app_head">
+	<k_header title="关于我们" />
 <div>
 
-<div class="logo text-center" style="background-color: #f7f7f7;">
-	<!-- <img src="https://lipstick.xsygood.com/testimg/pyg_logo.png" width="200"> -->
+<div class="logo text-center" >
+	<img src="https://lipstick.xsygood.com/bsck_img/about_banner.jpg" width="100%">
 </div>
 <mu-list>
   <mu-list-item avatar button :ripple="false" to="">
     
     <mu-list-item-title>当前版本</mu-list-item-title>
-    <mu-list-item-action>
-      V1.0.1
-    </mu-list-item-action>
+    <mu-list-item-action>V1.0.1</mu-list-item-action>
   </mu-list-item>
 
 
@@ -59,8 +57,11 @@ export default {
 	// background: #f7f7f7;
 }
 .logo{
-	height: 200px;
-	line-height: 235px;
+	// height: 175px;
+	// line-height: 235px;
+	// background-size: 100% 100% !important;
+	// background-repeat: no-repeat !important;
+
 }
 .aboutus{
 	position: fixed;

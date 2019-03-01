@@ -15,9 +15,9 @@
 		      <!-- <div class="swiper-pagination" slot="pagination"></div>   -->
 		  </swiper>  
 	  </div>
-	  <div class="menu" @click="show_menu">
+	  <!-- <div class="menu" @click="show_menu">
 	  	<i class="iconfont icon-liebiao"></i>
-	  </div>
+	  </div> -->
 	</div>
 	<div class="more_menu_wrapper" v-show="more_menu_show">
 		<h2>更多频道</h2>
@@ -67,7 +67,7 @@ export default {
       swiperOption: {  
         // initialSlide :0,// 初始化的时候,第一页在那个item
         effect:'slide',// 切换效果
-        slidesPerView: 6.5,  
+        slidesPerView: 5.5,  
         centeredSlides: false,  
         paginationClickable: true,  
         spaceBetween: 0,// 间隔  
@@ -102,10 +102,15 @@ export default {
   	tap_nav_item(index) {
   		this.more_menu_show = false
   		this.active_index = index;
+
   		// 让点击的item居中
   		if(index > 3) {
   			this.swiper.slideTo(index - 3, 100, false);
   		}
+  		if(index < 3) {
+  			this.swiper.slideTo(index-1 , 100, false);
+  		}
+  		
   		this.$emit('tap_nav',index)
   	},
   	// 更多菜单
@@ -136,8 +141,8 @@ export default {
 		font-size: 14px;
 		text-align: center;
 		&.on {
-			color:#f44336;
-			border-bottom: 2px solid #f44336;
+			color:@yewu;
+			border-bottom: 2px solid @yewu;
 		}
 	}
 	.swipe_box{

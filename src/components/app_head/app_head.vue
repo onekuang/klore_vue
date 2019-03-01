@@ -95,22 +95,35 @@ export default {
 	height: 50px;
 	line-height: 50px;
 	box-shadow: 1px 1px 4px rgba(0, 0, 0, .05);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
 	.header{
 		display: flex;
+		align-items: center;
 	}
 	.left, .right{
 		flex: 0 0 50px;
 		width: 50px;
 		text-align: center;
 	}
+	.left{
+		i{
+			font-size: 18px;
+		}
+	}
 	.right{
 		i{
 			margin-right: 12px;
+			font-size: 18px;
 		}
 	}
 	.title{
-		text-align: center;
+		text-align: center;		
 		flex: 1;
+		font-size: 16px;
 	}
 }
 </style>

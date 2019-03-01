@@ -1,9 +1,11 @@
 <template>
-<div class="message page">
+<div class="message page app_head">
+	<k_header title="学院" />
+
 	<div class="message_wrapper">
-		<mu-tabs :value.sync="active2" color="#000" indicator-color="#fd9a00" inverse full-width>
+		<mu-tabs :value.sync="active2" color="#000" indicator-color="#0586D1" inverse full-width>
 	    <mu-tab>创业课程</mu-tab>
-	    <mu-tab>有声图书</mu-tab>
+	    <mu-tab>有声读物</mu-tab>
 	    <mu-tab>电子书</mu-tab>
 	  </mu-tabs>
 	  <div class="mes_box mes_box_type1_1" v-if="active2 === 0">
@@ -85,6 +87,7 @@
 </template>
 
 <script>
+import k_header from '@/components/app_head/app_head'
 export default {
 	data() {
 		return {
@@ -97,7 +100,7 @@ export default {
 	methods: {
 		get_data(){}
 	},
-	components: {}
+	components: {k_header}
 }
 </script>
 

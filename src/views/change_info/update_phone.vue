@@ -1,5 +1,5 @@
 <template>
-<div class="testvue page fff">
+<div class="testvue page fff app_head">
 
 <form @submit.prevent="onSubmit">
 	<div class="chang_mobile_box">

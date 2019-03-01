@@ -1,31 +1,13 @@
 <template>
-<div class="setting_wrapper page">
+<div class="setting_wrapper page app_head">
 
 <k_header title="我的设置" />
 
 <div class="setting">
-	<!-- <mu-list textline="three-line">
-	    <mu-list-item avatar :ripple="false" button>
-	      <mu-list-item-action>
-	        <mu-avatar>
-	          <img src="https://wx.qlogo.cn/mmopen/vi_32/ayib4NCiczMFDqwRpsJQibylxFn76mEEcibkGXyVnmeMrMNoqWVs9XOZyYF2QvaLkPEWAbZcjhSiaPLLQxnX55iclB4A/132">
-	        </mu-avatar>
-	      </mu-list-item-action>
-	      <mu-list-item-content>
-	        <mu-list-item-title>
-	        	<span style="font-weight: 900;">Klore</span>
-	        </mu-list-item-title>
-	        <mu-list-item-sub-title>	          
-	          <span style="color: #999;">134 2183 6693</span>
-	          <br>are you OK?
-	        </mu-list-item-sub-title>
-	      </mu-list-item-content>
-	    </mu-list-item>
-	 </mu-list> -->
 			
 		<div class="k_avatar text-center">
 			<img :src="arvatar" @click="addPicFront">
-			<input type="hidden" value="" name="logo"  >
+			<!-- <input type="hidden" value="" name="logo"  > -->
 		  <input type="file" @change="upload($event)" style="display: none;" ref="upload" id='upload' accept="image/*">
 			<p class="c999 changeavatar">点击更改头像</p>
 		</div>
@@ -122,14 +104,11 @@
 	        </mu-list-item-action>
 	      </mu-list-item>
 
-	      <mu-list-item avatar button :ripple="false" to="/login">
+	      <mu-list-item avatar button :ripple="false" @click="logout">
 	        <mu-list-item-action class="red" v-if="icon_show">
 	          <mu-icon slot="left" value=":iconfont icon-qiehuanzuhu"/>
 	        </mu-list-item-action>
 	        <mu-list-item-title>注销</mu-list-item-title>
-	        <!-- <mu-list-item-action>
-	          <mu-icon slot="right" value=":iconfont icon-you"/>
-	        </mu-list-item-action> -->
 	      </mu-list-item>
 
 	    </mu-list>
@@ -160,7 +139,24 @@ export default {
 			l_storage.clear()
 			this.$toast('清除成功')
 		},
-
+		// 注销
+		logout() {
+			this.$confirm({
+				title: "提示",
+				content: "是否确认注销",
+				yesText: "确认",
+				noText: "取消",
+			}).then(success => {
+				s_storage.clear()
+				l_storage.clear()
+				this.$router.push({
+					path: `/login`
+				})
+			}).catch(fail => {
+				console.log('点击了取消')
+			})
+			
+		},
 		// 图片上传
 		addPicFront(e){
 			e.preventDefault();
@@ -408,8 +404,8 @@ export default {
 	font-size: 13px;
 }
 .k_avatar{
-	height: 180px;
-	padding-top: 40px;
+	height: 140px;
+	padding-top: 16px;
 	img{
 		border-radius: 50%;
 		width: 80px;

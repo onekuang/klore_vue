@@ -1,7 +1,7 @@
 <template>
-<div class="video_info page">
+<div class="video_info page app_head">
 
-	<k_header title="视频" />
+	<k_header title="课程" />
 	
 	<div class="video">
 		<video id="video1" controls name="media">
@@ -48,11 +48,11 @@
 					</div>
 					<div class="info">
 						<div class="top">
-							<div class="title">userName</div>
-							<div class="time">2011-11-22</div>
+							<div class="title">李四</div>
+							<div class="time">2019-1-22</div>
 						</div>
 						<div class="desc">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos asperiores in recusandae officiis quae soluta culpa eveniet explicabo, iusto atque doloribus id accusamus dolores aspernatur veritatis. Ab, minus amet nam.
+							看完了来评价，之前听过很多讲师的课程，因为公司发展的关系需要对公司管理制度以及管理制度的晚上!让我学到了很多的知识!非常感谢老师，期待老师下一门干货课程。
 						</div>
 					</div>
 				</div>

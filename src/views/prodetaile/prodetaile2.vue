@@ -1,8 +1,10 @@
 <template>
-<div class="prodetail page">
-	<span class="back" @click=back>
+<div class="prodetail page app_head">
+	<k_header title="项目详情" />
+
+	<!-- <span class="back" @click=back>
 		<i class="iconfont icon-icon--"></i>
-	</span>
+	</span> -->
 
 <!-- 轮播组件 -->
   <div>
@@ -11,14 +13,14 @@
 	<div class="info">
 		<mu-row>
 	    <mu-col span="12"><div class="grid-cell">
-	    	<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+	    	<div class="title">mini咖啡店</div>
 	    </div></mu-col>
 	  </mu-row>		
 		
 		<div class="money_box">
 		  <mu-row>
 		    <mu-col span="8"><div class="grid-cell">
-		    	<div class="money"><span>￥</span>6-15万</div>
+		    	<div class="money"><span>￥</span>5000~1万</div>
 		    </div></mu-col>
 		    <mu-col span="4"><div class="grid-cell">
 		    	<div class="collect">
@@ -222,7 +224,7 @@
 			<div class="item">
 				<div class="itm">
 					<i class="iconfont icon-pingjiadengji"></i>
-					<div class="text">关注</div>
+					<div class="text">收藏</div>
 				</div>
 			</div>
 			<div class="item">
@@ -237,11 +239,12 @@
 
 <script>
 import k_swipe_banner from '@/components/k_swipe/k_swipe';
+import k_header from '@/components/app_head/app_head'
 export default {
 	data() {
 		return {
 			swipe_banner_data:[
-				{src:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"},
+				{src:"https://lipstick.xsygood.com/bsck_img/a/tj_a.jpg"},
 				{src:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"},
 			],
 			form_data:{
@@ -253,6 +256,7 @@ export default {
 		}
 	},
 	created() {
+		
 		this.get_data()
 	},
 	methods: {
@@ -261,7 +265,7 @@ export default {
 			window.history.back()
 		},
 	},
-	components: {k_swipe_banner,}
+	components: {k_swipe_banner,k_header}
 }
 </script>
 

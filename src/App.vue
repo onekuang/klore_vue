@@ -1,53 +1,61 @@
 <template>
   <div id="app">
     <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link tag="div" to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
 
     <transition :name="transitionName"> 
       <keep-alive :include=include>
-          <router-view v-wechat-title='$route.meta.title'></router-view>
+          <router-view v-wechat-title='$route.meta.title' ></router-view>
       </keep-alive>
     </transition>
 
-    <div class="footer">
+    <div class="footer" v-show=footer_show>
       <k_footer></k_footer>
     </div>
-
+    
+    <!-- 向导 -->
+    <transition name="slide-left"> 
+      <xiang_dao :guide_show=guide_show />
+    </transition>
   </div>
 </template>
 <script>
 import k_footer from "./components/base/footer_tab/footer1";
+import xiang_dao from "./components/xiangdao/xiangdao";
+import { l_storage } from '@/common/js/storage.js'
 export default {
   name: "app",
   data() {
     return {
-      include:['list','about','classlist'],
+      guide_show:true,
+      footer_show: true,
+      include:['home5','jiameng','list','about','classlist','jiangjinchi'],
       transitionName: '',
     }
   },
+  created() {
+    this.guide_show = !!l_storage.get('guide') ? false : true
+  },
   watch: {
     $route(to, from) {
-      // if(to.meta.login) {
-      //   console.log('需要登录')
-      //   return
-      // }
-      //如果to索引大于from索引,判断为前进状态,反之则为后退状态
       if(to.meta.index > from.meta.index){
-        //设置动画名称
         this.transitionName = 'slide-left';
-
-        // if(to.meta.index > 9 || to.meta.index == 7 ){
-        //   kk.is_login(s_storage.get('sessionID'), this);
-        // }
       }else{
         this.transitionName = 'slide-right';
+      }
+
+      if(to.meta.hide_footer){
+        this.footer_show = false
+
+      }else{
+        this.footer_show = true        
       }
     }
   },
   components: {
-    k_footer
+    k_footer,xiang_dao
   }
 };
 </script>

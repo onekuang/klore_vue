@@ -1,5 +1,6 @@
 <template>
 <div class="getmoney page">
+	<k_header title="提现" />
 
 <form @submit.prevent="onSubmit">
 	<div class="chang_mobile_box">
@@ -9,31 +10,16 @@
 				<input type="text" name="username" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.username">
 			</div>
 		</div>
-		
-		<div class="new_mobile_box" v-if="get_money_type === 'bank'">
-			<div class="item">到账银行卡:</div>
-			<div class="item">
-				<select name="bankName" id="k_select" v-model="form_data.bankName">
-					<option disabled value="">选择到账银行卡</option>
-					<option value="1">中国银行</option>
-					<option value="2">招商银行</option>
-					<option value="3">广发银行</option>
-				</select>
-			</div>	
-			<router-link tag="div" class="get_code on" to="/addbank">
-				添加银行卡
-			</router-link>
-		</div>
 
 		<div class="new_mobile_box" v-if="get_money_type === 'alipay'">
 			<div class="item">到账支付宝:</div>
 			<div class="item">
-				<input type="text" name="alipay" class="old_mobile" placeholder="请输入真实姓名" v-model="form_data.alipay" hidden>
-				<p class="hide_input" style="height: 33px;line-height: 33px;">{{form_data.alipay}}</p>
+				<input type="text" name="alipay" class="old_mobile" placeholder="请输入支付宝帐号" v-model="form_data.alipay">
+				<!-- <p class="hide_input" style="height: 33px;line-height: 33px;">{{form_data.alipay}}</p> -->
 			</div>	
-			<router-link tag="div" class="get_code on" to="/bindalipay">
+			<!-- <router-link tag="div" class="get_code on" to="/bindalipay">
 				修改
-			</router-link>
+			</router-link> -->
 		</div>
 
 
@@ -45,7 +31,7 @@
 
 		</div>
 		<div class="code_box">
-			<div class="item " style="color: #999;">我的余额:</div>
+			<div class="item " style="color: #999;">可提现金额:</div>
 			<div class="item">
 				<input class="code" :placeholder="balance" disabled style="background-color: #fff;">
 			</div>
@@ -57,7 +43,7 @@
 	<div class="btn_box" style="margin-top: 30px;">
 		<button class="theme_btn" type="submit">申请提现</button>
 		<p class="marke">
-			<span class="xing">*</span>每月25号后可提现上个月内确认收货的订单佣金</p>
+			<span class="xing">*</span>申请成功后,将于3个工作日内到账</p>
 	</div>
 </form>
 
@@ -70,6 +56,7 @@
 
 <script>
 import { kk } from '@/common/js/k_form.js'
+import k_header from '@/components/app_head/app_head'
 
 export default {
 	name:"getmoney",
@@ -81,7 +68,7 @@ export default {
 			form_data:{
 				username:'',
 				bankName:'',
-				alipay: '651776858@qq.com',
+				alipay: '',
 				money: '',
 			}
 		}
@@ -113,6 +100,8 @@ export default {
 			console.log(this.form_data)
 		},
 	},
+	components: {k_header}
+
 }
 </script>
 

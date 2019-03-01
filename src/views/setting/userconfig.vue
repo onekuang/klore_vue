@@ -1,12 +1,12 @@
 <template>
-<div class="userconfig_wrapper page">
+<div class="userconfig_wrapper page app_head">
 	<k_header title="系统设置" />
 	<div class="user_config">
 		<mu-list>
 		    <mu-sub-header>通知设置</mu-sub-header>
 		    <mu-list-item button :ripple="false" @click="events = !events">
 		      <mu-list-item-title>
-		        通知栏提醒
+		        通知提醒
 		      </mu-list-item-title>
 		      <mu-list-item-action>
 		        <mu-switch v-model="events" readonly></mu-switch>

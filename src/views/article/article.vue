@@ -1,5 +1,10 @@
 <template>
 <div class="k-article page">
+
+	<!-- <k_header title="文章" right='兑换' @r_click=r_click right_color='#888' /> -->
+	<k_header title="文章详情" />
+
+
 <div>
 
 	<!-- <div class="article_box">
@@ -37,6 +42,7 @@
 
 <script>
 import api from '@/assets/api/api.js'
+import k_header from '@/components/app_head/app_head'
 export default {
 	name:"article",
 	data() {
@@ -71,7 +77,7 @@ export default {
 			})
 		}
 	},
-	components: {}
+	components: {k_header}
 }
 </script>
 

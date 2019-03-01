@@ -1,171 +1,125 @@
 <template>
-<div class="login2 ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
-<div>
+<div class="shenqing page app_head">
 
-<div class="login_bg">
-	<div class="img_box">
-		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg" width="64" height="64">
+<k_header title="申请直通" />	
+
+
+	<div class="radio_head">
+		<div class="title">选择创业行业(单选):</div>
 	</div>
+	<div class="radio_box">
+		<div class="items">
 
-	<form @submit.prevent="onSubmit">
-		<div class="form_box">
-				<div class="item">
-					<label for="">名称：</label>
-					<input type="text" name="username" v-model="form_data.username">
-				</div>
-				<div class="item">
-					<label for="">手机：</label>
-					<input type="text" name="mobile" v-model="form_data.mobile" number>
-					<div class="get_code hui_btn" style="color: #777;" v-show="!code_disabled" @click="get_code">获取</div>
-					<div class="get_code hui_btn off" v-show="code_disabled">({{code_time}})</div>
-				</div>
-				<div class="item">
-					<label for="">验证码:</label>
-					<input type="text" name="code" v-model="form_data.code">
-				</div>
-				<div class="item">
-					<label for="">地址：</label>
-					<input type="text" name="site" v-model="form_data.site">
-				</div>
-				<div class="item" style="border-bottom: none;">
-						<textarea name="textarea" id="" rows="5" placeholder="请输入商家简介"v-model="form_data.textarea"></textarea>
-				</div>
+			<div class="item" v-for="i in 15">
+				<div class="itm">
+					<mu-flex class="select-control-row" :key="'radio ' + i" >
+			      <mu-radio :value="i" v-model="normal.radio"  :label="'Radio ' + i" :ripple=ripple></mu-radio>
+			    </mu-flex>
+		    </div>
+			</div>
+			
 		</div>
-
-		<div class="uploadimg_box">
-			<label for="">图片上传</label>
-			<input type="file" @change="upload($event)" style="display: none;" ref="upload" id='upload' accept="image/*">
-			<div>
-				<div class="item">
-					
-					<div class="add_img" @click="addPicFront" ><i class="iconfont icon-add1"></i></div>
-
-					<div class="for_img" v-for="(item, index) in uploadimg" :key=index>
-						<img :src="item.src" width="48" height="48">
-						<span class="delx extend-click" @click="delete_img(index)">
-							<i class="iconfont icon-icon-"></i>
-						</span>
-					</div>
-					
-					<div class="clearfix"></div>
-				</div>
+	</div>
+	
+	
+	<div class="k_input_box">
+		<div class="k_input">
+			<div class="item">学校名称:</div>
+			<div class="item">
+				<input type="text" name="name" placeholder="请填写学校真实名称">
 			</div>
 		</div>
+	</div>
 
-		<div class="btn_box" style="margin-top: 26px;">
-			<button class="theme1_bg login_btn">
-				确认报名
-			</button>
+
+
+	<div class="k_input_box">
+		<div class="k_input">
+			<div class="item">姓名:</div>
+			<div class="item">
+				<input type="text" name="name" placeholder="请填写真实姓名">
+			</div>
 		</div>
-	</form>
-</div>
+	</div>
+
+	<div class="k_input_box">
+		<div class="k_input">
+			<div class="item">手机号:</div>
+			<div class="item">
+				<input type="text" name="name" placeholder="请填写手机号">
+			</div>
+		</div>
+	</div>
+  
+  <div class="radio_head">
+  	<div class="title">上传相关资料</div>
+  </div>
+  <div class="upload_wrapper">
+  	<div class="uploadimg_box">
+  		<!-- <label for="">图片上传{{uploadimg.length}}</label> -->
+  		<label for=""></label>
+  		<input type="file" @change="upload($event)" style="display: none;" ref="upload" id='upload' accept="image/*">
+  		<div>
+  			<div class="item">
+  				
+  				<div class="for_img" v-for="(item, index) in uploadimg" :key=index>
+  					<img :src="item.src" width="48" height="48">
+  					<span class="delx extend-click" @click="delete_img(index)">
+  						<i class="iconfont icon-icon-"></i>
+  					</span>
+  				</div>
+  				<div class="add_img for_img" @click="addPicFront" v-show="uploadimg.length != 9"><i class="iconfont icon-add1"></i></div>
+  				
+  				<div class="clearfix"></div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+	
+	<div class="text_make">
+		<div class="text">请上传您的毕业证书，身份证(正面)，身份证(反面)
+			<!-- <br>我们将在3个工作日内进行审核 -->
+		</div>
+	</div>
 
 
-</div></BScroll>
+	<div class="btn_box" style="margin-top: 30px;">
+		<button class="theme_btn" type="submit">确认提交</button>
+	</div>
+
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
-import { kk } from '@/common/js/k_form.js'
+import k_header from '@/components/app_head/app_head'
 import Exif from 'exif-js'  
-
-var current_time = '';
 export default {
-	name:"login2",
 	data() {
 		return {
-			uploadimg: [
-				// {src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg"},
-				// {src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540557274680&di=7998bc27e6c543fbd4261bbc4216c637&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5d6034a85edf8db10896995d0223dd54564e744b.jpg"}
-			],
-			code_time: 60,
-			code_disabled: false,
-			form_data:{},
-
-			arvatar:'',
-			picValue:'' ,
+			normal: {
+        checkbox: true,
+        radio: 1,
+        switch: false
+      },
+      ripple: false,
+      uploadimg: [],
+      arvatar:'',
+      picValue:'' ,
 		}
 	},
+	created() {
+		this.get_data()
+	},
 	methods: {
-		onSubmit() {
-			this.send_data()
-			return
-			if(kk.is_null(this.form_data.username,this,'用户名不能为空')){return}
-			if(kk.is_null(this.form_data.code,this,'验证码不能为空')){return}
-			if(!kk.is_mobile(this.form_data.mobile,this)){return}
-			if(kk.is_null(this.form_data.site,this,'地址不能为空')){return}
-			if(kk.is_null(this.form_data.textarea,this,'简介不能为空')){return}
-		},
-		send_data() {
-			this.axios.post("http://192.168.4.119/vote/api/Tools/Upload/",{
-				type:"img",
-				userdata: this.form_data,
-				uploadimg: this.uploadimg
-			})
-			.then(res => {
-				console.log(res.data)
-			})
-			.catch(res => {
-				this.$toast("网络错误")
-			})
-		},
-		// 验证码状态
-		get_code() {
-			if(this.code_disabled){
-				return
-			}
-
-			if(!kk.is_mobile(this.form_data.mobile,this)){return}
-
-			this._start_code_time();
-			this.verify_code();
-		},
-		// 获取验证码
-		verify_code() {
-			console.log('获取验证码')
-			return
-			this.axios.get(this.$api.get_code,{
-				params: {
-					mobile: this.form_data.mobile,
-					type : 1
-				}
-			})
-			.then(res => {
-				this.$toast(res.data.msg)
-			})
-			.catch(res => {
-				this.$toast("网络错误")
-			})
-		},
-		// 验证码开始倒计时
-		_start_code_time() {
-			let that = this
-			this.code_disabled = true
-			current_time = window.setInterval(() => {
-				that.code_time --
-				if(that.code_time <= 0) {
-					that._stop_code_time()
-				}
-			},1000)
-		},
-		// 验证码结束倒计时
-		_stop_code_time() {
-			if (current_time) {
-				clearInterval(current_time)
-				this.code_time = 60
-				this.code_disabled = false
-			}
-		},
+		get_data(){},
 		delete_img(index) {
 			console.log("删除上传的图片")
 			this.uploadimg.splice(index, 1)
 		},
 		// 点击添加图片
 		addPicFront(e){
-			if(this.uploadimg.length > 2) {
-				this.$alert("图片最多上传3张")
+			if(this.uploadimg.length > 8) {
+				this.$alert("图片最多上传9张")
 				return
 			}
 			e.preventDefault();
@@ -338,107 +292,104 @@ export default {
 	  _up_img(dataimg) {
 	  	let obj = {src: dataimg}
 	  	this.uploadimg.push(obj)
-	  	// this.axios.post(api.edit_avatar,{
-	  	// 	sessionID  : s_storage.get('sessionID'),
-	  	// 	base64Data :dataimg
-	  	// })
-	  	// .then(res => {
-	  	// 	console.log(res.data)
-	  	// })
-	  	// .catch(res => {
-	  	// 	this.$toast("网络错误")
-	  	// })
 	  }
 	},
-	components: {
-		BScroll
-	}
+	components: {k_header}
 }
 </script>
 
 <style scoped lang="less">
 @import url('../../common/less/index.less');
-.theme1_bg{
-	background: linear-gradient(left, #FF8F2B,#FF715B );
+.shenqing{
+	.khr_bg();
+	padding-bottom: 80px;
 }
-
-.login2 {
-	.login_bg{
-		height: 700px;
-		background-image: url(./login2bg.jpg);
-		background-size: 100% 250px;
-		background-repeat: no-repeat;
-		text-align: center;
-		.login_btn{
-			display: inline-block;
-			border-radius: 18px;
-			padding: 6px 60px;
-			color: #fff;
-		}
-		.img_box{
-			margin-top: 40px;
-			border-radius: 50%;
-			line-height: 80px;
-			height: 80px;
-			width: 80px;
-			border: 1px solid #fff;
-			display: inline-block;
+.radio_head{
+	margin: 12px 8px 0px 8px;
+	border: 1px solid #f5f5f5;
+	border-bottom: none;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 8px 8px 0 0;
+	text-indent: 12px;
+	background: #fff;
+}
+.radio_box{
+	margin: 0 8px 8px 8px;
+	border: 1px solid #f5f5f5;
+	border-radius: 0 0 8px 8px;
+	background: #fff;
+	.items{
+		display: flex;
+		flex-wrap: wrap;
+		padding: 12px 8px;
+		.item{
+			height: 40px;
+			line-height: 40px;
 			text-align: center;
-			img{
-				margin-top: 8px;
-				border-radius: 50%;
+			flex: 33.33%;
+			.itm{
+				display: inline-block;
+				width: 80%;
+				margin: 0 auto;
 			}
-		}
-
-		.form_box {
-			background: #fff;
-			width: 70%;
-			border-radius: 8px;
-			padding: 12px 8px 0px;
-			margin: 30px auto 0;
-			border: 1px solid #eee;
-			.item{
-				display: flex;
-				padding-bottom: 6px;
-				border-bottom: 1px solid #eee;
-				margin-bottom: 14px;
-				label {
-					color: #aaa;
-					font-size: 12px;
-				}
-				textarea {
-					width: 100%;
-					border-color: #eee;
-					background: #f5f5f5;
-				}
-				.get_code{
-					flex: 0 0 50px;
-					border-radius: 4px;
-					color: #777;
-					&.off {
-						color: #ccc;
-					}
-				}
+			/deep/.mu-radio-label{
+				font-size: 14px
 			}
-			margin-bottom: 8px;
 		}
 	}
+}
 
 
 
+.k_input_box{	
+	margin: 8px;
+	.k_input{
+		background: #fff;
+		box-sizing: border-box;
+		display: flex;
+		border-bottom: 1px solid #eee;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		height: 50px;
+		line-height: 34px;
+		input {
+			height: 100%;
+			width: 100%;
+			font-size: 13px;
+		}
+		.item{
+			flex: 1;
+			&:nth-of-type(1) {
+				flex: 0 0 90px;
+				width: 90px;
+				font-size: 14px;
+				// letter-spacing: 2px;
+				text-indent: 6px;
+			}
+		}
+	}
+}
 
-	.uploadimg_box{
-		width: 70%;
+.upload_wrapper{
+	margin: 0 8px 8px 8px;
+}
+.uploadimg_box{
+		background: #fff;	
+		width: 100%;
 		margin: 0 auto;
 		text-align: left;
+		padding-top: 8px;
 		label {
 			color: #aaa;
 			font-size: 12px;
 		}
 		.item {
+			// margin-top: 20px;
 			.for_img{
 				float: left;	
-				margin-right: 14px;
+				// margin-right: 30px;
+				margin-left: 20px;
 				position: relative;
 				margin-bottom: 12px;
 				img {
@@ -469,6 +420,7 @@ export default {
 				margin-right: 14px;
 				text-align: center;
 				border: 1px dashed #eee;
+				background: #fff;
 				i {
 					line-height: 48px;
 					font-size: 32px;
@@ -476,6 +428,13 @@ export default {
 				}
 			}
 		}
+}
+
+.text_make{
+	margin: 0 8px 8px 8px;
+	.text{
+		color: @red;
+		font-size: 12px;
 	}
 }
 </style>

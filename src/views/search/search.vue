@@ -1,5 +1,6 @@
 <template>
-<div class="search_wrapper page fff">
+<div class="search_wrapper page fff app_head">
+<k_header title="搜索" />
 
 	<div class="search_top_box">
 		<div class="search_top">
@@ -48,6 +49,7 @@
 
 <script>
 import { l_storage } from '@/common/js/storage.js'
+import k_header from '@/components/app_head/app_head'
 export default {
 	name:"search",
 	data() {
@@ -121,7 +123,9 @@ export default {
 				console.log('点击了取消')
 			})
 		}
-	}
+	},
+	components: {k_header}
+	
 }
 </script>
 

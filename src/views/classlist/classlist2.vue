@@ -1,37 +1,38 @@
 <template>
-<div class="classlist2 page">
+<div class="classlist2 page app_head">
+	<k_header title="行业分类" />
 	<!-- 轮播组件 -->
   <div>
-  	<k_swipe_banner @banner_click=banner_click :swipe_data=swipe_banner_data :height=230 />
+  	<k_swipe_banner @banner_click=banner_click :swipe_data=swipe_banner_data />
   </div>
 	
 	<!-- 申请通道 -->
   <div class="shenqing">
   	<h4 class="index_title">申请直通</h4>  	
 		<div class="items">
-			<div class="item">
+			<router-link tag="div" to="/ruzhu" class="item">
 				<div class="img_box" style="background: url('https://lipstick.xsygood.com/bsck_img/sqrz.png');">
 				</div>
-			</div>
-			<div class="item">
+			</router-link>
+			<router-link tag="div" to="/classlist" class="item">
 				<div class="img_box" style="background: url('https://lipstick.xsygood.com/bsck_img/sqzt.png');">
 				</div>
-			</div>
+			</router-link>
 		</div>
   </div>
   <!-- 分类 -->
-  <div class="class_wrapper" v-for="item in 2">
+  <div class="class_wrapper" v-for="item in cla_ify">
   	<div class="khr"></div>
-  	<h4 class="index_title">行业名称
+  	<h4 class="index_title">{{item.title}}
   		<div class="more"><i class="iconfont icon-you"></i></div>
   	</h4>  	
   	<div class="class_box">
   		<div class="items">
-  			<router-link to="/prolist" tag="div" class="item" v-for="i in 6">
-  				<div class="title">分类占位</div>
+  			<router-link to="/prolist" tag="div" class="item" v-for="i in item.child">
+  				<div class="title">{{i.title}}</div>
   				<!-- <div class="desc">教育前景行业</div> -->
   				<div class="img">
-  					<img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024" width="60" height="60">
+  					<img :src="i.image" width="60" height="60">
   				</div>
   			</router-link>
   		</div>
@@ -47,13 +48,38 @@
 
 <script>
 import k_swipe_banner from '@/components/k_swipe/k_swipe';
+import k_header from '@/components/app_head/app_head'
 export default {
 	data() {
 		return {
 			swipe_banner_data:[
-				{src:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"},
-				{src:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"},
+				{src:"https://lipstick.xsygood.com/bsck_img/class_banner.jpg"},
+				// {src:"https://lipstick.xsygood.com/bsck_img/a/banner.jpg"},
 			],
+			cla_ify:[
+				{
+					title:'热门',
+					child: [
+						{title:'机器人教育',image:"https://lipstick.xsygood.com/bsck_img/class_icon/jiaoyu.png"},
+						{title:'大众美食',image:"https://lipstick.xsygood.com/bsck_img/class_icon/meishi.png"},
+						{title:'超级品牌',image:"https://lipstick.xsygood.com/bsck_img/class_icon/pingpai.png"},
+						{title:'品牌核实',image:"https://lipstick.xsygood.com/bsck_img/class_icon/pinpai.png"},
+						{title:'美妆',image:"https://lipstick.xsygood.com/bsck_img/class_icon/meizhuang.png"},
+						{title:'教育专区',image:"https://lipstick.xsygood.com/bsck_img/class_icon/jioayuzhuanqu.png"},
+					]
+				},
+				{
+					title:'餐饮',
+					child: [
+						{title:'火锅',image:"https://lipstick.xsygood.com/bsck_img/class_icon/huoguo.png"},
+						{title:'饮品',image:"https://lipstick.xsygood.com/bsck_img/class_icon/yingping.png"},
+						{title:'快餐',image:"https://lipstick.xsygood.com/bsck_img/class_icon/kuaican.png"},
+						{title:'麻辣烫',image:"https://lipstick.xsygood.com/bsck_img/class_icon/malatang.png"},
+						{title:'小吃',image:"https://lipstick.xsygood.com/bsck_img/class_icon/xiaochi.png"},
+						{title:'早餐',image:"https://lipstick.xsygood.com/bsck_img/class_icon/zaochan.png"},
+					]
+				},
+			]
 		}
 	},
 	created() {
@@ -66,7 +92,7 @@ export default {
 			console.log(index)
 		},
 	},
-	components: {k_swipe_banner,}
+	components: {k_swipe_banner,k_header}
 }
 </script>
 

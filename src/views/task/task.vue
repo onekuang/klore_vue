@@ -1,6 +1,6 @@
 <template>
-<div class="task page">
-	<k_header title="每日任务" />
+<div class="task page app_head">
+	<k_header title="每日任务" right='兑换' @r_click=r_click right_color='#888' />
 	
 	<div class="banner">
 		<img src="https://lipstick.xsygood.com/bsck_img/task.jpg" width="100%">
@@ -127,7 +127,12 @@ export default {
 		this.get_data()
 	},
 	methods: {
-		get_data(){}
+		get_data(){},
+		r_click() {
+			this.$router.push({
+				path: `/getmoney`
+			})
+		}
 	},
 	components: {k_header}
 }

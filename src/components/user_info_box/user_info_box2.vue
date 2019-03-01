@@ -1,11 +1,11 @@
 <template>
   <div class="userinfo_wrapper">
   <div class="userinfo_box">
-    <div class="right_icon">
+    <!-- <div class="right_icon">
       <router-link to="/setting" tag="span">
         <i class="iconfont icon-shezhi1"></i>
       </router-link>
-    </div>
+    </div> -->
 
     <div class="userinfo">
       <div class="avatar">
@@ -14,9 +14,13 @@
       <div class="desc_box">
         <div class="nickname">
           Klore
-          <div class="user_lv">
+          <div class="user_lv" v-if="false">
             <span class="icon"><i class="iconfont icon-crownfill"></i></span>
             <span class="lv_name">超级会员</span>
+          </div>
+          <div class="open_huiyuan" v-else @click="goto">
+            <span class="icon"><i class="iconfont icon-crownfill"></i></span>
+            <span class="lv_name">升级为会员</span>
           </div>
         </div>
         <div class="desc">
@@ -26,24 +30,44 @@
     </div>
 
     <div class="tag_box">
-      <div class="item">关注 <span>68</span></div>
-      <div class="item">积分 <span>9102</span></div>
+      <div class="item"><i class="iconfont icon-shoucang-tianchong"></i> 收藏 <span>0</span></div>
+      <div class="item"><i class="iconfont icon-jifen"></i> 积分 <span>0</span></div>
       <div class="clearfix"></div>
     </div>
 
   </div>
 </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+
+    }
+  },
+  created() {
+    this.get_data()
+  },
+  methods: {
+    get_data(){},
+    goto() {
+      this.$router.push({
+        path: `/paymenber`
+      })
+    }
+  },
+}
+</script>
 <style scoped lang="less">
 @import url("../../common/less/index.less");
 .userinfo_wrapper{
-  background: url(https://lipstick.xsygood.com/bsck_img/usercenter_bg.jpg);
+  background: url(https://lipstick.xsygood.com/bsck_img/usercenter_bg.png);
   background-size: 100% 100%;
   padding: 12px 12px 0 12px;
   height: 200px;
   position: relative;
   .userinfo_box{
-    padding-top: 36px;
+    padding-top: 20px;
     .right_icon{
       position: absolute;
       right: 0px;
@@ -85,6 +109,37 @@
             background: #3E3D3D;
             color: #FFE5B2;
             padding: 0 8px 0 0;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 12px;
+            .icon{
+              display: inline-block;
+              height: 20px;
+              width: 20px;
+              line-height: 20px;
+              text-align: center;
+              background: #000;
+              border-radius: 50px;
+              margin-right: 6px;
+              background:linear-gradient( #666, #000);
+              i{
+                font-size: 12px;
+              }
+            }           
+            .lv_name{
+              display: inline-block;              
+              
+            }
+          }
+          .open_huiyuan{
+            font-family: fantasy;
+            display: inline-block;
+            font-size: 12px;
+            z-index: 3;
+            margin-left: 5px;
+            background: rgba(51,51,51,0.3);
+            color: #FFE5B2;
+            padding: 0 12px 0 0;
             height: 20px;
             line-height: 20px;
             border-radius: 12px;

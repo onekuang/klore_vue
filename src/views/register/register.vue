@@ -1,6 +1,7 @@
 <template>
-<div class="sign ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="sign page app_head">
+	<k_header title="用户注册" />
+
 <div>
 	<!-- <div class="logo_box">
 		<img v-holder="'img=98x98?&bg=C7E1FF&text=LOGO'" class='logo'>
@@ -8,25 +9,20 @@
 
 	<form @submit.prevent="onSubmit">
 		<div class="register_box">
-			<div class="username_box">
+			<!-- <div class="username_box">
 				<div class="item">设置姓名:</div>
 				<div class="item">
 					<input type="text" name="username" placeholder="请输入您的姓名" v-model="form_data.username">
 				</div>
-			</div>
-			<div class="username_box">
-				<div class="item">设置密码:</div>
-				<div class="item">
-					<input type="password" name="password1" placeholder="请输入您的密码" v-model="form_data.password1">
-				</div>
-			</div>
-			<div class="username_box">
+			</div> -->
+			
+			<!-- <div class="username_box">
 				<div class="item">重复密码:</div>
 				<div class="item">
 					<input type="password" name="password2" placeholder="请重复您的密码" v-model="form_data.password2">
 				</div>
-			</div>
-			<div class="khr"></div>
+			</div> -->
+			<!-- <div class="khr"></div> -->
 			<div class="new_mobile_box">
 				<div class="item">绑定手机:</div>
 				<div class="item">
@@ -36,19 +32,28 @@
 			<div class="code_box">
 				<div class="item ">验 证 码:</div>
 				<div class="item">
-					<input type="text" class="code" name="code" placeholder="请输入手机验证码" v-model="form_data.code" number>
+					<input type="text" class="code" name="code" placeholder="请输入短信验证码" v-model="form_data.code" number>
 				</div>
 				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
 				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span></div>	
 			</div>
+
+			<div class="username_box">
+				<div class="item">设置密码:</div>
+				<div class="item">
+					<input type="password" name="password1" placeholder="请输入您的密码" v-model="form_data.password1">
+				</div>
+			</div>
+
+
 		</div>
 		<div class="khr"></div>
 		<div class="btn_box" style="margin-top: 30px;">
-			<button class="theme_btn" type="submit">确认注册</button>
+			<button class="theme_btn radius" type="submit">确认注册</button>
 		</div>
 	</form>
 	<div class="sign_box">
-		<div class="sign1 pull-right">已有帐号?<span @click="goto_login">返回登录</span></div>
+		<div class="sign1">注意:当您确认注册表示您已经仔细阅读并同意<span @click="goto_login">《白手创客用户使用协议》</span>的所有内容</div>
 		<div class="clearfix"></div>
 	</div>
 
@@ -57,13 +62,13 @@
 		<button class="theme_btn" @click="goto_login">返回登录</button>
 	</div> -->
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
+import k_header from '@/components/app_head/app_head'
 var current_time = '';
 export default {
 	name:"sign",
@@ -78,11 +83,8 @@ export default {
 		// 监听表单提交
 		onSubmit(e) {
 			// 过滤字段
-			if(!kk.is_username(this.form_data.username,this)){return}
+			
 			if(!kk.is_password(this.form_data.password1,this)){return}
-			if(this.form_data.password1 != this.form_data.password2 ){
-				this.$toast('两次密码不一致');
-			}
 			if(!kk.is_mobile(this.form_data.new_phone,this)){return}
 			if(kk.is_null(this.form_data.code,this)){return}
 			// 调用请求函数
@@ -125,9 +127,7 @@ export default {
 			})
 		}
 	},
-	components: {
-		BScroll
-	}
+	components: {k_header}
 }
 </script>
 
@@ -194,7 +194,7 @@ export default {
   	.sign1{
 			span{
 				font-size: 14px;
-				color: #999;
+				color: @blue;
 				margin-left: 6px;
 			}
   	}

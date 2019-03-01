@@ -1,5 +1,5 @@
 @import url("./theme.less");
-@header_height: 0px;
+@header_height: 50px;
 @footer_height: 56px;
 
 html,body {
@@ -9,14 +9,16 @@ html,body {
 	position: relative;
   left: 0;
   right: 0;
-  top: @header_height;
+  top: 0;
   padding-bottom: @footer_height;
   min-height: 667px;
   max-width: 100%;
   overflow-x: hidden;
   background: #fff;
 }
-
+.app_head{
+  padding-top: 51px;
+}
 // 不换行
 .ell {
 	text-overflow: ellipsis;

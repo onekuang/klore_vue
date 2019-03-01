@@ -1,22 +1,12 @@
 <template>
-<div class="forget_password ab_full">
-<BScroll 	class="box_wrapper" ref="scroll" >
+<div class="forget_password page app_head">
+
+<k_header title="找回密码" />	
+
 <div>
 	<form @submit.prevent="onSubmit">
 		<div class="forget_password_box">
-			<div class="username_box">
-				<div class="item">新 密 码:</div>
-				<div class="item">
-					<input type="password" name="password1" placeholder="请输入您的密码" v-model="form_data.password1">
-				</div>
-			</div>
-			<div class="username_box">
-				<div class="item">重复密码:</div>
-				<div class="item">
-					<input type="password" name="password2" placeholder="请重复您的密码" v-model="form_data.password2">
-				</div>
-			</div>
-			<div class="khr"></div>
+			
 			<div class="new_mobile_box">
 				<div class="item">预留手机:</div>
 				<div class="item">
@@ -31,6 +21,19 @@
 				</div>
 				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
 				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
+				</div>
+			</div>
+			<div class="khr"></div>
+			<div class="username_box">
+				<div class="item">新 密 码:</div>
+				<div class="item">
+					<input type="password" name="password1" placeholder="请输入您的密码" v-model="form_data.password1">
+				</div>
+			</div>
+			<div class="username_box">
+				<div class="item">重复密码:</div>
+				<div class="item">
+					<input type="password" name="password2" placeholder="请重复您的密码" v-model="form_data.password2">
 				</div>
 			</div>
 		</div>
@@ -48,13 +51,13 @@
 			<button class="theme_btn" @click="goto_login">返回登录</button>
 		</div> -->
 
-</div></BScroll>
+</div>
 </div>
 </template>
 
 <script>
-import BScroll from '@/components/base/scroll/scroll'
 import { kk } from '@/common/js/k_form.js'
+import k_header from '@/components/app_head/app_head'
 var current_time;
 export default {
 	name:"forget_password",
@@ -116,9 +119,7 @@ export default {
 			})
 		}
 	},
-	components: {
-		BScroll
-	}
+	components: {k_header}
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
 <div class="prolist page">
 	<div class="header">
-		<div class="left"><i class="iconfont icon-icon--"></i></div>
+		<div class="left" @click="back"><i class="iconfont icon-icon--"></i></div>
 		<div class="center">
 			<div class="search_wrapper">
 				<router-link tag="div" class="search_box" to="/search">
@@ -146,6 +146,9 @@ export default {
 			this.sort_l_show = false
 			this.sort_l_show2 = false
 			this.sort_r_show = !this.sort_r_show
+		},
+		back() {
+			window.history.back()
 		}
 	},
 	components: {BScroll}

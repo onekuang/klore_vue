@@ -1,5 +1,5 @@
 <template>
-<div class="recharge_page page">
+<div class="recharge_page page app_head">
 	<k_header title="积分充值" />
 
   <div class="index_title">充值金额<div class="more"></div></div>  
@@ -33,7 +33,7 @@
 	<div class="btn_box" style="margin-top: 20px;">
 		<button class="theme_btn green_btn" type="submit">确认充值</button>
 		<p class="marke">
-			<span class="xing">*</span>注: 10元兑换10000积分</p>
+			<span class="xing">*</span>注: 10元兑换xxx积分</p>
 	</div>
 </div>
 </template>

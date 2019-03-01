@@ -4,7 +4,7 @@ import Vue from "vue";
 
 
 
-// # 创建一个axios实例
+// # 创建一个axios实例 
 var instance = axios.create({
 // # config里面有这个transformRquest，这个选项会在发送参数前进行处理。
 // # 通过Qs.stringify转换为表单查询参数
@@ -14,9 +14,7 @@ var instance = axios.create({
     }],
 // # 设置Content-Type
     headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
-    params: {
-      access_token: '5b7f60aca7e7f6f8c680b1b219ad3ec6'
-    },
+    params: {},
 })
 
 

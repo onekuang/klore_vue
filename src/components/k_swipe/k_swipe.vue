@@ -36,7 +36,7 @@ export default {
 		},
 		height: {
 			type: Number,
-			defautl: 200
+			defautl: "auto"
 		}
 	},
 	data() {
@@ -53,14 +53,14 @@ export default {
         centeredSlides: true,  
         paginationClickable: true,  
         spaceBetween: 0,// 间隔  
-        autoplay: {
-          delay: 3000,
-        },
         on: {
           slideChange: function() {
             // console.log(this.activeIndex)
           }
-        }
+        },
+        autoplay: {
+          delay: 3000,
+        },
       },
 		}
 	},

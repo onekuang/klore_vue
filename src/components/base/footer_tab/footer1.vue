@@ -2,40 +2,47 @@
 <div class="footer1_wrapper">
 	<div class="item" :class="{active:index==1}"  @click="goto('/',1)">
 		<div class="iconbox">
-			<i class="iconfont icon-home1"></i>
-		</div>
-		<div class="title">首页</div>
-	</div>
-
-	<div class="item" :class="{active:index==2}" @click="goto('/message',2)">
-		<div class="iconbox">
-			<i class="iconfont icon-home1"></i>
+			<i class="iconfont icon-zixun2"></i>
 		</div>
 		<div class="title">资讯</div>
 	</div>
 
-	<!-- <div class="item" @click="goto('/')">
+	<div class="item" :class="{active:index==2}" @click="goto('/touzhi',2)">
+		<div class="iconbox">
+			<i class="iconfont icon-touzilicai"></i>
+		</div>
+		<div class="title">投资</div>
+	</div>
+
+	<div class="item" :class="{active:index==3}" @click="goto('/jiangjinchi',3)">
+		<div class="iconbox">
+			<i class="iconfont icon-kuajingwaibizijinchi"></i>
+		</div>
+		<div class="title">资金池</div>
+	</div>
+
+	<!-- <div class="item" :class="{active:index==3}" @click="goto('/classlist',3)">
 		<div class="imgbox">
-			<img src="https://lipstick.xsygood.com/testimg/pyg_menu.png">
+			<img src="https://lipstick.xsygood.com/bsck_img/menu3.png">
 		</div>
 	</div> -->
-	<div class="item" :class="{active:index==3}" @click="goto('/classlist',3)">
+	<!-- <div class="item" :class="{active:index==3}" @click="goto('/classlist',3)">
 		<div class="iconbox">
 			<i class="iconfont icon-home1"></i>
 		</div>
 		<div class="title">创业</div>
-	</div>
+	</div> -->
 
-	<div class="item" :class="{active:index==4}" @click="goto('/videolist',4)">
+	<div class="item" :class="{active:index==4}" @click="goto('/jiameng',4)">
 		<div class="iconbox">
-			<i class="iconfont icon-home1"></i>
+			<i class="iconfont icon-dianpu1"></i>
 		</div>
-		<div class="title">学院</div>
+		<div class="title">加盟</div>
 	</div>
 
 	<div class="item" :class="{active:index==5}" @click="goto('/usercenter',5)">
 		<div class="iconbox">
-			<i class="iconfont icon-yonghuzhongxin"></i>
+			<i class="iconfont icon-iconfuzhi"></i>
 		</div>
 		<div class="title">我的</div>
 	</div>
@@ -44,6 +51,7 @@
 </template>
 
 <script>
+	
 export default {
 	data() {
 		return {
@@ -93,13 +101,13 @@ export default {
 	}
 	& .active {
 		.title, i {
-			color: @orange;
+			color: @color_base;
 		}
 	}
 	.imgbox {
-		line-height: 56px;
 		img{
-			margin-top: 3px;
+			position: relative;
+			// top: -20px;
 			width: 50px;
 			height: 50px;
 		}

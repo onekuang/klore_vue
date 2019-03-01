@@ -1,7 +1,13 @@
 <template>
-<div class="bill page">
+<div class="bill page app_head">
+		<k_header 
+			title="积分记录" 
+			r_icon="icon-rili" 
+			r_icon_color="#F75D5D"
+			@r_click=toggle_date 
+		/>
 
-<div class="bill_top">
+<!-- <div class="bill_top">
 	<div class="count_box">
 		<div class="text">本月</div>
 		<div class="count">已累计: <span>123元</span></div>
@@ -9,7 +15,7 @@
 	<div class="filter on" @click="toggle_date">
 		<i class="iconfont icon-rili"></i>
 	</div>
-</div>
+</div> -->
 
 <div class="">
 	<K_Date ref="date" type='month' @onDate=onDate></K_Date>
@@ -17,21 +23,37 @@
 
 <div class="list">
 	<ul>
-		<li class="item" v-for="i in 8">
+		<li class="item" v-for="i in 2">
 			<div class="info_box">
 				<div class="box">
-					<div class="title">提现</div>
+					<div class="title">课程购买</div>
 					<div class="tag">
-						<span>[ tag ]</span>
+						<!-- <span>[ tag ]</span> -->
 					</div>
 					<div class="time">2018-12-22 12:47:45</div>
 				</div>
 			</div>
 			<div class="money_box">
-				<div class="money on">+200</div>
+				<div class="money">-2</div>
 			</div>
 		</li>
-		<Load_more />
+
+		<li class="item" v-for="i in 1">
+			<div class="info_box">
+				<div class="box">
+					<div class="title">会员赠送积分</div>
+					<div class="tag">
+						<!-- <span>[ tag ]</span> -->
+					</div>
+					<div class="time">2018-12-22 12:47:45</div>
+				</div>
+			</div>
+			<div class="money_box">
+				<div class="money">+9000</div>
+			</div>
+		</li>
+
+
 	</ul>
 </div>
 
@@ -39,6 +61,7 @@
 </template>
 
 <script>
+import k_header from '@/components/app_head/app_head'
 import K_Date from '@/components/k_date/k_date'
 export default {
 	name:"bill",
@@ -54,10 +77,13 @@ export default {
 		},
 		onDate(date) {
 			console.log(date)
+		},
+		r_click() {
+			console.log(123)
 		}
 	},
 	components: {
-		K_Date
+		K_Date,k_header
 	}
 }
 </script>
@@ -88,7 +114,7 @@ export default {
 		.filter {
 			flex: 0 0 30px;
 			width: 30px;
-			padding-top: 4px;
+			padding-top: 4px;			
 			i {
 				font-size: 20px;
 				color: #999;
@@ -135,11 +161,14 @@ export default {
 				flex: 0 0 100px;
 				text-align: right;
 				.money {
-					font-size: 20px;
+					font-size: 18px;
 					margin-right: 8px;
-					font-weight: 900;
+					color: #999;
 					&.on {
 						color: @red;
+					}
+					span{
+						font-size: 14px;
 					}
 				}
 			}

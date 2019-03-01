@@ -2,9 +2,12 @@
 <div class="home page " ref="container">
 	
 	<div class="head_top" :class="{'active': head_top_show }">
-		<div class="logo">
-			<img src="https://xsygood.com/img/logo2.png" alt="">
-		</div>
+		<!-- <div class="logo" v-show="!head_top_show">
+			<img src="https://lipstick.xsygood.com/bsck_img/a/logo.png">
+		</div> -->
+		<router-link tag="div" to="/classify" class="menu" v-show="head_top_show">
+			<i class="iconfont icon-liebiao1"></i>
+		</router-link>
 		<div class="search_wrapper">
 			<router-link tag="div" class="search_box" to="/search">
 				<div class="search_input">
@@ -17,7 +20,7 @@
 	<!-- <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading"> -->
 	<!-- 轮播组件 -->
   <div>
-  	<k_swipe_banner @banner_click=banner_click :swipe_data=swipe_banner_data :height=230 />
+  	<k_swipe_banner @banner_click=banner_click :swipe_data=swipe_banner_data />
   </div>
 	
 	<!-- 菜单组件 -->
@@ -28,33 +31,31 @@
 
 	<!-- 推广位置 -->
 	<div class="tuiguang">
-		<h4 class="index_title">热门创业项目</h4> 
+		<!-- <h4 class="index_title">活动专区</h4>  -->
 		<mu-row>
-	    <mu-col span="6"><div class="grid-cell left">
+	    <mu-col span="6"><div class="grid-cell left" style="background:url('https://lipstick.xsygood.com/bsck_img/index_a.png')">
 	    	<div class="item"></div>
 	    </div></mu-col>
 	    <mu-col span="6"><div class="grid-cell right">
-	    	<div class="item"></div>
-	    	<div class="item"></div>
+	    	<div class="item" 
+	    		v-for="item in tuiguang" 
+	    		:style="{'background': 'url('+item.image+')'}"
+	    		@click="goto(item.url)"
+	    	>
+	    			
+	    	</div>
 	    </div></mu-col>
 	  </mu-row>
 	</div>
 
-  <!-- 活动专区 -->
+  <!-- 热门创业项目 -->
   <div class="activity_wrapper">
-  	<h4 class="index_title">活动专区</h4>  	
+  	<h4 class="index_title">热门创业项目</h4>  	
 		<div class="activity_box">
-			<div class="item" v-for="item in 2">
-				<div class="img_box" style="">
-					<div class="title">大众投资人正在招募中</div>					
+			<router-link tag="div" to="/prolist" class="item" v-for="item in hot_active_data">
+				<div class="img_box" :style="{'background': 'url('+item.image+')'}">
 				</div>
-			</div>
-			<!-- <div class="item">
-				<div class="img_box">
-					<img src="https://gw.alicdn.com/imgextra/i2/69/O1CN01yo4uzk1CNdoBTmBZl_!!69-0-lubanu.jpg_790x10000Q75.jpg_.webp" alt="">
-					<div class="title">title</div>
-				</div>
-			</div> -->
+			</router-link>
 		</div>
   </div>
 
@@ -66,19 +67,19 @@
   	<!-- 滑动模块 -->
   	<div class="k_sweipe_box">
   	  <swiper :options="swiperOption"  ref="hot_goods">   
-  	      <swiper-slide v-for="(item, index) in 4">  
+  	      <swiper-slide v-for="(item, index) in popularity_data">  
   	      	<div style="padding: 6px;" class="item">
-  	      		<div class="img"></div>
-  		        <!-- <img 
-  		        	src="https://gw.alicdn.com/imgextra/i2/69/O1CN01yo4uzk1CNdoBTmBZl_!!69-0-lubanu.jpg_790x10000Q75.jpg_.webp"
+  	      		<!-- <div class="img" :style="{'background': 'url('+item.image+')'}"></div> -->
+  		        <img 
+  		        	:src="item.image"
   		        	@click="popularity_click(index)" 
-  		        	width="100%" height=100
-  		        > -->
+  		        	width="100%" height=120
+  		        >
   		        <div class="info">
-  		        	<div class="title">title</div>
+  		        	<div class="title">{{item.title}}</div>
   		        	<div class="price">￥10~20W</div>
   		        </div>
-  		        <div class="flag">分类占位</div>
+  		        <div class="flag">{{item.flag}}</div>
   	        </div>
   	      </swiper-slide>
   	  </swiper>  
@@ -92,17 +93,17 @@
   	<h4 class="index_title" style="font-weight: 900;color: #000;">为你推荐<div class="more"><i class="iconfont icon-you"></i></div></h4>  
 		<div class="recommend_wrapper">
 			<div class="recommend_box">
-				<div class="items" v-for="item in 4">
+				<router-link tag="div" to="/goodsdetaile" class="items" v-for="item in goods_data">
 					<div class="item">
-						<div class="img"></div>
+						<div class="img" :style="{'background': 'url('+item.image+')'}"></div>
 						<div class="info">
 							<div class="top">
-								<div class="title">玛丽莲甜品</div>
+								<div class="title">门店名称</div>
 								<div class="flag">
 									<img src="https://lipstick.xsygood.com/bsck_img/prove.png">
 								</div>
 							</div>
-							<div class="desc">国际快时尚修仙百货领先品牌,超过1000家门店</div>
+							<div class="desc">国际快时尚领先品牌,超过500家门店</div>
 							<div class="tags">
 								<div class="tag">实地考察地址</div>
 								<div class="tag">带店培训</div>
@@ -110,17 +111,27 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="bottom">
-								<div class="money"><span>￥</span>4~8<span>万</span></div>
+								<div class="money"><span>￥</span>6~8<span>万</span></div>
 								<div class="num">门店数:&nbsp;&nbsp;66</div>
 							</div>
 						</div>
 					</div>
 					<div class="apply_for">已申请: 3276</div>
-				</div>
+				</router-link>
 			</div>
 		</div>
   </div>
-
+	
+	<div class="alert_box" v-show="alt_show">
+		<div class="box" @click=goto_adverti>
+			<div class="img_bg">
+				
+			</div>
+		</div>
+		<div class="close" @click=close_alt>
+			<i class="iconfont icon-close"></i>
+		</div>
+	</div>
 	<!-- </mu-load-more> -->
 </div>
 </template>
@@ -130,6 +141,7 @@ import k_swipe_banner from '@/components/k_swipe/k_swipe';
 import { swiper, swiperSlide } from 'vue-awesome-swiper'  
 import HomeMenu from '@/components/home_menu/home_imgmenu';
 export default {
+	name:'home',
 	data() {
 		return {
 			head_top_show: false,
@@ -143,29 +155,51 @@ export default {
         paginationClickable: true,  
         spaceBetween: 5,// 间隔  
       },
+      alt_show: false,
+
+
+      // 轮播数据
 			swipe_banner_data:[
-				{src:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"},
-				{src:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"},
+				{src:"https://lipstick.xsygood.com/bsck_img/a/banner.jpg"},
+				{src:"https://lipstick.xsygood.com/bsck_img/a/banner.jpg"},
 			],
 			mene_data:[	 // 导航菜单数据
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
-				{img:"https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024",title:'title'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/quanbu.png",title:'全部',url:'/classify'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/canyin.png",title:'餐饮',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/jioayu.png",title:'教育',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/kuaican.png",title:'快餐',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/jiqiren.png",title:'机器人',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/huoguo.png",title:'火锅',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/ganxi.png",title:'干洗',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/jiudian.png",title:'酒店',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/meizhuang.png",title:'美妆',url:'/prolist'},
+				{img:"https://lipstick.xsygood.com/bsck_img/icon/zaojiao.jpg",title:'早教',url:'/prolist'},
+			],	
+			tuiguang:[ 	// 推广数据
+				{title:'title',image:"https://lipstick.xsygood.com/bsck_img/index_b.png",url:''},
+				{title:'title',image:"https://lipstick.xsygood.com/bsck_img/index_c.png",url:'/task'}
+			],		
+			hot_active_data:[ 	// 热门创业数据 hd_a
+				{title:'title',image:"https://lipstick.xsygood.com/bsck_img/a/cy_a.jpg"},
+				{title:'title',image:"https://lipstick.xsygood.com/bsck_img/a/cy_b.jpg"},
+			],
+			popularity_data:[ // 品牌数据
+				{title:'学习辅导',image:"https://lipstick.xsygood.com/bsck_img/a/rq_a.jpg",flag:'教育'},
+				{title:'早教',image:"https://lipstick.xsygood.com/bsck_img/a/rq_b.png",flag:'教育'},
+				{title:'美容spa按摩',image:"https://lipstick.xsygood.com/bsck_img/a/rq_c.jpg",flag:'美容'},
+			],
+			goods_data:[ // 推荐数据
+				{title:'学习辅导',image:"https://lipstick.xsygood.com/bsck_img/a/tj_a.jpg",flag:'教育'},
+				{title:'学习辅导',image:"https://lipstick.xsygood.com/bsck_img/a/tj_b.jpg",flag:'教育'},
+				{title:'学习辅导',image:"https://lipstick.xsygood.com/bsck_img/a/tj_c.jpg",flag:'教育'},	
 			],
 		}
 	},
 	created() {
 		this.get_data()
 	},
-	mounted() {
-		window.addEventListener('scroll', this.onscroll)
+	activated() {
+		// window.addEventListener('scroll', this.onscroll)		
 	},
 	methods: {
 		get_data(){},
@@ -173,9 +207,24 @@ export default {
 		banner_click(index) {
 			console.log(index)
 		},
+		// 跳转
+		goto(url) {
+			this.$router.push({
+				path: url
+			})
+		},
 		// 人气品牌点击 - 滑动模块
 		popularity_click(index){
 			console.log(index)
+		},
+		// 广告点击
+		goto_adverti() {
+			console.log('点击广告')
+			this.alt_show = false
+		},
+		// 关闭弹出广告
+		close_alt() {
+			this.alt_show = false
 		},
 		refresh () {
       this.refreshing = true;
@@ -237,18 +286,18 @@ export default {
 		// height: 136px;
 		height: 0;
 		background: #eee;
-		padding-bottom: 136px;
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
+		padding-bottom: 166px;
+		background-size: 100% 100%!important;
+		background-repeat: no-repeat!important;
 	}
 	.right{
 		margin-left: 8px;
 		.item{
 			height: 0px;
 			background: #eee;
-			padding-bottom: 65px;
-			background-size: 100% 100%;
-			background-repeat: no-repeat;
+			padding-bottom: 80px;
+			background-size: 100% 100%!important;
+			background-repeat: no-repeat!important;
 			&:nth-of-type(1) {
 				margin-bottom: 6px;
 			}
@@ -270,9 +319,9 @@ export default {
 				background: #eee;
 				height: 0;
 				width: 100%;
-				padding-bottom: 100px;
-				background-size: 100% 100%;
-				background-repeat: no-repeat;
+				padding-bottom: 100px !important;
+				background-size: 100% 100% !important;
+				background-repeat: no-repeat !important;
 				.title{
 					background: rgba(0,0,0,.8);
 					text-align: center;
@@ -305,12 +354,13 @@ export default {
 			position: absolute;
 			top: 14px;
 			left: 10px;
-			border: 1px solid #fff;
+			// border: 1px solid #fff;
 			color: #fff;
 			font-size: 10px;
 			line-height: 10px;
-			padding: 4px;
+			padding: 4px 6px;
 			border-radius: 12px;
+			background: rgba(0,0,0,.3);
 		}
 	}
 	.img{
@@ -319,8 +369,8 @@ export default {
 		width: 100%;
 		padding-bottom: 100%;
 		background: #eee;
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
+		background-size: 100% 100%!important;
+		background-repeat: no-repeat!important;
 	}
 	// img{
 	// 	border-radius: 2px;
@@ -373,8 +423,8 @@ export default {
 				padding-bottom: 30%;
 				border-radius: 8px;
 				background: #eee;
-				background-size: 100% 100%;
-				background-repeat: no-repeat;
+				background-size: 100% 100%!important;
+				background-repeat: no-repeat!important;
 				margin-right: 12px;
 			}
 			.info{
@@ -394,6 +444,8 @@ export default {
 					font-size: 12px;
 					color: #333;
 					line-height: 20px;
+					height: 40px;
+					overflow: hidden;
 					margin-bottom: 4px;
 					margin-top: 2px;
 				}
@@ -446,12 +498,24 @@ export default {
 	right: 0;
 	z-index: 999;
 	.logo{
+		text-align: center;
 		img{
-			height: 46px;
-			width: 100px;
+			display: block;
+			height: 16px;
+			width: 70px;
+			margin-top: 16px;
 		}
-		margin-right: 8px;
 		margin-left: 8px;
+	}
+	.menu{
+		width: 30px;
+		line-height: 50px;
+		margin-left: 8px;
+		text-align: center;
+		i{
+			font-size: 20px;
+			color: #333;
+		}
 	}
 	&.active{
 		background: #fff;
@@ -481,4 +545,41 @@ export default {
 		}
 	}	
 }
+
+// 弹出通知
+.alert_box{
+	position: fixed;
+	top: 20%;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 350px;
+	width: 250px;
+	z-index: 10000;
+	.box{
+		.img_bg{
+			height: 350px;
+			width: 250px;
+			background: url('https://lipstick.xsygood.com/bsck_img/alt.png');
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+
+		}
+	}
+	.close{
+		position: absolute;
+		right: 0;
+		top: 0px;
+		i{
+			font-size: 16px;
+			color: #ccc;
+		}
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		border: 1px solid #ccc;
+		text-align: center;
+		line-height: 24px;
+	}
+}
+
 </style>

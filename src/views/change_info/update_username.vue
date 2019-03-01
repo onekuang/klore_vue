@@ -1,5 +1,5 @@
 <template>
-<div class="change_username page">
+<div class="change_username page app_head">
 	<k_header title="昵称修改" />
 
 <div>

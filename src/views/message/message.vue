@@ -1,45 +1,50 @@
 <template>
-<div class="message page">
+<div class="message">
+	
+	<!-- 轮播组件 -->
+  <div>
+  	<k_swipe_banner @banner_click=banner_click :swipe_data=swipe_banner_data />
+  </div>
+
+
+	<!-- 导航组件 -->
+  <k_swipe_nav 
+    @tap_nav=tap_nav
+      :swipe_data=swipe_nav_data
+      :current_index =active_index
+      :bullet=false />
+
+
+
 	<div class="message_wrapper">
-		<mu-tabs :value.sync="active2" color="#000" indicator-color="#fd9a00" inverse full-width>
-	    <mu-tab>发现</mu-tab>
-	    <mu-tab>名人</mu-tab>
-	    <mu-tab>搞笑</mu-tab>
-	    <mu-tab>图文</mu-tab>
-	  </mu-tabs>
-	  <div class="mes_box mes_box_type2" v-if="active2 === 0">
-	  	 <div class="items">
-	  	 	<router-link tag="div" :to="'/article?id=' + mes_id" class="item" v-for="item in 4">
-	  	 		<div>
-					  <div class="head">
-					  	<div class="avatar"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024"></div>
-					  	<div class="name">
-					  		<div class="username">username</div>
-					  		<div class="time">1999-11-11</div>
-					  	</div>
-					  	<!-- <div class="other">预览: 1234</div> -->
-					  </div>
-
-					  	<div class="text">
-						    散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-						    调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-						    似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-						    找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
-					    </div>
-
-					  	<div class="img_box img_length_4">
-					  		<div class="img" style="background: #eee;">
-					  		</div>	
-					  		<div class="img" style="background: #eee;">
-					  		</div>
-					  		<div class="img" style="background: #eee;">
-					  		</div>
-					  	</div>
-					</div>
-	  	 	</router-link>
-	  	 </div>
-	  </div>
-	  <div class="mes_box mes_box_type2" v-if="active2 === 1">
+	    <div class="mes_box mes_box_type1" v-if="active2 === 0">
+	    	<div class="items">
+	    		<router-link tag="div" to="/article" class="item" v-for="(item,index) in 8">
+	    			<mu-row>
+	  			    <mu-col span="8">
+	  			    	<div class="grid-cell left">
+	  			    		<div class="info">
+	  			    			<div class="title">华为发布5G多模终端芯片和商用终端</div>
+	  			    			<div class="other">
+	  			    				<div class="flag" v-show="index < 3">
+	  			    					<!-- <div class="tag">置顶</div> -->
+	  			    				</div>
+	  			    				<div class="time">2月12日</div>
+	  			    				<div class="count"><i class="iconfont icon-yanjing1"></i> 1234</div>
+	  			    			</div>
+	  			    		</div>
+	  			    	</div>
+	  			    </mu-col>
+	  			    <mu-col span="4">
+	  			    	<div class="grid-cell rigt">
+	  			    		<div class="img_box" style="background: url('https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/press/news/2019/huawei-launches-5g-multi-mode-chipset-and-5g-cpe-pro/banner.jpg')"></div>
+	  			    	</div>
+	  			    </mu-col>
+	  			  </mu-row>
+	    		</router-link>
+	    	</div>	    
+	    </div>
+	  <!-- <div class="mes_box mes_box_type2" v-if="active2 === 1">
 	  	<div class="items">
 	  	 	<div class="item" v-for="item in 4">
 	  	 		<div>
@@ -49,7 +54,7 @@
 					  		<div class="username">username</div>
 					  		<div class="time">1999-11-11</div>
 					  	</div>
-					  	<!-- <div class="other">预览: 1234</div> -->
+					  	<div class="other">预览: 1234</div>
 					  </div>
 
 					  	<div class="text">
@@ -70,60 +75,87 @@
 					</div>
 	  	 	</div>
 	  	 </div>		    
+	  </div> -->
+	  <div class="mes_box mes_box_type1" v-if="active2 === 1">
+	  	<div class="items">
+    		<router-link tag="div" to="/article" class="item" v-for="(item,index) in 8">
+    			<mu-row>
+  			    <mu-col span="8">
+  			    	<div class="grid-cell left">
+  			    		<div class="info">
+  			    			<div class="title">华为发布5G多模终端芯片和商用终端</div>
+  			    			<div class="other">
+  			    				<div class="flag" v-show="index < 3">
+  			    					<!-- <div class="tag">置顶</div> -->
+  			    				</div>
+  			    				<div class="time">2月12日</div>
+  			    				<div class="count"><i class="iconfont icon-yanjing1"></i> 1234</div>
+  			    			</div>
+  			    		</div>
+  			    	</div>
+  			    </mu-col>
+  			    <mu-col span="4">
+  			    	<div class="grid-cell rigt">
+  			    		<div class="img_box" style="background: url('https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/press/news/2019/huawei-launches-5g-multi-mode-chipset-and-5g-cpe-pro/banner.jpg')"></div>
+  			    	</div>
+  			    </mu-col>
+  			  </mu-row>
+    		</router-link>
+    	</div>	  
 	  </div>
 	  <div class="mes_box mes_box_type1" v-if="active2 === 2">
 	  	<div class="items">
-	  		<div class="item" v-for="(item,index) in 8">
-	  			<mu-row>
-				    <mu-col span="8">
-				    	<div class="grid-cell left">
-				    		<div class="info">
-				    			<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, qui? Voluptate neque voluptatibus doloribus rerum non, dicta atque totam eos officia, provident excepturi inventore odit autem sint quos dolores maiores.</div>
-				    			<div class="other">
-				    				<div class="flag" v-show="index < 3">
-				    					<div class="tag">置顶</div>
-				    				</div>
-				    				<div class="time">2月12日</div>
-				    				<div class="count"><i class="iconfont icon-yanjing1"></i> 1234</div>
-				    			</div>
-				    		</div>
-				    	</div>
-				    </mu-col>
-				    <mu-col span="4">
-				    	<div class="grid-cell rigt">
-				    		<div class="img_box"></div>
-				    	</div>
-				    </mu-col>
-				  </mu-row>
-	  		</div>
-	  	</div>	    
+    		<router-link tag="div" to="/article" class="item" v-for="(item,index) in 8">
+    			<mu-row>
+  			    <mu-col span="8">
+  			    	<div class="grid-cell left">
+  			    		<div class="info">
+  			    			<div class="title">华为发布5G多模终端芯片和商用终端</div>
+  			    			<div class="other">
+  			    				<div class="flag" v-show="index < 3">
+  			    					<!-- <div class="tag">置顶</div> -->
+  			    				</div>
+  			    				<div class="time">2月12日</div>
+  			    				<div class="count"><i class="iconfont icon-yanjing1"></i> 1234</div>
+  			    			</div>
+  			    		</div>
+  			    	</div>
+  			    </mu-col>
+  			    <mu-col span="4">
+  			    	<div class="grid-cell rigt">
+  			    		<div class="img_box" style="background: url('https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/press/news/2019/huawei-launches-5g-multi-mode-chipset-and-5g-cpe-pro/banner.jpg')"></div>
+  			    	</div>
+  			    </mu-col>
+  			  </mu-row>
+    		</router-link>
+    	</div>	     
 	  </div>
 	  <div class="mes_box mes_box_type1" v-if="active2 === 3">
 	  	<div class="items">
-	  		<div class="item" v-for="(item,index) in 8">
-	  			<mu-row>
-				    <mu-col span="8">
-				    	<div class="grid-cell left">
-				    		<div class="info">
-				    			<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, qui? Voluptate neque voluptatibus doloribus rerum non, dicta atque totam eos officia, provident excepturi inventore odit autem sint quos dolores maiores.</div>
-				    			<div class="other">
-				    				<div class="flag" v-show="index < 3">
-				    					<div class="tag">置顶</div>
-				    				</div>
-				    				<div class="time">2月12日</div>
-				    				<div class="count"><i class="iconfont icon-yanjing1"></i> 1234</div>
-				    			</div>
-				    		</div>
-				    	</div>
-				    </mu-col>
-				    <mu-col span="4">
-				    	<div class="grid-cell rigt">
-				    		<div class="img_box"></div>
-				    	</div>
-				    </mu-col>
-				  </mu-row>
-	  		</div>
-	  	</div>	    
+    		<router-link tag="div" to="/article" class="item" v-for="(item,index) in 8">
+    			<mu-row>
+  			    <mu-col span="8">
+  			    	<div class="grid-cell left">
+  			    		<div class="info">
+  			    			<div class="title">华为发布5G多模终端芯片和商用终端</div>
+  			    			<div class="other">
+  			    				<div class="flag" v-show="index < 3">
+  			    					<!-- <div class="tag">置顶</div> -->
+  			    				</div>
+  			    				<div class="time">2月12日</div>
+  			    				<div class="count"><i class="iconfont icon-yanjing1"></i> 1234</div>
+  			    			</div>
+  			    		</div>
+  			    	</div>
+  			    </mu-col>
+  			    <mu-col span="4">
+  			    	<div class="grid-cell rigt">
+  			    		<div class="img_box" style="background: url('https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/press/news/2019/huawei-launches-5g-multi-mode-chipset-and-5g-cpe-pro/banner.jpg')"></div>
+  			    	</div>
+  			    </mu-col>
+  			  </mu-row>
+    		</router-link>
+    	</div>	     
 	  </div>
 	</div>
 
@@ -131,9 +163,26 @@
 </template>
 
 <script>
+import k_swipe_nav from '@/components/k_swipe/k_swipe_nav';
+import k_swipe_banner from '@/components/k_swipe/k_swipe';
 export default {
 	data() {
 		return {
+			// 轮播数据
+			swipe_banner_data:[
+				{src:"https://lipstick.xsygood.com/bsck_img/faxian_banner.png"},
+			],
+			active_index:0,         // 当前导航索引
+			swipe_nav_data:[ // 导航数据
+        { id:0,title:'资讯'},
+        { id:1,title:'名人'},
+        { id:2,title:'搞笑'},
+        { id:3,title:'图文'},
+        // { id:4,title:'课程'},
+        // { id:5,title:'有声读物'},
+        // { id:6,title:'电子书'},
+      ],   
+			head_left_show: false,
 			active2: 0,
 			mes_id: 2,
 		}
@@ -142,9 +191,14 @@ export default {
 		this.get_data()
 	},
 	methods: {
-		get_data(){}
+		get_data(){},
+		// 导航点击
+    tap_nav(index) {
+      this.active2 = index
+    },
+    banner_click(){}
 	},
-	components: {}
+	components: {k_swipe_banner,k_swipe_nav,}
 }
 </script>
 
@@ -248,7 +302,7 @@ export default {
 			border-bottom: 1px solid #eee;
 			.info{
 				.title{
-					font-size: 16px;
+					font-size: 13px;
 					height: 40px;
 					line-height: 20px;
 					text-overflow:ellipsis; 
@@ -283,6 +337,76 @@ export default {
 						font-size: 13px;
 						// width: 50px;
 						margin-left: 12px;
+						color: #666;					
+					}
+				}
+				
+			}
+			.img_box{
+				width: 100%;
+				padding-bottom: 80px;
+				border-radius: 4px;
+				background-size: 100% 100% !important;
+				background-repeat: no-repeat !important;
+			}
+		}
+	}	
+}
+// 样式1 左侧图片, 右侧文字信息
+.mes_box_type1_1{
+	.items{
+		padding: 0 12px;
+		.item{
+			padding: 16px 0;
+			border-bottom: 1px solid #eee;
+			.right{
+				margin-left: 8px;
+			}
+			.info{
+				.title{
+					font-size: 16px;
+					height: 20px;
+					line-height: 20px;
+					text-overflow:ellipsis; 
+			    overflow: hidden;
+				}
+				.desc{
+					font-size: 12px;
+					height: 40px;
+					line-height: 20px;
+					color: #777;
+					text-overflow:ellipsis; 
+			    display: -webkit-box;
+			    -webkit-box-orient: vertical;
+			    -webkit-line-clamp: 2;
+			    overflow: hidden;
+				}
+				.other{
+					margin-top: 10px;
+					.flag{
+						float: left;
+						.tag{
+							font-size: 10px;
+							color: #fff;
+							background: #f00;
+							padding: 0 4px;
+							margin-right: 6px;
+							margin-top: 2px;
+							border-radius: 2px;
+						}
+					}
+					.time{
+						float: left;
+						font-size: 10px;
+						color: #666;
+						i {
+							font-size: 14px;
+						}
+					}
+					.count{
+						float: right;
+						font-size: 12px;
+						margin-right: 12px;
 						color: #666;					
 					}
 				}

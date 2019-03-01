@@ -4,7 +4,7 @@
 		<div class="main">
 
 			<div class="logo text-center">
-				<img src="https://lipstick.xsygood.com/testimg/pyg_logo.png" alt="" width="120">
+				<img src="https://lipstick.xsygood.com/bsck_img/login_logo.png" width="140">
 			</div>
 			<!-- <form action=""></form> -->
 			<form class="info" @submit.prevent="onSubmit">
@@ -35,9 +35,9 @@
 				</div>
 				
 				<!-- 第三方登录 -->
-				<div class="other_login">
+				<!-- <div class="other_login">
 					<K_login_btn></K_login_btn>
-				</div>
+				</div> -->
 			</form>
 
 		</div>
@@ -76,7 +76,7 @@ export default {
 <style scoped lang="less">
 @import url('../../common/less/index.less');
 .login3{
-	background-image: url(https://lipstick.xsygood.com/testimg/login_bg.png);
+	background-image: url(https://lipstick.xsygood.com/bsck_img/login_bg.jpg);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	.wrapper{
@@ -85,15 +85,16 @@ export default {
 			margin: 0 auto;
 			margin-top: 20%;
 			border-radius: 16px;
-			background: #fff;
+			background: rgba(255,255,255,.6);
 			border: 1px solid rgba(0, 0, 0, 0.05);
 			// padding-top: 20px;
 			.logo{
 				padding-top: 40px;
-				margin-bottom: 30px;
+				margin-bottom: 10px;
 			}
 			.info{
 				color: #ccc;
+				padding-top: 10px;
 				.input_box{
 					margin: 12px;
 					margin: 0 20px;
@@ -106,7 +107,8 @@ export default {
 							height: 42px;
 							width: 100%;
 							font-size: 13px;
-							color: #ccc;
+							color: #aaa;
+							background: rgba(0,0,0,0);
 						}
 					}
 					.icon{
@@ -122,13 +124,13 @@ export default {
 			.login_btn_box{
 				text-align: center;
 				margin-top: 30px;
-				padding-bottom: 34px;
+				padding-bottom: 64px;
 				.login_btn{
 					height: 40px;
 					width: 90%;
 					border-radius: 20px;
 					color: #fff;
-					background: linear-gradient(left, #A46BD7, #DE6DB8);
+					background: linear-gradient(left, #0586D1, #00a1ff);
 				}
 				.forget{
 					height: 40px;
@@ -138,6 +140,7 @@ export default {
 					width: 120px;
 					font-size: 13px;
 					display: flex;
+					color: #666;
 					.register{
 						flex: 1;
 					}

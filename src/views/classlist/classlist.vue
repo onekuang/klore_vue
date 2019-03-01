@@ -1,5 +1,5 @@
 <template>
-<div class="classlist page">
+<div class="classlist">
 <div class="search_wrapper">
 	<router-link tag="div" class="search_box" to="/search">
 		<div class="search_input">
@@ -159,7 +159,7 @@ export default {
 			.l_bs_box{
 				width: 100px;
 				position: fixed;
-				top: @bs_top;
+				top: 40px;
 				left: 0;
 				right: 0;
 				bottom: 55px;
@@ -204,7 +204,7 @@ export default {
 			margin-left: 4px;			
 			.r_bs_box{
 				position: fixed;
-				top: @bs_top;
+				top: 40px;
 				left: 100px;
 				right: 0;
 				bottom: 55px;
