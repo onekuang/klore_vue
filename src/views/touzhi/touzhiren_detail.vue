@@ -39,7 +39,7 @@
 <div class="case_list">
 	<div class="list">
 		<div class="items">
-			<router-link tag="div" to="/touzhi_case_info" class="item" v-for='i in 3'>
+			<router-link tag="div" to="/touzhi_case_detail" class="item" v-for='i in 3'>
 				<div class="avatar">
 					<img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1191749503,606205987&fm=58&bpow=1024&bpoh=1024" width=54 height=54>
 				</div>
@@ -68,6 +68,13 @@
 </div>
 
 
+<input 
+	type="file" 
+	class="file" 
+	ref="uploadfile" 
+	@change="upload($event)" 
+	style="display: none;"
+>
 
 <!-- 底部tab -->
 <div class="goods_tab">
@@ -84,7 +91,7 @@
 				<div class="text">关注</div>
 			</div>
 		</div>
-		<div class="item">
+		<div class="item" @click="upload_file">
 			<i class="iconfont icon-text_icon"></i>&nbsp;&nbsp;发送商业计划书
 		</div>
 	</div>
@@ -115,7 +122,20 @@ export default {
 		this.get_data()
 	},
 	methods: {
-		get_data(){}
+		get_data(){},
+		upload_file(e) {
+			e.preventDefault();
+			this.$refs.uploadfile.click();
+			return false;
+		},
+		upload (e) {  
+	    let files = e.target.files || e.dataTransfer.files;
+	    if (!files.length) return; 
+	    console.log(files[0]) 
+	    let f = files[0];  
+	    var formData = new window.FormData()
+	    formData.append('userfile', f)
+	  },  
 	},
 	components: {k_header}
 }

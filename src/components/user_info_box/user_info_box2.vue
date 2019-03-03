@@ -20,7 +20,7 @@
           </div>
           <div class="open_huiyuan" v-else @click="goto">
             <span class="icon"><i class="iconfont icon-crownfill"></i></span>
-            <span class="lv_name">升级为会员</span>
+            <span class="lv_name">开通会员</span>
           </div>
         </div>
         <div class="desc">

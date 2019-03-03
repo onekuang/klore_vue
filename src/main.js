@@ -11,7 +11,7 @@ import instance from './http/http'
 Vue.use(VueAxios, instance)
 
 // 引入字体
-// import "./assets/fonts/iconfont.css";
+import "./assets/fonts/iconfont.css";
 
 // api
 import api from "./assets/api/api.js";

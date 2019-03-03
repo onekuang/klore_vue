@@ -166,6 +166,11 @@ export default {
 						}
 					}
 				}
+				.desc{
+					line-height: 24px;
+					font-size: 12px;
+					color: #777;
+				}
 			}
 		}
 	}

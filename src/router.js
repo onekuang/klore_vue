@@ -80,7 +80,7 @@ var router = new Router({
       },
       {// 投资人详情
         path: "/touzhiren_detail",
-        meta:{index:18,title:"投资人简介",hide_footer:true},
+        meta:{index:14,title:"投资人简介",hide_footer:true},
         component: () => import("./views/touzhi/touzhiren_detail.vue")
       },
       {// 投资项目列表
@@ -90,7 +90,7 @@ var router = new Router({
       },
       {// 项目详情
         path: "/touzhi_case_detail",
-        meta:{index:14,title:"项目详情"},
+        meta:{index:18,title:"项目详情"},
         component: () => import("./views/touzhi/touzhi_case_detail.vue")
       },
       
@@ -229,7 +229,7 @@ var router = new Router({
       // },
       {// 商品详情
         path: "/goodsdetaile",
-        meta:{index:15,hide_footer:true},
+        meta:{index:19,hide_footer:true},
         component: () => import("./views/prodetaile/prodetaile2.vue")
       },
       {// 搜索
@@ -281,7 +281,7 @@ var router = new Router({
       },
       {// 我的收藏
         path: "/collect",
-        meta:{index:19,title:"我的收藏"},
+        meta:{index:16,title:"我的收藏"},
         component: () => import("@/views/other/my_shoucang.vue")
       },
       {// 我的评论
@@ -324,6 +324,11 @@ var router = new Router({
         path: "/jiangjinchi",
         meta:{index:7,title:"资金池"},
         component: () => import("@/views/other/jiangjinchi.vue")
+      },
+      {// 创建项目
+        path: "/created_case",
+        meta:{index:17,title:"创建项目"},
+        component: () => import("@/views/other/created_case.vue")
       },
   ],
 

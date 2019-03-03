@@ -124,8 +124,11 @@ export default {
 				body.style.overflow = 'visible'
 				l_storage.set('guide', true)
 				// if(audio){
-					audio.pause()		
+					// audio.pause()		
 				// }
+				try {
+					audio.pause()
+				} catch(e) {}
 			}
 		},
 		img_load() {

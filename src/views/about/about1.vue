@@ -63,6 +63,12 @@ export default {
 	// background-repeat: no-repeat !important;
 
 }
+// .about1{
+// 	background: #f7f7f7;
+// 	/deep/.mu-item-wrapper{
+// 		background: #fff;
+// 	}
+// }
 .aboutus{
 	position: fixed;
 	bottom: 80px;

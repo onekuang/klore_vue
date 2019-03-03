@@ -237,6 +237,9 @@ export default {
 		// 人气品牌点击 - 滑动模块
 		popularity_click(index){
 			console.log(index)
+			this.$router.push({
+				path: `/goodsdetaile`
+			})
 		},
 		// 广告点击
 		goto_adverti() {

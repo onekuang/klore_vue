@@ -1,5 +1,6 @@
 <template>
-<div class="page fff">
+<div class="page fff app_head">
+  <k_header title="资金池" />
 
   <div class="top">
     <div class="text">总资产 (CNY)</div>
@@ -11,7 +12,7 @@
   <div class="khr"></div>
 
   <!-- 折线图 -->
-  <div style="width:100%; height:350px;margin-top: 50px;">
+  <div style="width:100%; height:350px;margin-top: 20px;">
     <ve-line 
       :data="chartData" 
       :settings="chartSettings" 
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+import k_header from '@/components/app_head/app_head'
 import VeLine from 'v-charts/lib/line.common'
 import 'v-charts/lib/style.css'
 export default {
@@ -64,7 +66,7 @@ export default {
   },
   methods: {
   },
-  components: {VeLine},
+  components: {VeLine,k_header},
 }
 </script>
 
