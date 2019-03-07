@@ -108,7 +108,9 @@ export default {
 		this.get_data()
 	},
 	methods: {
-		get_data(){}
+		get_data(){
+			console.log(this.$api)
+		}
 	},
 	components: {k_header,k_swipe_banner,HomeMenu}
 }

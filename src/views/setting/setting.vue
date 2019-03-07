@@ -141,6 +141,7 @@ export default {
 		},
 		// 注销
 		logout() {
+			let vm = this
 			this.$confirm({
 				title: "提示",
 				content: "是否确认注销",
@@ -149,6 +150,11 @@ export default {
 			}).then(success => {
 				s_storage.clear()
 				l_storage.clear()
+				// plus.cache.clear(function() {
+				// 	vm.$router.push({
+				// 		path: `/login`
+				// 	})
+				// })
 				this.$router.push({
 					path: `/login`
 				})

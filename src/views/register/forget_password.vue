@@ -10,14 +10,14 @@
 			<div class="new_mobile_box">
 				<div class="item">预留手机:</div>
 				<div class="item">
-					<input type="text" class="new_mobile" name="new_phone" placeholder="请输入新手机号码" v-model="form_data.new_phone" number>
+					<input type="text" class="new_mobile" name="new_phone" placeholder="预留号码" v-model="form_data.new_phone" number>
 				</div>
 							
 			</div>
 			<div class="code_box">
 				<div class="item ">验 证 码:</div>
 				<div class="item">
-					<input type="text" class="code" name="code" placeholder="请输入手机验证码" v-model="form_data.code" number>
+					<input type="text" class="code" name="code" placeholder="手机验证码" v-model="form_data.code" number>
 				</div>
 				<div class="get_code on" v-show="!code_disabled" @click="get_code">获取验证码</div>			
 				<div class="get_code off" v-show="code_disabled" >已发送({{code_time}})</span>
@@ -27,7 +27,7 @@
 			<div class="username_box">
 				<div class="item">新 密 码:</div>
 				<div class="item">
-					<input type="password" name="password1" placeholder="请输入您的密码" v-model="form_data.password1">
+					<input type="password" name="password1" placeholder="您的密码" v-model="form_data.password1">
 				</div>
 			</div>
 			<div class="username_box">

@@ -63,9 +63,9 @@ export default {
 			bullet:true,
 			swipe_data:[
 				{image:"https://lipstick.xsygood.com/bsck_img/a/aa.jpg"},
-				{image:"https://lipstick.xsygood.com/bsck_img/index2.jpg"},
-				{image:"https://lipstick.xsygood.com/bsck_img/index3.jpg"},
-				{image:"https://lipstick.xsygood.com/bsck_img/index4.jpg"},
+				{image:"https://lipstick.xsygood.com/bsck_img/index2.png"},
+				{image:"https://lipstick.xsygood.com/bsck_img/index3.png"},
+				{image:"https://lipstick.xsygood.com/bsck_img/index4.png"},
 			],
 
 			swiperOption: {  
